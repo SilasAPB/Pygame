@@ -111,14 +111,14 @@ while game:
                 player1.speedx -= PLAYERS_VELOCITY
             if event.key == pygame.K_RIGHT:
                 player1.speedx += PLAYERS_VELOCITY
-            if event.key==pygame.K_UP and (player2.jump==True) or event.key==pygame.K_w and a==True:
-                player1.speedy -= 100
+            if event.key==pygame.K_UP and (player1.jump==True) or event.key==pygame.K_UP and a==True:
+                player1.speedy -= 50
             if event.key == pygame.K_a:
                 player2.speedx -= PLAYERS_VELOCITY
             if event.key == pygame.K_d:
                 player2.speedx += PLAYERS_VELOCITY
             if event.key==pygame.K_w and (player2.jump==True) or event.key==pygame.K_w and a==True :
-                player2.speedy -= 100
+                player2.speedy -= 50
 
         # Verifica se soltou alguma tecla.
         if event.type == pygame.KEYUP:
@@ -144,7 +144,6 @@ while game:
                  abs(player.rect.right-obstaculos[0].rect.left),
                  abs(player.rect.bottom-obstaculos[0].rect.top),
                  abs(player.rect.top-obstaculos[0].rect.bottom)]
-        print(dists)
         if dists[0] == min(dists):
             player.rect.left = obstaculos[0].rect.right
             player.speedx = 0
@@ -191,8 +190,8 @@ while game:
     if player2.jump==True:
         player2.speedy+=F*10
 
-    player1.jump==True
-    player2.jump==True
+    # player1.jump==True
+    # player2.jump==True
 
     # ----- Atualiza estado do jogo
     pygame.display.update()
