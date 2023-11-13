@@ -3,7 +3,7 @@
 import pygame
 # from pygame.sprite import _Group
 
-from config import WIDTH, HEIGHT, PLAYERS_HEIGHT, PLAYERS_WIDTH, PLAYERS_VELOCITY, BLOCK_WIDTH, BLOCK_HEIGHT
+from config import WIDTH, HEIGHT, PLAYERS_HEIGHT, PLAYERS_WIDTH, PLAYERS_VELOCITY, BLOCK_WIDTH, BLOCK_HEIGHT,BULLET_WIDTH,BULLET_HEIGHT
 
 pygame.init()
 
@@ -21,6 +21,8 @@ block_1_img=pygame.image.load('jogo/assets/img/block.png')
 block_1_img=pygame.transform.scale(block_1_img, (BLOCK_WIDTH, BLOCK_HEIGHT))
 block_2_img=pygame.image.load('jogo/assets/img/block2.png')
 block_2_img=pygame.transform.scale(block_2_img, (BLOCK_WIDTH, BLOCK_HEIGHT))
+bullet_1_img=pygame.image.load('jogo/assets/img/bullet.png')
+block_2_img=pygame.transform.scale(bullet_1_img, (BLOCK_WIDTH, BLOCK_HEIGHT))
 # ----- Inicia estruturas de dados
 class Player(pygame.sprite.Sprite):
     def __init__(self, img):
@@ -39,6 +41,7 @@ class Player(pygame.sprite.Sprite):
         #atualiza a possição do personagem
         self.rect.x += self.speedx
         self.rect.y += self.speedy
+        
 
         #mantem o personagem dentro da tela
 
@@ -54,7 +57,7 @@ class Player(pygame.sprite.Sprite):
             self.rect.right = WIDTH 
         if self.rect.left < 0: #Para Direita
             self.rect.left = 0 
-        
+
 
 
 class Block(pygame.sprite.Sprite):
@@ -99,6 +102,7 @@ all_players.add(player2)
 all_obstaculos.add(plataforma1)
 all_obstaculos.add(plataforma2)
 
+
 # ===== Loop principal =====
 while game:
     clock.tick(FPS)
@@ -140,7 +144,7 @@ while game:
             if event.key==pygame.K_w :
                 player2.speedy += F*10
 
-    
+
     hits= pygame.sprite.groupcollide(all_players,all_obstaculos,False,False,pygame.sprite.collide_mask)
     for player,obstaculos in hits.items():
         dists = [abs(player.rect.left-obstaculos[0].rect.right),
@@ -175,7 +179,15 @@ while game:
     if player2.rect.right<plataforma1.rect.left:
         if player2.rect.left>plataforma2.rect.right:
             player2.jump=True        
+    
 
+    T=clock.get_time()/ 1000
+
+    F = G * T
+    if player1.jump:
+        player1.speedy+=F*10
+    if player2.jump:
+        player2.speedy+=F*10
 
     all_sprites.update() #Atualiza a posição dos sprites(objetos)
 
@@ -184,17 +196,6 @@ while game:
     window.blit(backgroud, (0,0)) #Nosso Fundo
 
     all_sprites.draw(window) #Desenha os sprites(objetos) na tela
-
-    T=clock.get_time()/ 1000
-
-    F = G * T
-
-    
-    if player1.jump==True:
-        player1.speedy+=F*10
-    if player2.jump==True:
-        player2.speedy+=F*10
-
 
     # ----- Atualiza estado do jogo
     pygame.display.update()
