@@ -1,6 +1,7 @@
 # ===== Inicialização =====
 # ----- Importa e inicia pacotes
 import pygame
+# from pygame.sprite import _Group
 
 from config import WIDTH, HEIGHT, PLAYERS_HEIGHT, PLAYERS_WIDTH, PLAYERS_VELOCITY, BLOCK_WIDTH, BLOCK_HEIGHT
 
@@ -47,7 +48,7 @@ class Player(pygame.sprite.Sprite):
             self.jump==True
         if self.rect.top < 0: #Para Cima
             self.rect.top = 0  
-            self.speedy=0      
+            self.speedy=F*30    
 
         if self.rect.right > WIDTH: #Para Esquerda
             self.rect.right = WIDTH 
@@ -67,12 +68,15 @@ class Block(pygame.sprite.Sprite):
         self.rect.centery= posy #posição plano y
         self.speedx=0
 
+
+# class Bullet(pygame.sprite.Sprite):
+#     def __init__(self, img,) 
 a=False
 game = True
 #Variável para o ajuste de velocidade do jogo
 clock=pygame.time.Clock()
 FPS = 60
-G=10
+G=30
 
 #Criando um grupo de sprites(que vai agir/atualizar conforme o tempo)
 all_sprites=pygame.sprite.Group()
@@ -128,17 +132,16 @@ while game:
             if event.key == pygame.K_RIGHT:
                 player1.speedx = 0
             if event.key==pygame.K_UP :
-                player1.speedy += 5
+                player1.speedy += F*10
             if event.key == pygame.K_a:
                 player2.speedx = 0
             if event.key == pygame.K_d:
                 player2.speedx = 0
             if event.key==pygame.K_w :
-                player2.speedy += 5
+                player2.speedy += F*10
 
     
     hits= pygame.sprite.groupcollide(all_players,all_obstaculos,False,False,pygame.sprite.collide_mask)
-    print(hits)
     for player,obstaculos in hits.items():
         dists = [abs(player.rect.left-obstaculos[0].rect.right),
                  abs(player.rect.right-obstaculos[0].rect.left),
@@ -165,11 +168,13 @@ while game:
     if player1.rect.left>plataforma1.rect.right:
         player1.jump=True
     if player1.rect.right<plataforma1.rect.left:
-        player1.jump=True   
+        if player1.rect.left>plataforma2.rect.right:
+            player1.jump=True   
     if player2.rect.left>plataforma1.rect.right:
         player2.jump=True
     if player2.rect.right<plataforma1.rect.left:
-        player2.jump=True        
+        if player2.rect.left>plataforma2.rect.right:
+            player2.jump=True        
 
 
     all_sprites.update() #Atualiza a posição dos sprites(objetos)
@@ -190,8 +195,6 @@ while game:
     if player2.jump==True:
         player2.speedy+=F*10
 
-    # player1.jump==True
-    # player2.jump==True
 
     # ----- Atualiza estado do jogo
     pygame.display.update()
