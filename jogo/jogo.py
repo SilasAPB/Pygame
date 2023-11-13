@@ -130,21 +130,30 @@ while game:
     
     hits= pygame.sprite.groupcollide(all_players,all_obstaculos,False,False,pygame.sprite.collide_mask)
     for player,obstaculos in hits.items():
-        if player.rect.bottom<=obstaculos[0].rect.top-BLOCK_HEIGHT/2:
-            player.rect.bottom=obstaculos[0].rect.top-BLOCK_HEIGHT/2
-            player.speedx=-10
-        elif player.rect.left>obstaculos[0].rect.centerx-BLOCK_WIDTH/2 and player.rect.bottom>obstaculos[0].rect.top :
-            player.rect.left=obstaculos[0].rect.right
-        elif player.rect.right<obstaculos[0].rect.centerx+BLOCK_WIDTH/2 and player.rect.bottom>obstaculos[0].rect.top:
-            player.rect.right=obstaculos[0].rect.left
-          
-    # for sprite in all_obstaculos.sprites:  
-    #     if sprite.rect.colliderect(player1.rect):
-    #         if player1.direction.x<0:      
-    #             player1.rect.left=sprite.rect.right 
-    #         if player1.direction.x>0:      
-    #             player1.rect.right=sprite.rect.left     
- 
+        dists = [abs(player.rect.left-obstaculos[0].rect.right),
+                 abs(player.rect.right-obstaculos[0].rect.left),
+                 abs(player.rect.bottom-obstaculos[0].rect.top),
+                 abs(player.rect.top-obstaculos[0].rect.bottom)]
+        print(dists)
+        if dists[0] == min(dists):
+            player.rect.left = obstaculos[0].rect.right
+            player.speedx = 0
+            player.rect.x += 1
+        if dists[1] == min(dists):
+            player.speedx = 0
+            player.rect.right = obstaculos[0].rect.left
+            player.rect.x -= 1
+        if dists[2] == min(dists):
+            player.speedy = 0
+            player.rect.y += 1
+            player.rect.bottom=obstaculos[0].rect.top
+        if dists[3] == min(dists):
+            player.rect.y -= 1
+            player.speedy = 0
+            player.rect.top=obstaculos[0].rect.bottom
+        
+
+
     all_sprites.update() #Atualiza a posição dos sprites(objetos)
 
     # ----- Gera saídas
