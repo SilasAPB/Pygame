@@ -74,8 +74,9 @@ class Block(pygame.sprite.Sprite):
 
 
 # class Bullet(pygame.sprite.Sprite):
-#     def __init__(self, img,) 
-a=False
+#     def __init__(self, img,)
+
+a=True
 game = True
 #Variável para o ajuste de velocidade do jogo
 clock=pygame.time.Clock()
@@ -86,6 +87,7 @@ playerControls={
     'p1' : [pygame.K_LEFT,pygame.K_RIGHT,pygame.K_UP,pygame.K_DOWN],
     'p2' : [pygame.K_a,pygame.K_d,pygame.K_w,pygame.K_s]
 }
+
 #Criando um grupo de sprites(que vai agir/atualizar conforme o tempo)
 all_sprites=pygame.sprite.Group()
 all_players=pygame.sprite.Group()
@@ -126,7 +128,8 @@ while game:
                     plr.speedx -= PLAYERS_VELOCITY
                 if event.key == plr.playerControls[1] and not plr.colisions[1]:
                     plr.speedx += PLAYERS_VELOCITY
-                if event.key == plr.playerControls[2] and (player1.jump==True) or event.key==pygame.K_UP and a==True:
+                if event.key == plr.playerControls[2] and player1.jump==True:
+                    plr.jump = False
                     plr.speedy -= 50
 
         # Verifica se soltou alguma tecla.
@@ -140,7 +143,7 @@ while game:
                 if event.key == plr.playerControls[2]:
                     plr.speedy += F*10
 
-    
+
     hits= pygame.sprite.groupcollide(all_players,all_obstaculos,False,False,pygame.sprite.collide_mask)
     for player,obstaculos in hits.items():
         # Detectar qual aresta foi colidida baseado na distância entre as arestas do objeto e do player
@@ -163,7 +166,7 @@ while game:
             player.speedy =0
             player.rect.bottom=obstaculos[0].rect.top
             player.jump=False
-            a=True
+            # a=True
             player.colisions[3] = True
 
         if dists[3] == min(dists):
@@ -181,7 +184,15 @@ while game:
     if player2.rect.right<plataforma1.rect.left:
         if player2.rect.left>plataforma2.rect.right:
             player2.jump=True
+    
+    T=clock.get_time()/ 1000
 
+    F = G * T
+    
+    if player1.jump:
+        player1.speedy+=F*10
+    if player2.jump:
+        player2.speedy+=F*10
 
     all_sprites.update() #Atualiza a posição dos sprites(objetos)
 
@@ -191,14 +202,7 @@ while game:
 
     all_sprites.draw(window) #Desenha os sprites(objetos) na tela
 
-    T=clock.get_time()/ 1000
-
-    F = G * T
     
-    if player1.jump==True:
-        player1.speedy+=F*10
-    if player2.jump==True:
-        player2.speedy+=F*10
 
 
     # ----- Atualiza estado do jogo
