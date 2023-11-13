@@ -28,7 +28,7 @@ img_bala=pygame.transform.scale(img_bala,(BULLET_WIDTH, BULLET_HEIGHT))
 
 # ----- Inicia estruturas de dados
 class Player(pygame.sprite.Sprite):
-    def __init__(self, img, all_bullets, all_sprites,img_bala):
+    def __init__(self, img, all_bullets, all_sprites,img_bala,controls):
         pygame.sprite.Sprite.__init__(self)
 
         self.image=img #imagem do personagem
@@ -42,7 +42,7 @@ class Player(pygame.sprite.Sprite):
         self.bullet_img = img_bala
         self.all_sprites = all_sprites
         self.all_bullets = all_bullets
-
+        self.playerControls = controls
     def update(self):
         #atualiza a possição do personagem
         self.rect.x += self.speedx
@@ -105,12 +105,13 @@ class Bullet(pygame.sprite.Sprite):
 # class Bullet(pygame.sprite.Sprite):
 #     def __init__(self, img,)
 
-a=True
 game = True
 #Variável para o ajuste de velocidade do jogo
 clock=pygame.time.Clock()
 FPS = 60
 G=30
+T=clock.get_time()/ 1000
+F = G * T
 
 playerControls={
     'p1' : [pygame.K_LEFT,pygame.K_RIGHT,pygame.K_UP,pygame.K_DOWN],
@@ -125,8 +126,8 @@ all_bullets=pygame.sprite.Group()
 
 
 
-player1=Player(player_1_img,all_bullets,all_sprites,img_bala) #adicionando jogador ao jogo
-player2=Player(player_2_img,all_bullets,all_sprites,img_bala)
+player1=Player(player_1_img,all_bullets,all_sprites,img_bala,playerControls['p1']) #adicionando jogador ao jogo
+player2=Player(player_2_img,all_bullets,all_sprites,img_bala,playerControls['p2'])
 plataforma1=Block(block_1_img,300,380)
 plataforma2=Block(block_2_img,BLOCK_WIDTH/2,210)
 
@@ -167,6 +168,9 @@ while game:
                 player2.speedy -= 50
             if event.key == pygame.K_r:
                 player2.shoot()
+            if event.key == pygame.K_RSHIFT:
+                player1.shoot()
+            
 
         # Verifica se soltou alguma tecla.
         if event.type == pygame.KEYUP:
@@ -222,8 +226,6 @@ while game:
         if player2.rect.left>plataforma2.rect.right:
             player2.jump=True
     
-    T=clock.get_time()/ 1000
-    F = G * T
     
     if player1.jump:
         player1.speedy+=F*10
