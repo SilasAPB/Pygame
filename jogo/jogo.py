@@ -3,7 +3,7 @@
 import pygame
 # from pygame.sprite import _Group
 
-from config import WIDTH, HEIGHT, PLAYERS_HEIGHT, PLAYERS_WIDTH, PLAYERS_VELOCITY, BLOCK_WIDTH, BLOCK_HEIGHT
+from config import *
 
 pygame.init()
 
@@ -23,7 +23,7 @@ block_2_img=pygame.image.load('jogo/assets/img/block2.png')
 block_2_img=pygame.transform.scale(block_2_img, (BLOCK_WIDTH, BLOCK_HEIGHT))
 # ----- Inicia estruturas de dados
 class Player(pygame.sprite.Sprite):
-    def __init__(self, img):
+    def __init__(self, img,controls):
         pygame.sprite.Sprite.__init__(self)
 
         self.image=img #imagem do personagem
@@ -34,11 +34,15 @@ class Player(pygame.sprite.Sprite):
         self.speedx=0
         self.speedy=0
         self.jump=True
+        self.colisions = [False,False,False,False] # Esquerda, Direita, Cima, Baixo
+        self.playerControls = controls
 
     def update(self):
         #atualiza a possição do personagem
         self.rect.x += self.speedx
         self.rect.y += self.speedy
+        
+        self.colisions = [False,False,False,False]
 
         #mantem o personagem dentro da tela
 
@@ -78,14 +82,18 @@ clock=pygame.time.Clock()
 FPS = 60
 G=30
 
+playerControls={
+    'p1' : [pygame.K_LEFT,pygame.K_RIGHT,pygame.K_UP,pygame.K_DOWN],
+    'p2' : [pygame.K_a,pygame.K_d,pygame.K_w,pygame.K_s]
+}
 #Criando um grupo de sprites(que vai agir/atualizar conforme o tempo)
 all_sprites=pygame.sprite.Group()
 all_players=pygame.sprite.Group()
 all_obstaculos=pygame.sprite.Group()
 
 
-player1=Player(player_1_img) #adicionando jogador ao jogo
-player2=Player(player_2_img)
+player1=Player(player_1_img,playerControls['p1']) #adicionando jogador ao jogo
+player2=Player(player_2_img,playerControls['p2'])
 plataforma1=Block(block_1_img,300,380)
 plataforma2=Block(block_2_img,BLOCK_WIDTH/2,210)
 
@@ -99,6 +107,8 @@ all_players.add(player2)
 all_obstaculos.add(plataforma1)
 all_obstaculos.add(plataforma2)
 
+
+
 # ===== Loop principal =====
 while game:
     clock.tick(FPS)
@@ -111,38 +121,30 @@ while game:
          # Verifica se apertou alguma tecla.
         if event.type == pygame.KEYDOWN:
             # Dependendo da tecla, altera a velocidade.
-            if event.key == pygame.K_LEFT:
-                player1.speedx -= PLAYERS_VELOCITY
-            if event.key == pygame.K_RIGHT:
-                player1.speedx += PLAYERS_VELOCITY
-            if event.key==pygame.K_UP and (player1.jump==True) or event.key==pygame.K_UP and a==True:
-                player1.speedy -= 50
-            if event.key == pygame.K_a:
-                player2.speedx -= PLAYERS_VELOCITY
-            if event.key == pygame.K_d:
-                player2.speedx += PLAYERS_VELOCITY
-            if event.key==pygame.K_w and (player2.jump==True) or event.key==pygame.K_w and a==True :
-                player2.speedy -= 50
+            for plr in all_players:
+                if event.key == plr.playerControls[0] and not plr.colisions[0]:
+                    plr.speedx -= PLAYERS_VELOCITY
+                if event.key == plr.playerControls[1] and not plr.colisions[1]:
+                    plr.speedx += PLAYERS_VELOCITY
+                if event.key == plr.playerControls[2] and (player1.jump==True) or event.key==pygame.K_UP and a==True:
+                    plr.speedy -= 50
 
         # Verifica se soltou alguma tecla.
         if event.type == pygame.KEYUP:
             # Dependendo da tecla, altera a velocidade.
-            if event.key == pygame.K_LEFT:
-                player1.speedx = 0
-            if event.key == pygame.K_RIGHT:
-                player1.speedx = 0
-            if event.key==pygame.K_UP :
-                player1.speedy += F*10
-            if event.key == pygame.K_a:
-                player2.speedx = 0
-            if event.key == pygame.K_d:
-                player2.speedx = 0
-            if event.key==pygame.K_w :
-                player2.speedy += F*10
+            for plr in all_players:
+                if event.key == plr.playerControls[0]:
+                    plr.speedx = 0
+                if event.key == plr.playerControls[1]:
+                    plr.speedx = 0
+                if event.key == plr.playerControls[2]:
+                    plr.speedy += F*10
 
     
     hits= pygame.sprite.groupcollide(all_players,all_obstaculos,False,False,pygame.sprite.collide_mask)
     for player,obstaculos in hits.items():
+        # Detectar qual aresta foi colidida baseado na distância entre as arestas do objeto e do player
+        # A menor distância define a aresta colidida
         dists = [abs(player.rect.left-obstaculos[0].rect.right),
                  abs(player.rect.right-obstaculos[0].rect.left),
                  abs(player.rect.bottom-obstaculos[0].rect.top),
@@ -150,20 +152,24 @@ while game:
         if dists[0] == min(dists):
             player.rect.left = obstaculos[0].rect.right
             player.speedx = 0
+            player.colisions[0] = True
 
         if dists[1] == min(dists):
             player.speedx = 0
             player.rect.right = obstaculos[0].rect.left
+            player.colisions[1] = True
 
         if dists[2] == min(dists):
             player.speedy =0
             player.rect.bottom=obstaculos[0].rect.top
             player.jump=False
             a=True
+            player.colisions[3] = True
+
         if dists[3] == min(dists):
-   
             player.speedy = 0
             player.rect.top=obstaculos[0].rect.bottom
+            player.colisions[2] = True
 
     if player1.rect.left>plataforma1.rect.right:
         player1.jump=True
@@ -174,7 +180,7 @@ while game:
         player2.jump=True
     if player2.rect.right<plataforma1.rect.left:
         if player2.rect.left>plataforma2.rect.right:
-            player2.jump=True        
+            player2.jump=True
 
 
     all_sprites.update() #Atualiza a posição dos sprites(objetos)
@@ -188,7 +194,6 @@ while game:
     T=clock.get_time()/ 1000
 
     F = G * T
-
     
     if player1.jump==True:
         player1.speedy+=F*10
