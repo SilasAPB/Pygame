@@ -2,7 +2,7 @@
 # ----- Importa e inicia pacotes
 import pygame
 
-from config import WIDTH, HEIGHT, PLAYERS_HEIGHT, PLAYERS_WIDTH
+from config import WIDTH, HEIGHT, PLAYERS_HEIGHT, PLAYERS_WIDTH, PLAYERS_VELOCITY, BLOCK_WIDTH, BLOCK_HEIGHT
 
 pygame.init()
 
@@ -14,8 +14,10 @@ pygame.display.set_caption('SandmannVille: Terra de Faroeste')
 backgroud=pygame.image.load('jogo/assets/img/fundo1.png').convert()
 player_1_img=pygame.image.load('jogo/assets/img/player1.png')
 player_1_img=pygame.transform.scale(player_1_img, (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+player_2_img=pygame.image.load('jogo/assets/img/player2.png')
+player_2_img=pygame.transform.scale(player_2_img, (PLAYERS_WIDTH, PLAYERS_HEIGHT))
 block_1_img=pygame.image.load('jogo/assets/img/block.png')
-block_1_img=pygame.transform.scale(block_1_img, (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+block_1_img=pygame.transform.scale(block_1_img, (BLOCK_WIDTH, BLOCK_HEIGHT))
 # ----- Inicia estruturas de dados
 class Player(pygame.sprite.Sprite):
     def __init__(self, img):
@@ -49,6 +51,8 @@ class Player(pygame.sprite.Sprite):
             self.rect.right = WIDTH 
         if self.rect.left < 0: #Para Direita
             self.rect.left = 0 
+        
+
 
 class Block(pygame.sprite.Sprite):
     def __init__(self,img,posx,posy):
@@ -70,11 +74,16 @@ G=10
 
 #Criando um grupo de sprites(que vai agir/atualizar conforme o tempo)
 all_sprites=pygame.sprite.Group()
-all_obstaculos=pygame.sprite.Group
+all_players=pygame.sprite.Group()
+all_obstaculos=pygame.sprite.Group()
 player1=Player(player_1_img) #adicionando jogador ao jogo
+player2=Player(player_2_img)
 plataforma=Block(block_1_img,300,380)
-all_sprites.add(player1) #adicionando jogador ao grupo de sprites
+all_sprites.add(player1)
+all_sprites.add(player2) #adicionando jogador ao grupo de sprites
 all_sprites.add(plataforma)
+all_players.add(player1)
+all_players.add(player2)
 all_obstaculos.add(plataforma)
 
 # ===== Loop principal =====
@@ -90,27 +99,51 @@ while game:
         if event.type == pygame.KEYDOWN:
             # Dependendo da tecla, altera a velocidade.
             if event.key == pygame.K_LEFT:
-                player1.speedx -= 50
+                player1.speedx -= PLAYERS_VELOCITY
             if event.key == pygame.K_RIGHT:
-                player1.speedx += 50
+                player1.speedx += PLAYERS_VELOCITY
             if event.key==pygame.K_UP and player1.jump==False:
                 player1.speedy -= 100
+            if event.key == pygame.K_a:
+                player2.speedx -= PLAYERS_VELOCITY
+            if event.key == pygame.K_d:
+                player2.speedx += PLAYERS_VELOCITY
+            if event.key==pygame.K_w and player2.jump==False:
+                player2.speedy -= 100
+
         # Verifica se soltou alguma tecla.
         if event.type == pygame.KEYUP:
             # Dependendo da tecla, altera a velocidade.
             if event.key == pygame.K_LEFT:
-                player1.speedx += 50
+                player1.speedx += PLAYERS_VELOCITY
             if event.key == pygame.K_RIGHT:
-                player1.speedx -= 50
+                player1.speedx -= PLAYERS_VELOCITY
             if event.key==pygame.K_UP :
                 player1.speedy += 100
-        
-    for sprite in all_obstaculos.sprites:  
-        if sprite.rect.colliderect(player1.rect):
-            if player1.direction.x<0:      
-                player1.rect.left=sprite.rect.right 
-            if player1.direction.x>0:      
-                player1.rect.right=sprite.rect.left     
+            if event.key == pygame.K_a:
+                player2.speedx += PLAYERS_VELOCITY
+            if event.key == pygame.K_d:
+                player2.speedx -= PLAYERS_VELOCITY
+            if event.key==pygame.K_w :
+                player2.speedy += 100
+
+    
+    hits= pygame.sprite.groupcollide(all_players,all_obstaculos,False,False,pygame.sprite.collide_mask)
+    for player,obstaculos in hits.items():
+        if player.rect.bottom<=obstaculos[0].rect.top-BLOCK_HEIGHT/2:
+            player.rect.bottom=obstaculos[0].rect.top-BLOCK_HEIGHT/2
+            player.speedx=-10
+        elif player.rect.left>obstaculos[0].rect.centerx-BLOCK_WIDTH/2 and player.rect.bottom>obstaculos[0].rect.top :
+            player.rect.left=obstaculos[0].rect.right
+        elif player.rect.right<obstaculos[0].rect.centerx+BLOCK_WIDTH/2 and player.rect.bottom>obstaculos[0].rect.top:
+            player.rect.right=obstaculos[0].rect.left
+          
+    # for sprite in all_obstaculos.sprites:  
+    #     if sprite.rect.colliderect(player1.rect):
+    #         if player1.direction.x<0:      
+    #             player1.rect.left=sprite.rect.right 
+    #         if player1.direction.x>0:      
+    #             player1.rect.right=sprite.rect.left     
  
     all_sprites.update() #Atualiza a posição dos sprites(objetos)
 
@@ -124,7 +157,10 @@ while game:
 
     F = G * T
 
+    
+    
     player1.speedy+=10
+    player2.speedy+=10
 
     # ----- Atualiza estado do jogo
     pygame.display.update()
