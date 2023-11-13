@@ -125,9 +125,9 @@ while game:
         if event.type == pygame.KEYDOWN:
             # Dependendo da tecla, altera a velocidade.
             for plr in all_players:
-                if event.key == plr.playerControls[0] and not plr.colisions[0]:
+                if event.key == plr.playerControls[0]:
                     plr.speedx -= PLAYERS_VELOCITY
-                if event.key == plr.playerControls[1] and not plr.colisions[1]:
+                if event.key == plr.playerControls[1]:
                     plr.speedx += PLAYERS_VELOCITY
                 if event.key == plr.playerControls[2] and player1.jump==True:
                     plr.jump = False
@@ -188,20 +188,13 @@ while game:
             player2.jump=True
     
     T=clock.get_time()/ 1000
-
-    F = G * T
-    if player1.jump:
-        player1.speedy+=F*10
-    if player2.jump:
-        player2.speedy+=F*10
-    T=clock.get_time()/ 1000
-
     F = G * T
     
     if player1.jump:
         player1.speedy+=F*10
     if player2.jump:
         player2.speedy+=F*10
+
 
     all_sprites.update() #Atualiza a posição dos sprites(objetos)
 
