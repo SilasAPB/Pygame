@@ -1,8 +1,10 @@
 # ===== Inicialização =====
 # ----- Importa e inicia pacotes
+#from typing import Any
 import pygame
+#from pygame.sprite import _Group
 
-from config import WIDTH, HEIGHT, PLAYERS_HEIGHT, PLAYERS_WIDTH, PLAYERS_VELOCITY, BLOCK_WIDTH, BLOCK_HEIGHT
+from config import WIDTH, HEIGHT, PLAYERS_HEIGHT, PLAYERS_WIDTH, PLAYERS_VELOCITY, BLOCK_WIDTH, BLOCK_HEIGHT,BULLET_WIDTH,BULLET_HEIGHT, VELX
 
 pygame.init()
 
@@ -18,11 +20,15 @@ player_2_img=pygame.image.load('jogo/assets/img/player2.png')
 player_2_img=pygame.transform.scale(player_2_img, (PLAYERS_WIDTH, PLAYERS_HEIGHT))
 block_1_img=pygame.image.load('jogo/assets/img/block.png')
 block_1_img=pygame.transform.scale(block_1_img, (BLOCK_WIDTH, BLOCK_HEIGHT))
-block_2_img=pygame.image.load('jogo/assets/img/block2.png')
+block_2_img=pygame.image.load('jogo/assets/img/block.png')
 block_2_img=pygame.transform.scale(block_2_img, (BLOCK_WIDTH, BLOCK_HEIGHT))
+
+img_bala=pygame.image.load('jogo/assets/img/bullet_img.png')
+img_bala=pygame.transform.scale(img_bala,(BULLET_WIDTH, BULLET_HEIGHT))
+
 # ----- Inicia estruturas de dados
 class Player(pygame.sprite.Sprite):
-    def __init__(self, img):
+    def __init__(self, img, all_bullets, all_sprites,img_bala):
         pygame.sprite.Sprite.__init__(self)
 
         self.image=img #imagem do personagem
@@ -33,6 +39,9 @@ class Player(pygame.sprite.Sprite):
         self.speedx=0
         self.speedy=0
         self.jump=True
+        self.bullet_img = img_bala
+        self.all_sprites = all_sprites
+        self.all_bullets = all_bullets
 
     def update(self):
         #atualiza a possição do personagem
@@ -53,6 +62,12 @@ class Player(pygame.sprite.Sprite):
             self.rect.right = WIDTH 
         if self.rect.left < 0: #Para Direita
             self.rect.left = 0 
+    
+    def shoot(self):
+        new_bullet = Bullet(self.bullet_img, self.rect.centery,self.rect.right,VELX)
+        all_sprites.add(new_bullet)
+        all_bullets.add(new_bullet)
+
         
 
 
@@ -66,6 +81,23 @@ class Block(pygame.sprite.Sprite):
         self.rect.centerx= posx #posição plano x
         self.rect.centery= posy #posição plano y
         self.speedx=0
+    
+class Bullet(pygame.sprite.Sprite):
+    def __init__(self,img,centery,left,vx):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = img
+        self.rect = self.image.get_rect()
+
+        self.rect.left = left
+        self.rect.centery = centery
+        self.speedx = vx # velocidade fixa para a direita
+
+    def update(self) :
+        self.rect.x += self.speedx
+        
+        if self.rect.left > WIDTH:
+            self.kill() # se a bala que está indo da esquerda para a direita passar do comprimento da tela(width) a bala "morre"
 
 a=False
 game = True
@@ -78,10 +110,12 @@ G=10
 all_sprites=pygame.sprite.Group()
 all_players=pygame.sprite.Group()
 all_obstaculos=pygame.sprite.Group()
+all_bullets=pygame.sprite.Group()
 
 
-player1=Player(player_1_img) #adicionando jogador ao jogo
-player2=Player(player_2_img)
+
+player1=Player(player_1_img,all_bullets,all_sprites,img_bala) #adicionando jogador ao jogo
+player2=Player(player_2_img,all_bullets,all_sprites,img_bala)
 plataforma1=Block(block_1_img,300,380)
 plataforma2=Block(block_2_img,BLOCK_WIDTH/2,210)
 
@@ -119,6 +153,8 @@ while game:
                 player2.speedx += PLAYERS_VELOCITY
             if event.key==pygame.K_w and (player2.jump==True) or event.key==pygame.K_w and a==True :
                 player2.speedy -= 50
+            if event.key == pygame.K_r:
+                player2.shoot()
 
         # Verifica se soltou alguma tecla.
         if event.type == pygame.KEYUP:
