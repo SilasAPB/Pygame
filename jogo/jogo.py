@@ -22,7 +22,7 @@ block_1_img=pygame.transform.scale(block_1_img, (BLOCK_WIDTH, BLOCK_HEIGHT))
 block_2_img=pygame.image.load('jogo/assets/img/block2.png')
 block_2_img=pygame.transform.scale(block_2_img, (BLOCK_WIDTH, BLOCK_HEIGHT))
 bullet_1_img=pygame.image.load('jogo/assets/img/bullet.png')
-block_2_img=pygame.transform.scale(bullet_1_img, (BLOCK_WIDTH, BLOCK_HEIGHT))
+bullet_1_img=pygame.transform.scale(bullet_1_img, (BLOCK_WIDTH, BLOCK_HEIGHT))
 # ----- Inicia estruturas de dados
 class Player(pygame.sprite.Sprite):
     def __init__(self, img,controls):
