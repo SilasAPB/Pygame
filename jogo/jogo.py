@@ -40,11 +40,57 @@ class Player(pygame.sprite.Sprite):
         self.playerControls = controls
 
     def update(self):
+        #Colisão entre player e blocos
+        hits = pygame.sprite.groupcollide(self,all_obstaculos,False,False,pygame.sprite.collide_mask)
+        
+        for player,obstaculos in hits.items():
+            # Detectar qual aresta foi colidida baseado na distância entre as arestas do objeto e do player
+            # A menor distância define a aresta colidida
+            dists = [abs(self.rect.left-obstaculos[0].rect.right),
+                    abs(self.rect.right-obstaculos[0].rect.left),
+                    abs(self.rect.bottom-obstaculos[0].rect.top),
+                    abs(self.rect.top-obstaculos[0].rect.bottom)]
+            if dists[0] == min(dists):
+                self.rect.left = obstaculos[0].rect.right
+                self.speedx = 0
+                self.colisions[0] = True
+
+            if dists[1] == min(dists):
+                self.speedx = 0
+                self.rect.right = obstaculos[0].rect.left
+                self.colisions[1] = True
+
+            if dists[2] == min(dists):
+                self.speedy =0
+                self.rect.bottom=obstaculos[0].rect.top
+                self.jump=True
+                self.colisions[3] = True
+                print("Topo")
+
+            if dists[3] == min(dists):
+                self.speedy = 0
+                self.rect.top=obstaculos[0].rect.bottom
+                self.colisions[2] = True
+
+        # if self.rect.left>plataforma1.rect.right:
+        #     player1.jump=True
+        # if player1.rect.right<plataforma1.rect.left:
+        #     if player1.rect.left>plataforma2.rect.right:
+        #         player1.jump=True   
+        # if player2.rect.left>plataforma1.rect.right:
+        #     player2.jump=True
+        # if player2.rect.right<plataforma1.rect.left:
+        #     if player2.rect.left>plataforma2.rect.right:
+        #         player2.jump=True
+        
+        
+        if player1.jump:
+            player1.speedy+=F*10
+        if player2.jump:
+            player2.speedy+=F*10
         #atualiza a possição do personagem
         self.rect.x += self.speedx
         self.rect.y += self.speedy
-        
-        self.colisions = [False,False,False,False]
 
         #mantem o personagem dentro da tela
 
@@ -111,6 +157,8 @@ all_players.add(player2)
 all_obstaculos.add(plataforma1)
 all_obstaculos.add(plataforma2)
 
+T=clock.get_time()/ 1000
+F = G * T
 
 # ===== Loop principal =====
 while game:
@@ -119,8 +167,6 @@ while game:
     # ----- Trata eventos
     for event in pygame.event.get():
         # ----- Verifica consequências
-        if event.type == pygame.QUIT:
-            game = False
          # Verifica se apertou alguma tecla.
         if event.type == pygame.KEYDOWN:
             # Dependendo da tecla, altera a velocidade.
@@ -144,56 +190,9 @@ while game:
                 if event.key == plr.playerControls[2]:
                     plr.speedy += F*10
 
-
-
-    hits= pygame.sprite.groupcollide(all_players,all_obstaculos,False,False,pygame.sprite.collide_mask)
-    for player,obstaculos in hits.items():
-        # Detectar qual aresta foi colidida baseado na distância entre as arestas do objeto e do player
-        # A menor distância define a aresta colidida
-        dists = [abs(player.rect.left-obstaculos[0].rect.right),
-                 abs(player.rect.right-obstaculos[0].rect.left),
-                 abs(player.rect.bottom-obstaculos[0].rect.top),
-                 abs(player.rect.top-obstaculos[0].rect.bottom)]
-        if dists[0] == min(dists):
-            player.rect.left = obstaculos[0].rect.right
-            player.speedx = 0
-            player.colisions[0] = True
-
-        if dists[1] == min(dists):
-            player.speedx = 0
-            player.rect.right = obstaculos[0].rect.left
-            player.colisions[1] = True
-
-        if dists[2] == min(dists):
-            player.speedy =0
-            player.rect.bottom=obstaculos[0].rect.top
-            player.jump=False
-            # a=True
-            player.colisions[3] = True
-
-        if dists[3] == min(dists):
-            player.speedy = 0
-            player.rect.top=obstaculos[0].rect.bottom
-            player.colisions[2] = True
-
-    if player1.rect.left>plataforma1.rect.right:
-        player1.jump=True
-    if player1.rect.right<plataforma1.rect.left:
-        if player1.rect.left>plataforma2.rect.right:
-            player1.jump=True   
-    if player2.rect.left>plataforma1.rect.right:
-        player2.jump=True
-    if player2.rect.right<plataforma1.rect.left:
-        if player2.rect.left>plataforma2.rect.right:
-            player2.jump=True
-    
-    T=clock.get_time()/ 1000
-    F = G * T
-    
-    if player1.jump:
-        player1.speedy+=F*10
-    if player2.jump:
-        player2.speedy+=F*10
+        # Verifica se usuário fechou o jogo
+        if event.type == pygame.QUIT:
+            game = False
 
 
     all_sprites.update() #Atualiza a posição dos sprites(objetos)
