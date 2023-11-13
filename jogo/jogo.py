@@ -21,6 +21,8 @@ block_1_img=pygame.image.load('jogo/assets/img/block.png')
 block_1_img=pygame.transform.scale(block_1_img, (BLOCK_WIDTH, BLOCK_HEIGHT))
 block_2_img=pygame.image.load('jogo/assets/img/block2.png')
 block_2_img=pygame.transform.scale(block_2_img, (BLOCK_WIDTH, BLOCK_HEIGHT))
+bullet_1_img=pygame.image.load('jogo/assets/img/bullet.png')
+block_2_img=pygame.transform.scale(bullet_1_img, (BLOCK_WIDTH, BLOCK_HEIGHT))
 # ----- Inicia estruturas de dados
 class Player(pygame.sprite.Sprite):
     def __init__(self, img,controls):
@@ -58,7 +60,7 @@ class Player(pygame.sprite.Sprite):
             self.rect.right = WIDTH 
         if self.rect.left < 0: #Para Direita
             self.rect.left = 0 
-        
+
 
 
 class Block(pygame.sprite.Sprite):
@@ -110,7 +112,6 @@ all_obstaculos.add(plataforma1)
 all_obstaculos.add(plataforma2)
 
 
-
 # ===== Loop principal =====
 while game:
     clock.tick(FPS)
@@ -142,6 +143,7 @@ while game:
                     plr.speedx = 0
                 if event.key == plr.playerControls[2]:
                     plr.speedy += F*10
+
 
 
     hits= pygame.sprite.groupcollide(all_players,all_obstaculos,False,False,pygame.sprite.collide_mask)
@@ -185,6 +187,13 @@ while game:
         if player2.rect.left>plataforma2.rect.right:
             player2.jump=True
     
+    T=clock.get_time()/ 1000
+
+    F = G * T
+    if player1.jump:
+        player1.speedy+=F*10
+    if player2.jump:
+        player2.speedy+=F*10
     T=clock.get_time()/ 1000
 
     F = G * T
