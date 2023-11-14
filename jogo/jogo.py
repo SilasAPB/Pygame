@@ -28,13 +28,14 @@ img_bala=pygame.transform.scale(img_bala,(BULLET_WIDTH, BULLET_HEIGHT))
 
 # ----- Inicia estruturas de dados
 class Player(pygame.sprite.Sprite):
-    def __init__(self, img, all_bullets, all_sprites,img_bala,controls):
+    def __init__(self,nickname,img,posX,posY,all_bullets, all_sprites,img_bala,controls):
         pygame.sprite.Sprite.__init__(self)
+        self.name = nickname
         self.image=img #imagem do personagem
         self.rect=self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
-        self.rect.centerx= WIDTH/4 #posição plano x
-        self.rect.bottom= HEIGHT-40 #posição plano y
+        self.rect.centerx = posX #posição plano x
+        self.rect.bottom = posY #posição plano y
         self.speedx=0
         self.speedy=0
         self.jump=True
@@ -42,16 +43,21 @@ class Player(pygame.sprite.Sprite):
         self.all_sprites = all_sprites
         self.all_bullets = all_bullets
         self.playerControls = controls
-        self.colisions = [False, False, False, False]
+        self.playerDirection = 1
+        self.health = MAX_HP
+        if self.rect.x > WIDTH/2:
+            self.playerDirection = -1
 
+
+    # ----- Função para atualizar a posição do personagem
     def update(self):
         # ----- Gravidade
         self.speedy+=GRAVITY
 
+
         # ----- Atualiza a posição do player com base na velocidade dele
         self.rect.x += self.speedx
         self.rect.y += self.speedy
-        print(self.jump)
 
 
         # ----- Colisão entre player e blocos
@@ -66,29 +72,20 @@ class Player(pygame.sprite.Sprite):
             if dists[0] == min(dists): # Left edge
                 self.rect.left = obstaculos[0].rect.right
                 self.speedx = 0
-                # self.colisions[0] = True
 
             if dists[1] == min(dists): # Right edge
                 self.speedx = 0
                 self.rect.right = obstaculos[0].rect.left
-                # self.colisions[1] = True
 
             if dists[2] == min(dists): # Bottom Edge
                 self.speedy = 0
                 self.rect.bottom=obstaculos[0].rect.top
                 self.jump = True
-                # self.colisions[3] = True
 
             if dists[3] == min(dists): # Top Edge
                 self.speedy = 0
                 self.rect.top=obstaculos[0].rect.bottom
-                # self.colisions[2] = True
 
-
-        # # ----- Reativar gravidade após sair da plataforma
-        # if self.rect.right<plataforma1.rect.left:
-        #     if self.rect.left>plataforma1.rect.right:
-        #         self.jump=True
 
         # ----- Mantem o personagem dentro da tela
         if self.rect.bottom > HEIGHT: # Para Baixo
@@ -103,11 +100,17 @@ class Player(pygame.sprite.Sprite):
         if self.rect.left < 0: # Para Direita
             self.rect.left = 0 
 
-    
+
+    # Função para disparar um projétil
     def shoot(self):
-        new_bullet = Bullet(self.bullet_img, self.rect.centery,self.rect.right,VELX)
+        gunPos = self.rect.centerx+(PLAYERS_WIDTH/2+10)*self.playerDirection
+        new_bullet = Bullet(self.bullet_img, self.rect.centery,gunPos,VEL*self.playerDirection)
         all_sprites.add(new_bullet)
         all_bullets.add(new_bullet)
+
+
+    def damage(self):
+        self.health -= 1
 
         
 
@@ -162,8 +165,8 @@ all_bullets=pygame.sprite.Group()
 
 
 
-player1=Player(player_1_img,all_bullets,all_sprites,img_bala,playerControls['p1']) #adicionando jogador ao jogo
-player2=Player(player_2_img,all_bullets,all_sprites,img_bala,playerControls['p2'])
+player1=Player('P1',player_1_img,WIDTH*3/4,HEIGHT-PLAYERS_HEIGHT/2,all_bullets,all_sprites,img_bala,playerControls['p1']) #adicionando jogador ao jogo
+player2=Player('P2',player_2_img,WIDTH/4,HEIGHT-PLAYERS_HEIGHT/2,all_bullets,all_sprites,img_bala,playerControls['p2'])
 plataforma1=Block(block_1_img,300,380)
 plataforma2=Block(block_2_img,BLOCK_WIDTH/2,210)
 
@@ -192,13 +195,15 @@ while game:
             for plr in all_players:
                 if event.key == plr.playerControls[0]:
                     plr.speedx -= PLAYERS_VELOCITY
+                    plr.playerDirection = -1
                 if event.key == plr.playerControls[1]:
                     plr.speedx += PLAYERS_VELOCITY
+                    plr.playerDirection = +1
                 if event.key == plr.playerControls[2] and plr.jump==True:
                     plr.jump = False
                     plr.speedy -= 50
                 if event.key == plr.playerControls[3]:
-                    player2.shoot()
+                    plr.shoot()
 
 
         # ----- Verifica se soltou alguma tecla.
@@ -217,6 +222,11 @@ while game:
         if event.type == pygame.QUIT:
             game = False
 
+
+    # ----- Colisão entre players e projetis
+    hit = pygame.sprite.groupcollide(all_players,all_bullets,False,True,pygame.sprite.collide_mask)
+    for player,bullet in hit.items():
+        player.damage()
 
     all_sprites.update() # Atualiza a posição dos sprites(objetos)
 
