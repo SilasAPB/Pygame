@@ -5,12 +5,8 @@ import pygame
 # from pygame.sprite import _Group
 
 from config import *
+from import_assets import *
 
-pygame.init()
-
-# ----- Gera tela principal
-window = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption('SandmannVille: Terra de Faroeste')
 
 # ----- Inicia assets
 backgroud=pygame.image.load('jogo/assets/img/fundo1.png').convert()
@@ -190,113 +186,115 @@ playerControls={
     'p2' : [pygame.K_a,pygame.K_d,pygame.K_w,pygame.K_s,pygame.K_r]
 }
 
-# ----- Criando um grupo de sprites(que vai agir/atualizar conforme o tempo)
-all_sprites=pygame.sprite.Group()
-all_players=pygame.sprite.Group()
-all_obstaculos=pygame.sprite.Group()
-all_bullets=pygame.sprite.Group()
-
-
-player1=Player('P1',player_1_img,WIDTH*3/4,HEIGHT-PLAYERS_HEIGHT/2,all_bullets,all_sprites,img_bala,playerControls['p1']) #adicionando jogador ao jogo
-player2=Player('P2',player_2_img,WIDTH/4,HEIGHT-PLAYERS_HEIGHT/2,all_bullets,all_sprites,img_bala,playerControls['p2'])
-plataforma1=Block(block_1_img,300,380)
-plataforma2=Block(block_2_img,BLOCK_WIDTH/2,210)
-
-health_bar1 = HealthBar(10, 10, 150, 30, player1)
-
-health_bar2 = HealthBar(WIDTH-160, 10, 150, 30, player2)
-
-
-all_sprites.add(player1)
-all_sprites.add(player2) # Adicionando jogador ao grupo de sprites
-all_sprites.add(plataforma1)
-all_sprites.add(plataforma2)
-
-all_players.add(player1)
-all_players.add(player2)
-all_obstaculos.add(plataforma1)
-all_obstaculos.add(plataforma2)
-
-
-T=clock.get_time()/ 1000
-F = G * T
-
 # ===== Loop principal =====
-while game:
-    clock.tick(FPS)
-
-    # ----- Trata eventos
-    for event in pygame.event.get():
-        # ----- Verifica se apertou alguma tecla.
-        if event.type == pygame.KEYDOWN:
-            # ----- Dependendo da tecla, altera a velocidade.
-            for plr in all_players:
-                if event.key == plr.playerControls[0]:
-                    plr.speedx -= PLAYERS_VELOCITY
-                    plr.playerDirection = -1
-                if event.key == plr.playerControls[1]:
-                    plr.speedx += PLAYERS_VELOCITY
-                    plr.playerDirection = +1
-                if event.key == plr.playerControls[2] and plr.jump==True:
-                    plr.jump = False
-                    plr.speedy -= 50
-                if event.key == plr.playerControls[4]:
-                    plr.shoot()
+def jogo_principal(window):
+# ----- Criando um grupo de sprites(que vai agir/atualizar conforme o tempo)
+    all_sprites=pygame.sprite.Group()
+    all_players=pygame.sprite.Group()
+    all_obstaculos=pygame.sprite.Group()
+    all_bullets=pygame.sprite.Group()
 
 
-        # ----- Verifica se soltou alguma tecla.
-        if event.type == pygame.KEYUP:
-            # Dependendo da tecla, altera a velocidade.
-            for plr in all_players:
-                if event.key == plr.playerControls[0]:
-                    plr.speedx = 0
-                if event.key == plr.playerControls[1]:
-                    plr.speedx = 0
-                if event.key == plr.playerControls[2]:
-                    plr.speedy += F*10
+    player1=Player('P1',player_1_img,WIDTH*3/4,HEIGHT-PLAYERS_HEIGHT/2,all_bullets,all_sprites,img_bala,playerControls['p1']) #adicionando jogador ao jogo
+    player2=Player('P2',player_2_img,WIDTH/4,HEIGHT-PLAYERS_HEIGHT/2,all_bullets,all_sprites,img_bala,playerControls['p2'])
+    plataforma1=Block(block_1_img,300,380)
+    plataforma2=Block(block_2_img,BLOCK_WIDTH/2,210)
+
+    health_bar1 = HealthBar(10, 10, 150, 30, player1)
+
+    health_bar2 = HealthBar(WIDTH-160, 10, 150, 30, player2)
 
 
-        # ----- Verifica se usuário fechou o jogo
-        if event.type == pygame.QUIT:
-            game = False
+    all_sprites.add(player1)
+    all_sprites.add(player2) # Adicionando jogador ao grupo de sprites
+    all_sprites.add(plataforma1)
+    all_sprites.add(plataforma2)
 
-    # ----- Colisão entre players e projetis
-    hit = pygame.sprite.groupcollide(all_players,all_bullets,False,True,pygame.sprite.collide_mask)
-    if hit:
-        vidap1=1
-        vidap2=1
-        for player in hit.keys():
-            if player == player1:
-                vidap1 = player1.nivel_vida(DANO_ARMA_1)
-                health_bar1.update(DANO_ARMA_1)
-            elif player == player2:
-                vidap2 = player2.nivel_vida(DANO_ARMA_1)
-                health_bar2.update(DANO_ARMA_1)
-        
-        # se um morrer, o outro não morre
-        if vidap1 == 0 :
-            player1.kill()
-            all_players.remove(player2)
-        elif vidap2 == 0:
-            player2.kill()
-            all_players.remove(player1)
+    all_players.add(player1)
+    all_players.add(player2)
+    all_obstaculos.add(plataforma1)
+    all_obstaculos.add(plataforma2)
 
+    T=clock.get_time()/ 1000
 
+    while game:
+        clock.tick(FPS)
 
-    all_sprites.update() # Atualiza a posição dos sprites(objetos)
-
-    # ----- Gera saídas
-    window.fill((0, 0, 255))  # Preenche com a cor branca
-    window.blit(backgroud, (0,0)) # Nosso Fundo
-    health_bar1.draw(window)
-    health_bar2.draw(window)
+        # ----- Trata eventos
+        for event in pygame.event.get():
+            # ----- Verifica se apertou alguma tecla.
+            if event.type == pygame.KEYDOWN:
+                # ----- Dependendo da tecla, altera a velocidade.
+                for plr in all_players:
+                    if event.key == plr.playerControls[0]:
+                        plr.speedx -= PLAYERS_VELOCITY
+                        plr.playerDirection = -1
+                    if event.key == plr.playerControls[1]:
+                        plr.speedx += PLAYERS_VELOCITY
+                        plr.playerDirection = +1
+                    if event.key == plr.playerControls[2] and plr.jump==True:
+                        plr.jump = False
+                        plr.speedy -= 50
+                    if event.key == plr.playerControls[4]:
+                        plr.shoot()
 
 
-    all_sprites.draw(window) # ----- Desenha os sprites(objetos) na tela
+            # ----- Verifica se soltou alguma tecla.
+            if event.type == pygame.KEYUP:
+                # Dependendo da tecla, altera a velocidade.
+                for plr in all_players:
+                    if event.key == plr.playerControls[0]:
+                        plr.speedx = 0
+                    if event.key == plr.playerControls[1]:
+                        plr.speedx = 0
+                    if event.key == plr.playerControls[2]:
+                        plr.speedy += F*10
 
-    # ----- Atualiza estado do jogo
-    pygame.display.update()
-    clock.tick(FPS)  # Mostra o novo frame para o jogador
+
+            # ----- Verifica se usuário fechou o jogo
+            if event.type == pygame.QUIT:
+                game = False
+
+        # ----- Colisão entre players e projetis
+        hit = pygame.sprite.groupcollide(all_players,all_bullets,False,True,pygame.sprite.collide_mask)
+        if hit:
+            vidap1=1
+            vidap2=1
+            for player in hit.keys():
+                if player == player1:
+                    vidap1 = player1.nivel_vida(DANO_ARMA_1)
+                    health_bar1.update(DANO_ARMA_1)
+                elif player == player2:
+                    vidap2 = player2.nivel_vida(DANO_ARMA_1)
+                    health_bar2.update(DANO_ARMA_1)
+            
+            # se um morrer, o outro não morre
+            if vidap1 == 0 :
+                player1.kill()
+                all_players.remove(player2)
+                state = QUIT
+            elif vidap2 == 0:
+                player2.kill()
+                all_players.remove(player1)
+                state = QUIT
+
+
+
+        all_sprites.update() # Atualiza a posição dos sprites(objetos)
+
+        # ----- Gera saídas
+        window.fill((0, 0, 255))  # Preenche com a cor branca
+        window.blit(backgroud, (0,0)) # Nosso Fundo
+        health_bar1.draw(window)
+        health_bar2.draw(window)
+
+
+        all_sprites.draw(window) # ----- Desenha os sprites(objetos) na tela
+
+        # ----- Atualiza estado do jogo
+        pygame.display.update()
+        clock.tick(FPS)  # Mostra o novo frame para o jogador
+    return state
 
 # ===== Finalização =====
 pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
