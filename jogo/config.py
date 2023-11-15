@@ -1,3 +1,5 @@
+from os import path
+
 WIDTH=600
 HEIGHT=420
 
@@ -22,3 +24,19 @@ DANO_ARMA_2 = 5
 
 BARRA_WIDTH=150
 BARRA_HEIGHT=30
+
+IMG_DIR = path.join(path.dirname(__file__), 'assets', 'img')
+
+# Define algumas variáveis com as cores básicas
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+YELLOW = (255, 255, 0)
+
+
+INIT = 0
+GAME = 1
+QUIT = 2
+FPS = 60
