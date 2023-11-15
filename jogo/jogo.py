@@ -14,17 +14,24 @@ pygame.display.set_caption('SandmannVille: Terra de Faroeste')
 
 # ----- Inicia assets
 backgroud=pygame.image.load('jogo/assets/img/fundo1.png').convert()
+
 player_1_img=pygame.image.load('jogo/assets/img/player1.png')
 player_1_img=pygame.transform.scale(player_1_img, (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+
 player_2_img=pygame.image.load('jogo/assets/img/player2.png')
 player_2_img=pygame.transform.scale(player_2_img, (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+
 block_1_img=pygame.image.load('jogo/assets/img/block.png')
 block_1_img=pygame.transform.scale(block_1_img, (BLOCK_WIDTH, BLOCK_HEIGHT))
+
 block_2_img=pygame.image.load('jogo/assets/img/block.png')
 block_2_img=pygame.transform.scale(block_2_img, (BLOCK_WIDTH, BLOCK_HEIGHT))
 
 img_bala=pygame.image.load('jogo/assets/img/bullet_img.png')
 img_bala=pygame.transform.scale(img_bala,(BULLET_WIDTH, BULLET_HEIGHT))
+
+img_bar=pygame.image.load('jogo/assets/img/health_bar.png')
+img_bar=pygame.transform.scale(img_bar,(BARRA_WIDTH, BARRA_HEIGHT))
 
 # ----- Inicia estruturas de dados
 class Player(pygame.sprite.Sprite):
@@ -156,7 +163,18 @@ class Bullet(pygame.sprite.Sprite):
             self.kill() # Se a bala que está indo da esquerda para a direita passar do comprimento da tela(width) a bala "morre"
         if self.rect.right < 0:
             self.kill()
-        
+
+
+class Bar(pygame.sprite.Sprite):
+    def __init__(self,img,posx,posy):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image=img # Imagem do personagem
+        self.rect=self.image.get_rect()
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect.left= posx # Posição plano x
+        self.rect.top= posy # Posição plano y
+        self.speedx=0
 
 
 
@@ -183,6 +201,9 @@ player1=Player('P1',player_1_img,WIDTH*3/4,HEIGHT-PLAYERS_HEIGHT/2,all_bullets,a
 player2=Player('P2',player_2_img,WIDTH/4,HEIGHT-PLAYERS_HEIGHT/2,all_bullets,all_sprites,img_bala,playerControls['p2'])
 plataforma1=Block(block_1_img,300,380)
 plataforma2=Block(block_2_img,BLOCK_WIDTH/2,210)
+barra1=Bar(img_bar,10,10)
+barra2=Bar(img_bar,(600-10-BARRA_WIDTH),10)
+
 
 
 all_sprites.add(player1)
@@ -193,6 +214,8 @@ all_players.add(player1)
 all_players.add(player2)
 all_obstaculos.add(plataforma1)
 all_obstaculos.add(plataforma2)
+all_sprites.add(barra1)
+all_sprites.add(barra2)
 
 T=clock.get_time()/ 1000
 F = G * T
@@ -249,6 +272,7 @@ while game:
     # ----- Gera saídas
     window.fill((0, 0, 255))  # Preenche com a cor branca
     window.blit(backgroud, (0,0)) # Nosso Fundo
+
 
     all_sprites.draw(window) # ----- Desenha os sprites(objetos) na tela
 
