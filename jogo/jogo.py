@@ -33,6 +33,7 @@ img_bala=pygame.transform.scale(img_bala,(BULLET_WIDTH, BULLET_HEIGHT))
 img_bar=pygame.image.load('jogo/assets/img/health_bar (2).png')
 img_bar=pygame.transform.scale(img_bar,(BARRA_WIDTH, BARRA_HEIGHT))
 
+
 # ----- Inicia estruturas de dados
 class Player(pygame.sprite.Sprite):
     def __init__(self,nickname,img,posX,posY,all_bullets, all_sprites,img_bala,controls):
@@ -54,7 +55,6 @@ class Player(pygame.sprite.Sprite):
         self.max_health = MAX_HP
         self.health_now = self.max_health
         self.comp_hp = 50
-        self.relacao = self.max_health / self.comp_hp
         if self.rect.x > WIDTH/2:
             self.playerDirection = -1
 
@@ -119,33 +119,15 @@ class Player(pygame.sprite.Sprite):
         all_bullets.add(new_bullet)
 
 
-    def damage_suffered(self, dano):
+    def nivel_vida(self, dano_arma):
         if self.health_now > 0:
-            self.health_now = self.health_now - dano
+            self.health_now -= dano_arma
             print(self.health_now)
             return self.health_now
         else:
-            self.health_now = 0
-            return self.health_now
-        
+            return 0
     
         
-class HealthBar(pygame.sprite.Sprite):
-    def __init__(self, x, y, w, h, player):
-        self.x = x
-        self.y = y
-        self.w = w
-        self.h = h
-        self.hp = player.damage_suffered(5)
-        self.max_hp = player.max_health
-
-    def draw(self, surface):
-    #calculate health ratio
-        ratio = self.hp / self.max_hp
-        pygame.draw.rect(surface, "red", (self.x, self.y, self.w, self.h))
-        pygame.draw.rect(surface, "green", (self.x, self.y, self.w * ratio, self.h))
-            
-
 
 class Block(pygame.sprite.Sprite):
     def __init__(self,img,posx,posy):
@@ -168,7 +150,7 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.left = left
         self.rect.centery = centery
         self.speedx = vx # Velocidade fixa para a direita
-
+    
     def update(self) :
         self.rect.x += self.speedx
         
@@ -267,10 +249,17 @@ while game:
     # ----- Colisão entre players e projetis
     hit = pygame.sprite.groupcollide(all_players,all_bullets,False,True,pygame.sprite.collide_mask)
     if hit:
-        for player,bullet in hit.items():
-            dmg_sofrido = player.damage_suffered(DANO_ARMA_1)
-            if  dmg_sofrido == 0 :
-                player.kill()
+        vidap1 = player1.nivel_vida(DANO_ARMA_1)
+        vidap2 = player2.nivel_vida(DANO_ARMA_1)
+        # se um morrer, o outro não morre
+        if vidap1 == 0 :
+            vidap2 = vidap2
+            player1.kill()
+        elif vidap2 == 0:
+            player2.kill()
+
+
+
 
     all_sprites.update() # Atualiza a posição dos sprites(objetos)
 
