@@ -28,7 +28,7 @@ img_bala=pygame.transform.scale(img_bala,(BULLET_WIDTH, BULLET_HEIGHT))
 
 # ----- Inicia estruturas de dados
 class Player(pygame.sprite.Sprite):
-    def __init__(self,nickname,img,posX,posY,all_bullets, all_sprites,img_bala,controls,health_now):
+    def __init__(self,nickname,img,posX,posY,all_bullets, all_sprites,img_bala,controls):
         pygame.sprite.Sprite.__init__(self)
         self.name = nickname
         self.image=img #imagem do personagem
@@ -45,6 +45,9 @@ class Player(pygame.sprite.Sprite):
         self.playerControls = controls
         self.playerDirection = 1
         self.max_health = MAX_HP
+        self.health_now = MAX_HP
+        self.comp_hp = 50
+        self.relacao = self.max_health / self.comp_hp
         if self.rect.x > WIDTH/2:
             self.playerDirection = -1
 
@@ -109,9 +112,17 @@ class Player(pygame.sprite.Sprite):
         all_bullets.add(new_bullet)
 
 
-    def damage(self):
-     self.health -= 1
-     return self.health
+    def damage_suffered(self, dano):
+        if self.health_now > 0:
+            self.health_now = self.health_now - dano
+            print(self.health_now)
+            return self.health_now
+        else:
+            self.health_now = 0
+            return self.health_now
+        
+    
+        
 
         
 
@@ -166,7 +177,6 @@ all_sprites=pygame.sprite.Group()
 all_players=pygame.sprite.Group()
 all_obstaculos=pygame.sprite.Group()
 all_bullets=pygame.sprite.Group()
-
 
 
 player1=Player('P1',player_1_img,WIDTH*3/4,HEIGHT-PLAYERS_HEIGHT/2,all_bullets,all_sprites,img_bala,playerControls['p1']) #adicionando jogador ao jogo
@@ -226,14 +236,13 @@ while game:
         if event.type == pygame.QUIT:
             game = False
 
-
     # ----- Colisão entre players e projetis
     hit = pygame.sprite.groupcollide(all_players,all_bullets,False,True,pygame.sprite.collide_mask)
     if hit:
         for player,bullet in hit.items():
-            dmg = player.damage()
-        if dmg < 0:
-            player.kill()
+            dmg_sofrido = player.damage_suffered(DANO_ARMA_1)
+            if  dmg_sofrido == 0 :
+                player.kill()
 
     all_sprites.update() # Atualiza a posição dos sprites(objetos)
 
