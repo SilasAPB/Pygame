@@ -5,6 +5,7 @@ import pygame
 # from pygame.sprite import _Group
 
 from config import *
+from math import sin,cos
 from import_assets import *
 
 
@@ -158,17 +159,24 @@ class Block(pygame.sprite.Sprite):
 class Bullet(pygame.sprite.Sprite):
     def __init__(self,img,centery,left,vx):
         pygame.sprite.Sprite.__init__(self)
-
+        # self.type
         self.image = img
         self.rect = self.image.get_rect()
-
         self.rect.left = left
         self.rect.centery = centery
-        self.speedx = vx # Velocidade fixa para a direita
+        self.speedx = cos(OBLIQUEANGLE)*vx # Velocidade fixa para a direita
+        self.speedy = -sin(OBLIQUEANGLE)*abs(vx) # Velocidade fixa para a direita
     
-    def update(self) :
-        self.rect.x += self.speedx
+    def update(self):
+        # ----- Gravidade
+        self.speedy+=GRAVITY
         
+        # ----- Atualiza posições
+        self.rect.x += self.speedx
+        self.rect.y += self.speedy
+        
+        # ----- Checa colisões entre bala e obstáculos
+        # hits = pygame.sprite.groupcollide([self],all_obstaculos,True,False,pygame.sprite.collide_mask)
         if self.rect.left > WIDTH:
             self.kill() # Se a bala que está indo da esquerda para a direita passar do comprimento da tela(width) a bala "morre"
         if self.rect.right < 0:
