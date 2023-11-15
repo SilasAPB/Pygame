@@ -30,7 +30,7 @@ block_2_img=pygame.transform.scale(block_2_img, (BLOCK_WIDTH, BLOCK_HEIGHT))
 img_bala=pygame.image.load('jogo/assets/img/bullet_img.png')
 img_bala=pygame.transform.scale(img_bala,(BULLET_WIDTH, BULLET_HEIGHT))
 
-img_bar=pygame.image.load('jogo/assets/img/health_bar.png')
+img_bar=pygame.image.load('jogo/assets/img/health_bar (2).png')
 img_bar=pygame.transform.scale(img_bar,(BARRA_WIDTH, BARRA_HEIGHT))
 
 
@@ -53,7 +53,7 @@ class Player(pygame.sprite.Sprite):
         self.playerControls = controls
         self.playerDirection = 1
         self.max_health = MAX_HP
-        self.health_now = MAX_HP
+        self.health_now = self.max_health
         self.comp_hp = 50
         if self.rect.x > WIDTH/2:
             self.playerDirection = -1
@@ -127,7 +127,26 @@ class Player(pygame.sprite.Sprite):
         else:
             return 0
     
-        
+class HealthBar():
+    def __init__(self, x, y, w, h, player):
+        self.x = x
+        self.y = y
+        self.w = w
+        self.h = h
+        self.hp = player.health_now
+        self.max_hp = player.max_health
+
+    def draw(self, surface):
+        #calculate health ratio
+        ratio = self.hp / self.max_hp
+        pygame.draw.rect(surface, "red", (self.x, self.y, self.w, self.h))
+        pygame.draw.rect(surface, "green", (self.x, self.y, self.w * ratio, self.h))  
+    
+    def update(self,dano):
+        self.hp-=dano
+
+
+
 
 class Block(pygame.sprite.Sprite):
     def __init__(self,img,posx,posy):
@@ -159,24 +178,10 @@ class Bullet(pygame.sprite.Sprite):
         if self.rect.right < 0:
             self.kill()
 
-
-class Bar(pygame.sprite.Sprite):
-    def __init__(self,img,posx,posy):
-        pygame.sprite.Sprite.__init__(self)
-
-        self.image=img # Imagem do personagem
-        self.rect=self.image.get_rect()
-        self.mask = pygame.mask.from_surface(self.image)
-        self.rect.left= posx # Posição plano x
-        self.rect.top= posy # Posição plano y
-        self.speedx=0
-
-
-
 game = True
 # ----- Variável para o ajuste de velocidade do jogo
 clock=pygame.time.Clock()
-FPS = 60
+
 G=30
 T=clock.get_time()/ 1000
 
@@ -196,21 +201,22 @@ player1=Player('P1',player_1_img,WIDTH*3/4,HEIGHT-PLAYERS_HEIGHT/2,all_bullets,a
 player2=Player('P2',player_2_img,WIDTH/4,HEIGHT-PLAYERS_HEIGHT/2,all_bullets,all_sprites,img_bala,playerControls['p2'])
 plataforma1=Block(block_1_img,300,380)
 plataforma2=Block(block_2_img,BLOCK_WIDTH/2,210)
-barra1=Bar(img_bar,10,10)
-barra2=Bar(img_bar,(600-10-BARRA_WIDTH),10)
 
+health_bar1 = HealthBar(10, 10, 150, 30, player1)
+
+health_bar2 = HealthBar(WIDTH-160, 10, 150, 30, player2)
 
 
 all_sprites.add(player1)
 all_sprites.add(player2) # Adicionando jogador ao grupo de sprites
 all_sprites.add(plataforma1)
 all_sprites.add(plataforma2)
+
 all_players.add(player1)
 all_players.add(player2)
 all_obstaculos.add(plataforma1)
 all_obstaculos.add(plataforma2)
-all_sprites.add(barra1)
-all_sprites.add(barra2)
+
 
 T=clock.get_time()/ 1000
 F = G * T
@@ -257,15 +263,23 @@ while game:
     # ----- Colisão entre players e projetis
     hit = pygame.sprite.groupcollide(all_players,all_bullets,False,True,pygame.sprite.collide_mask)
     if hit:
-        vidap1 = player1.nivel_vida(DANO_ARMA_1)
-        vidap2 = player2.nivel_vida(DANO_ARMA_1)
+        vidap1=1
+        vidap2=1
+        for player in hit.keys():
+            if player == player1:
+                vidap1 = player1.nivel_vida(DANO_ARMA_1)
+                health_bar1.update(DANO_ARMA_1)
+            elif player == player2:
+                vidap2 = player2.nivel_vida(DANO_ARMA_1)
+                health_bar2.update(DANO_ARMA_1)
+        
         # se um morrer, o outro não morre
         if vidap1 == 0 :
-            vidap2 = vidap2
             player1.kill()
+            all_players.remove(player2)
         elif vidap2 == 0:
             player2.kill()
-
+            all_players.remove(player1)
 
 
 
@@ -274,12 +288,11 @@ while game:
     # ----- Gera saídas
     window.fill((0, 0, 255))  # Preenche com a cor branca
     window.blit(backgroud, (0,0)) # Nosso Fundo
+    health_bar1.draw(window)
+    health_bar2.draw(window)
 
 
     all_sprites.draw(window) # ----- Desenha os sprites(objetos) na tela
-
-    
-
 
     # ----- Atualiza estado do jogo
     pygame.display.update()
