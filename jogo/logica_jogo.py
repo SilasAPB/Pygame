@@ -14,4 +14,4 @@ while state != QUIT :
         pass
         #state = game_screen(window)
     else:
-        state = final_screen(jogo1.window)
+        state = end_screen(jogo1.window)
