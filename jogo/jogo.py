@@ -127,7 +127,26 @@ class Player(pygame.sprite.Sprite):
         else:
             return 0
     
-        
+class HealthBar():
+    def __init__(self, x, y, w, h, player):
+        self.x = x
+        self.y = y
+        self.w = w
+        self.h = h
+        self.hp = player.health_now
+        self.max_hp = player.max_health
+
+    def draw(self, surface):
+        #calculate health ratio
+        ratio = self.hp / self.max_hp
+        pygame.draw.rect(surface, "red", (self.x, self.y, self.w, self.h))
+        pygame.draw.rect(surface, "green", (self.x, self.y, self.w * ratio, self.h))  
+    
+    def update(self,dano):
+        self.hp-=dano
+
+
+
 
 class Block(pygame.sprite.Sprite):
     def __init__(self,img,posx,posy):
@@ -249,15 +268,23 @@ while game:
     # ----- Colisão entre players e projetis
     hit = pygame.sprite.groupcollide(all_players,all_bullets,False,True,pygame.sprite.collide_mask)
     if hit:
-        vidap1 = player1.nivel_vida(DANO_ARMA_1)
-        vidap2 = player2.nivel_vida(DANO_ARMA_1)
+        vidap1=1
+        vidap2=1
+        for player in hit.keys():
+            if player == player1:
+                vidap1 = player1.nivel_vida(DANO_ARMA_1)
+                health_bar1.update(DANO_ARMA_1)
+            elif player == player2:
+                vidap2 = player2.nivel_vida(DANO_ARMA_1)
+                health_bar2.update(DANO_ARMA_1)
+        
         # se um morrer, o outro não morre
         if vidap1 == 0 :
-            vidap2 = vidap2
             player1.kill()
+            all_players.remove(player2)
         elif vidap2 == 0:
             player2.kill()
-
+            all_players.remove(player1)
 
 
 
