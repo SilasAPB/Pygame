@@ -28,7 +28,7 @@ img_bala=pygame.transform.scale(img_bala,(BULLET_WIDTH, BULLET_HEIGHT))
 
 # ----- Inicia estruturas de dados
 class Player(pygame.sprite.Sprite):
-    def __init__(self,nickname,img,posX,posY,all_bullets, all_sprites,img_bala,controls):
+    def __init__(self,nickname,img,posX,posY,all_bullets, all_sprites,img_bala,controls,health_now):
         pygame.sprite.Sprite.__init__(self)
         self.name = nickname
         self.image=img #imagem do personagem
@@ -44,7 +44,7 @@ class Player(pygame.sprite.Sprite):
         self.all_bullets = all_bullets
         self.playerControls = controls
         self.playerDirection = 1
-        self.health = MAX_HP
+        self.max_health = MAX_HP
         if self.rect.x > WIDTH/2:
             self.playerDirection = -1
 
@@ -110,7 +110,8 @@ class Player(pygame.sprite.Sprite):
 
 
     def damage(self):
-        self.health -= 1
+     self.health -= 1
+     return self.health
 
         
 
@@ -142,6 +143,9 @@ class Bullet(pygame.sprite.Sprite):
         
         if self.rect.left > WIDTH:
             self.kill() # Se a bala que está indo da esquerda para a direita passar do comprimento da tela(width) a bala "morre"
+        if self.rect.right < 0:
+            self.kill()
+        
 
 
 
@@ -153,8 +157,8 @@ G=30
 T=clock.get_time()/ 1000
 
 playerControls={
-    'p1' : [pygame.K_LEFT,pygame.K_RIGHT,pygame.K_UP,pygame.K_DOWN,pygame.K_r],
-    'p2' : [pygame.K_a,pygame.K_d,pygame.K_w,pygame.K_s,pygame.K_RSHIFT]
+    'p1' : [pygame.K_LEFT,pygame.K_RIGHT,pygame.K_UP,pygame.K_DOWN,pygame.K_RSHIFT],
+    'p2' : [pygame.K_a,pygame.K_d,pygame.K_w,pygame.K_s,pygame.K_r]
 }
 
 # ----- Criando um grupo de sprites(que vai agir/atualizar conforme o tempo)
@@ -202,7 +206,7 @@ while game:
                 if event.key == plr.playerControls[2] and plr.jump==True:
                     plr.jump = False
                     plr.speedy -= 50
-                if event.key == plr.playerControls[3]:
+                if event.key == plr.playerControls[4]:
                     plr.shoot()
 
 
@@ -225,8 +229,11 @@ while game:
 
     # ----- Colisão entre players e projetis
     hit = pygame.sprite.groupcollide(all_players,all_bullets,False,True,pygame.sprite.collide_mask)
-    for player,bullet in hit.items():
-        player.damage()
+    if hit:
+        for player,bullet in hit.items():
+            dmg = player.damage()
+        if dmg < 0:
+            player.kill()
 
     all_sprites.update() # Atualiza a posição dos sprites(objetos)
 
