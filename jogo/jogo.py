@@ -178,15 +178,10 @@ class Bullet(pygame.sprite.Sprite):
         if self.rect.right < 0:
             self.kill()
 
-
-
-
-
-
 game = True
 # ----- Variável para o ajuste de velocidade do jogo
 clock=pygame.time.Clock()
-FPS = 60
+
 G=30
 T=clock.get_time()/ 1000
 
