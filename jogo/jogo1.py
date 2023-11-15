@@ -239,16 +239,16 @@ while game:
         if event.type == pygame.KEYDOWN:
             # ----- Dependendo da tecla, altera a velocidade.
             for plr in all_players:
-                if event.key == plr.playerControls[0]:
+                if event.key == plr.playerControls[0]:  # Left
                     plr.speedx -= PLAYERS_VELOCITY
                     plr.playerDirection = -1
-                if event.key == plr.playerControls[1]:
+                if event.key == plr.playerControls[1]:  # Right
                     plr.speedx += PLAYERS_VELOCITY
                     plr.playerDirection = +1
-                if event.key == plr.playerControls[2] and plr.jump==True:
+                if event.key == plr.playerControls[2] and plr.jump==True:  # Up
                     plr.jump = False
-                    plr.speedy -= 50
-                if event.key == plr.playerControls[4]:
+                    plr.speedy -= PLAYER_JUMP
+                if event.key == plr.playerControls[4]:  # Shift
                     plr.shoot()
 
 
