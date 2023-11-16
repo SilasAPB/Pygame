@@ -75,8 +75,8 @@ class Player(pygame.sprite.Sprite):
             self.speedy=0
             self.jump = True
         if self.rect.top < 0: # Para Cima
-            self.rect.top = 0  
-            self.speedy=GRAVITY*30    
+            self.rect.top = 0
+            self.speedy=0
         if self.rect.right > WIDTH: # Para Esquerda
             self.rect.right = WIDTH 
         if self.rect.left < 0: # Para Direita

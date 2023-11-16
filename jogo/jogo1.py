@@ -247,8 +247,8 @@ def jogo_principal(window):
                         plr.speedx = 0
                     if event.key == plr.playerControls[1]:
                         plr.speedx = 0
-                    if event.key == plr.playerControls[2]:
-                        plr.speedy += GRAVITY*10
+                    # if event.key == plr.playerControls[2]:
+                    #     plr.speedy += GRAVITY*10
 
 
 
