@@ -9,31 +9,40 @@ from config import *
 
 def init_screen(window):
     clock = pygame.time.Clock()
-    fonte  = pygame.font.Font(None,32)
-    user_text = 'BEM VINDO AO JOGO!'
+
+    # fonte  = pygame.font.Font(None,32)
+    # user_text = 'BEM VINDO AO JOGO!'
+
+    background = pygame.image.load(path.join(IMG_DIR, 'inicio.png')).convert()
+    background_rect = background.get_rect()
+
     running = True
     while running:
-        clock.tick(FPS)
-        np1 = 'Qual nome você gostaria de dar ao seu personagem? '
-        np2 = 'Qual nome você gostaria de dar ao seu personagem? '
-        text_sufrace = fonte.render(user_text,True,(0,255,0))
-        text_nome1 = fonte.render(np1,True,(255,255,255))
-        text_nome2 = fonte.render(np2,True,(255,255,255))
 
-        for event in pygame.event.get():
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_SPACE:
-                    state = GAME
-                    running = False
-                
+        clock.tick(FPS)
+        # np1 = 'Qual nome você gostaria de dar ao seu personagem? '
+        # np2 = 'Qual nome você gostaria de dar ao seu personagem? '
+        # text_sufrace = fonte.render(user_text,True,(0,255,0))
+        # text_nome1 = fonte.render(np1,True,(255,255,255))
+        # text_nome2 = fonte.render(np2,True,(255,255,255))
+
+        for event in pygame.event.get():    
             if event.type == pygame.QUIT:
-                    state = QUIT
-                    running = False
+                state = QUIT
+                running = False
+            
+            if event.type == pygame.KEYUP:
+                state = GAME
+                running = False
 
         window.fill(BLACK)
-        window.blit(text_sufrace,(50,50))
-        window.blit(text_nome1,(10,15))
-        window.blit(text_nome2,(13,15))
+        window.blit(background,background_rect)
+        # window.blit(text_sufrace,(50,50))
+        # window.blit(text_nome1,(10,15))
+        # window.blit(text_nome2,(13,15))
+
+        pygame.display.flip()
+
     return state
     
 

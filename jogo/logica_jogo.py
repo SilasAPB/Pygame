@@ -1,13 +1,12 @@
 from config import *
 import pygame,sys
-from funcoes_de_telas import *
+from funcoes_de_telas import init_screen,end_screen
+from classes import *
+from jogo1 import jogo_principal
 
 
 pygame.init()
-
-
-
-
+pygame.mixer.init()
 
 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -16,14 +15,17 @@ pygame.display.set_caption('SandmannVille: Terra de Faroeste')
 
 
 
-pygame.display.set_caption('SandmannVille: Terra de Faroeste')
-
-lista_assets = [backgroud,player_1_img,player_2_img,block_1_img,block_2_img,img_bala,img_bar]
 state = INIT
 while state != QUIT :
     if state == INIT:
         state = init_screen(window)
     elif state == GAME:
-        state = jogo_principal(window,lista_assets)
-    else:
+        state = jogo_principal(window)
+    elif state == OVER:
         state = end_screen(window)
+    else:
+        state=QUIT
+
+
+# ===== Finalização =====
+pygame.quit()  # Função do PyGame que finaliza os recursos utilizadosr
