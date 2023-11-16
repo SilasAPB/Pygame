@@ -1,17 +1,17 @@
-from config import INIT,GAME,QUIT
-import pygame,sys
+from config import *
+import pygame, sys
 from funcoes_de_telas import *
-import jogo1
+from jogo1 import *
 
 
 
 
-
+state = INIT
 while state != QUIT :
     if state == INIT:
-        state = init_screen(jogo1.window)
+        state = init_screen(window)
     elif state == GAME:
         pass
         #state = game_screen(window)
-    else:
-        state = end_screen(jogo1.window)
+    elif state== OVER:
+        state = end_screen(window)
