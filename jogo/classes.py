@@ -127,8 +127,8 @@ class Block(pygame.sprite.Sprite):
         self.image= img # Imagem do personagem
         self.rect=self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
-        self.rect.centerx= posx # Posição plano x
-        self.rect.centery= posy # Posição plano y
+        self.rect.right= posx # Posição plano x
+        self.rect.bottom= posy # Posição plano y
         self.speedx=0
     
 class Bullet(pygame.sprite.Sprite):
