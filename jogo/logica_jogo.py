@@ -13,8 +13,6 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('SandmannVille: Terra de Faroeste')
 
 
-
-
 state = INIT
 while state != QUIT :
     if state == INIT:

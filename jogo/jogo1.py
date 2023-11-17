@@ -236,7 +236,7 @@ def jogo_principal(window):
                         plr.jump = False
                         plr.speedy -= PLAYER_JUMP
                     if event.key == plr.playerControls[4]:  # Shift
-                        plr.shoot()
+                        plr.useItem()
 
 
                 # ----- Verifica se soltou alguma tecla.
@@ -296,4 +296,3 @@ def jogo_principal(window):
 
     state=OVER
     return state
-

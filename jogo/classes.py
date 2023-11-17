@@ -1,6 +1,7 @@
 import random
 import pygame
-from math import sin,cos
+from math import sin,cos,floor,radians
+from random import randint
 
 from config import *
 from lista_assests import *
@@ -20,7 +21,7 @@ class Player(pygame.sprite.Sprite):
         self.bullet_img = assets[BULLET_IMG]
         self.all_sprites = groups['all_sprites']
         self.all_bullets = groups['all_bullets']
-        self.all_obstaculos= groups['all_obstaculos']
+        self.all_obstaculos = groups['all_obstaculos']
         self.playerControls = controls
         self.playerDirection = 1
         self.max_health = MAX_HP
@@ -80,15 +81,16 @@ class Player(pygame.sprite.Sprite):
         if self.rect.right > WIDTH: # Para Esquerda
             self.rect.right = WIDTH 
         if self.rect.left < 0: # Para Direita
-            self.rect.left = 0 
+            self.rect.left = 0
 
 
     # Função para disparar um projétil
-    def shoot(self):
+    def useItem(self):
         gunPos = self.rect.centerx+(PLAYERS_WIDTH/2+10)*self.playerDirection
-        new_bullet = Bullet(self.assets, self.rect.centery,gunPos,VEL*self.playerDirection)
+        new_bullet = Bullet(self.assets, self.rect.centery, gunPos, VEL*self.playerDirection, self.all_obstaculos, "BOUNCE",0)
         self.all_sprites.add(new_bullet)
         self.all_bullets.add(new_bullet)
+        # self.speedx += 3
 
 
     def nivel_vida(self, dano_arma):
@@ -130,29 +132,43 @@ class Block(pygame.sprite.Sprite):
         self.rect.centerx= posx # Posição plano x
         self.rect.centery= posy # Posição plano y
         self.speedx=0
-    
+
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self,assets,centery,left,vx):
+    def __init__(self, assets, centery, left, vx, collgroup, type, spray):
         pygame.sprite.Sprite.__init__(self)
-        # self.type
+        self.type = type
         self.image = assets[BULLET_IMG]
         self.rect = self.image.get_rect()
         self.rect.left = left
         self.rect.centery = centery
-        self.speedx = cos(OBLIQUEANGLE)*vx # Velocidade fixa para a direita
-        self.speedy = -sin(OBLIQUEANGLE)*abs(vx) # Velocidade fixa para a direita
+        self.angle = radians(randint(-floor((MAX_SPRAY*spray/100)),(floor(MAX_SPRAY*spray/100))))
+        print('angle',self.angle)
+        if self.type == "OBLIQUE":
+            self.speedx = abs(cos(OBLIQUEANGLE + self.angle))*vx # Velocidade fixa para a direita
+            self.speedy = -sin(OBLIQUEANGLE)*abs(vx) # Velocidade fixa para a direita
+        else:
+            self.speedx = cos(self.angle)*vx # Velocidade fixa para a direita
+            self.speedy = -sin(self.angle)*abs(vx) # Velocidade fixa para a direita
+        self.collideGroup = collgroup
     
     def update(self):
         # ----- Gravidade
-        self.speedy+=GRAVITY
+        if self.type == "OBLIQUE":
+            self.speedy+=GRAVITY
         
         # ----- Atualiza posições
         self.rect.x += self.speedx
         self.rect.y += self.speedy
         
         # ----- Checa colisões entre bala e obstáculos
-        # hits = pygame.sprite.groupcollide([self],all_obstaculos,True,False,pygame.sprite.collide_mask)
-        if self.rect.left > WIDTH:
-            self.kill() # Se a bala que está indo da esquerda para a direita passar do comprimento da tela(width) a bala "morre"
-        if self.rect.right < 0:
-            self.kill()
+        hits = pygame.sprite.groupcollide([self],self.collideGroup,False,False,pygame.sprite.collide_mask)
+        
+        for b in hits.keys():
+            if self.type != 'BOUNCE':
+                b.kill()
+                if self.rect.left > WIDTH:
+                    self.kill() # Se a bala que está indo da esquerda para a direita passar do comprimento da tela(width) a bala "morre"
+                if self.rect.right < 0:
+                    self.kill()
+            else:
+                self.speedx*=-1
