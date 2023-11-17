@@ -15,7 +15,8 @@ BARRA_IMG= 'img_bar'
 
 def load_assets():
     assets ={}
-    assets[BACKGROUD]=pygame.image.load(os.path.join(IMG_DIR, 'fundo1.png')).convert()
+    assets[BACKGROUD]=pygame.image.load(os.path.join(IMG_DIR, 'background.gif')).convert()
+    assets[BACKGROUD]=pygame.transform.scale(assets[BACKGROUD], (WIDTH, HEIGHT))
 
     assets[PLAYER1_IMG]=pygame.image.load(os.path.join(IMG_DIR,'player1.png'))
     assets[PLAYER1_IMG]=pygame.transform.scale(assets[PLAYER1_IMG], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
