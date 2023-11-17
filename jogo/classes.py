@@ -27,12 +27,18 @@ class Player(pygame.sprite.Sprite):
         self.health_now = self.max_health
         self.comp_hp = 50
         self.assets= assets
+        self.immortal = 0
         if self.rect.x > WIDTH/2:
             self.playerDirection = -1
 
 
     # ----- Função para atualizar a posição do personagem
     def update(self):
+
+        if self.immortal > 0:
+            self.immortal -= 1
+            print(self.immortal)
+
         # ----- Gravidade
         self.speedy+=GRAVITY
 
@@ -90,14 +96,18 @@ class Player(pygame.sprite.Sprite):
         self.all_sprites.add(new_bullet)
         self.all_bullets.add(new_bullet)
 
+    def setImmortal(self,tempo):
+        self.immortal = tempo 
+        
+
 
     def nivel_vida(self, dano_arma):
-        if self.health_now > 0:
-            self.health_now -= dano_arma
-            print(self.health_now)
-            return self.health_now
-        else:
-            return 0
+        if self.immortal == 0:
+            if self.health_now > 0:
+                self.health_now -= dano_arma
+                return self.health_now
+            else:
+                return 0
     
 class HealthBar():
     def __init__(self, x, y, w, h, player):
@@ -114,8 +124,8 @@ class HealthBar():
         pygame.draw.rect(surface, "red", (self.x, self.y, self.w, self.h))
         pygame.draw.rect(surface, "green", (self.x, self.y, self.w * ratio, self.h))  
     
-    def update(self,dano):
-        self.hp-=dano
+    def update(self,vida):
+        self.hp = vida
 
 
 

@@ -171,13 +171,14 @@ from lista_assests import *
 def jogo_principal(window):
     clock=pygame.time.Clock()
 
-    assets =  load_assets()
+    assets = load_assets()
 
     game = True
 
     playerControls={
-    'p1' : [pygame.K_LEFT,pygame.K_RIGHT,pygame.K_UP,pygame.K_DOWN,pygame.K_RSHIFT],
-    'p2' : [pygame.K_a,pygame.K_d,pygame.K_w,pygame.K_s,pygame.K_r]
+    'p1' : [pygame.K_a,pygame.K_d,pygame.K_w,pygame.K_s,pygame.K_r,pygame.K_q], #humberto
+    'p2' : [pygame.K_LEFT,pygame.K_RIGHT,pygame.K_UP,pygame.K_DOWN,pygame.K_RSHIFT,pygame.K_SLASH]#dani
+    
     }
 # ----- Criando um grupo de sprites(que vai agir/atualizar conforme o tempo)
     all_sprites=pygame.sprite.Group()
@@ -192,9 +193,8 @@ def jogo_principal(window):
 
 
 
-
-    player1=Player('P1',assets[PLAYER1_IMG],WIDTH*3/4,HEIGHT-PLAYERS_HEIGHT/2,groups,assets,playerControls['p1']) #adicionando jogador ao jogo
-    player2=Player('P2',assets[PLAYER2_IMG],WIDTH/4,HEIGHT-PLAYERS_HEIGHT/2,groups,assets,playerControls['p2'])
+    player1=Player('P1',assets[PLAYER1_IMG],WIDTH/4,HEIGHT-PLAYERS_HEIGHT/2,groups,assets,playerControls['p1']) #adicionando jogador ao jogo
+    player2=Player('P2',assets[PLAYER2_IMG],WIDTH*3/4,HEIGHT-PLAYERS_HEIGHT/2,groups,assets,playerControls['p2'])
     plataforma1=Block(assets[BLOCK1_IMG],300,380)
     plataforma2=Block(assets[BLOCK2_IMG],BLOCK_WIDTH/2,210)
 
@@ -237,6 +237,8 @@ def jogo_principal(window):
                         plr.speedy -= PLAYER_JUMP
                     if event.key == plr.playerControls[4]:  # Shift
                         plr.shoot()
+                    if event.key == plr.playerControls[5]:
+                        plr.setImmortal(TEMPO_SEM_DANO)
 
 
                 # ----- Verifica se soltou alguma tecla.
@@ -249,6 +251,8 @@ def jogo_principal(window):
                         plr.speedx = 0
                     if event.key == plr.playerControls[2]:
                         plr.speedy += GRAVITY*10
+                        
+
 
 
 
@@ -260,10 +264,10 @@ def jogo_principal(window):
             for player in hit.keys():
                 if player == player1:
                     vidap1 = player1.nivel_vida(DANO_ARMA_1)
-                    health_bar1.update(DANO_ARMA_1)
+                    health_bar1.update(player1.health_now)
                 elif player == player2:
                     vidap2 = player2.nivel_vida(DANO_ARMA_1)
-                    health_bar2.update(DANO_ARMA_1)
+                    health_bar2.update(player2.health_now)
             
             # se um morrer, o outro não morre
             if vidap1 == 0 :

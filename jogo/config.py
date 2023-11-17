@@ -45,3 +45,5 @@ QUIT = 3
 FPS = 60
 
 OBLIQUEANGLE = 45
+
+TEMPO_SEM_DANO = 30 #tempo em frames
