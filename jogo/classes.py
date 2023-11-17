@@ -81,8 +81,8 @@ class Player(pygame.sprite.Sprite):
             self.speedy=0
             self.jump = True
         if self.rect.top < 0: # Para Cima
-            self.rect.top = 0  
-            self.speedy=GRAVITY*30    
+            self.rect.top = 0
+            self.speedy=0
         if self.rect.right > WIDTH: # Para Esquerda
             self.rect.right = WIDTH 
         if self.rect.left < 0: # Para Direita
@@ -137,8 +137,8 @@ class Block(pygame.sprite.Sprite):
         self.image= img # Imagem do personagem
         self.rect=self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
-        self.rect.centerx= posx # Posição plano x
-        self.rect.centery= posy # Posição plano y
+        self.rect.right= posx # Posição plano x
+        self.rect.bottom= posy # Posição plano y
         self.speedx=0
     
 class Bullet(pygame.sprite.Sprite):
