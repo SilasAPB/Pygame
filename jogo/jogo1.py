@@ -195,8 +195,8 @@ def jogo_principal(window):
 
     player1=Player('P1',assets[PLAYER1_IMG],WIDTH/4,HEIGHT-PLAYERS_HEIGHT/2,groups,assets,playerControls['p1']) #adicionando jogador ao jogo
     player2=Player('P2',assets[PLAYER2_IMG],WIDTH*3/4,HEIGHT-PLAYERS_HEIGHT/2,groups,assets,playerControls['p2'])
-    plataforma1=Block(assets[BLOCK1_IMG],300,380)
-    plataforma2=Block(assets[BLOCK2_IMG],BLOCK_WIDTH/2,210)
+    plataforma1=Block(assets[BLOCK1_IMG],600,HEIGHT)
+    plataforma2=Block(assets[BLOCK2_IMG],BLOCK_WIDTH,400)
 
     health_bar1 = HealthBar(10, 10, 150, 30, player1)
 
