@@ -9,8 +9,17 @@ from lista_assests import *
 class Player(pygame.sprite.Sprite):
     def __init__(self,nickname,img,posX,posY,groups,assets,controls):
         pygame.sprite.Sprite.__init__(self)
+        # Informações básicas
         self.name = nickname
         self.image=img #imagem do personagem
+        self.playerControls = controls
+        
+        # Grupos de colisão
+        self.all_sprites = groups['all_sprites']
+        self.all_bullets = groups['all_bullets']
+        self.all_obstaculos = groups['all_obstaculos']
+
+        # Movimentação
         self.rect=self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
         self.rect.centerx = posX #posição plano x
@@ -18,30 +27,33 @@ class Player(pygame.sprite.Sprite):
         self.speedx=0
         self.speedy=0
         self.jump=True
-        self.bullet_img = assets[BULLET_IMG]
-        self.all_sprites = groups['all_sprites']
-        self.all_bullets = groups['all_bullets']
-        self.all_obstaculos = groups['all_obstaculos']
-        self.playerControls = controls
         self.playerDirection = 1
+        if self.rect.x > WIDTH/2:
+            self.playerDirection = -1
+        self.recoilforce = 0
+        
+        # Assets
+        self.assets = assets
+        self.bullet_img = assets[BULLET_IMG]
+
+        # Atributos de jogo
         self.max_health = MAX_HP
         self.health_now = self.max_health
         self.comp_hp = 50
-        self.assets= assets
-        self.immortal = 0
-        if self.rect.x > WIDTH/2:
-            self.playerDirection = -1
+        self.item = self.changeItem()
+        
 
 
     # ----- Função para atualizar a posição do personagem
     def update(self):
-
-        if self.immortal > 0:
-            self.immortal -= 1
-            print(self.immortal)
-
         # ----- Gravidade
         self.speedy+=GRAVITY
+
+
+        # ----- Forca de recuo
+        if self.recoilforce>0: self.recoilforce -= PLAYER_DEACCELERATION
+        elif self.recoilforce<0: self.recoilforce = 0
+        self.speedx-= self.recoilforce * self.playerDirection
 
 
         # ----- Atualiza a posição do player com base na velocidade dele
@@ -88,28 +100,38 @@ class Player(pygame.sprite.Sprite):
             self.rect.right = WIDTH 
         if self.rect.left < 0: # Para Direita
             self.rect.left = 0
+        
+        self.item.update(self.rect.centerx,self.rect.centery,self.playerDirection)
 
+    def changeItem(self):
+        PISTOL={
+                "asset" : "../assets/img/pistola.png",  # Imagem do sprite da arma
+                "itemType" : "STRAIGHT",  # Tipo do projétil
+                "velocity" : 30,  # Velocidade do projétil
+                "spray" : .1,  # % da variação de ângulo de tiro
+                "size" : 8,  # Quantidade de projéteis antes de cooldown
+                "cadence" : 40,  # Quantidade de Frames entre os usos do item
+                "recoil" : 4,  # Velocidade do recuo da arma
+                'reload': 30,  # Cooldown entre a velocidade de recarga da arma
+                "soundEffect" : "",
+                "useParticle" : "",
+                "hitParticle" : ""
+        }
+        return Item((self.rect.centerx, self.rect.centery), self.playerDirection, self.assets, self.all_obstaculos, self.all_sprites, self.all_bullets, PISTOL)
 
     # Função para disparar um projétil
     def useItem(self):
-        gunPos = self.rect.centerx+(PLAYERS_WIDTH/2+10)*self.playerDirection
-        new_bullet = Bullet(self.assets, self.rect.centery, gunPos, VEL*self.playerDirection, self.all_obstaculos, "BOUNCE",0)
-        self.all_sprites.add(new_bullet)
-        self.all_bullets.add(new_bullet)
-        # self.speedx += 3
-
-    def setImmortal(self,tempo):
-        self.immortal = tempo 
+        self.item.use()
         
 
 
     def nivel_vida(self, dano_arma):
-        if self.immortal == 0:
-            if self.health_now > 0:
-                self.health_now -= dano_arma
-                return self.health_now
-            else:
-                return 0
+        if self.health_now > 0:
+            self.health_now -= dano_arma
+            print(self.health_now)
+            return self.health_now
+        else:
+            return 0
     
 class HealthBar():
     def __init__(self, x, y, w, h, player):
@@ -126,8 +148,8 @@ class HealthBar():
         pygame.draw.rect(surface, "red", (self.x, self.y, self.w, self.h))
         pygame.draw.rect(surface, "green", (self.x, self.y, self.w * ratio, self.h))  
     
-    def update(self,vida):
-        self.hp = vida
+    def update(self,dano):
+        self.hp-=dano
 
 
 
@@ -139,26 +161,59 @@ class Block(pygame.sprite.Sprite):
         self.image= img # Imagem do personagem
         self.rect=self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
-        self.rect.right= posx # Posição plano x
-        self.rect.bottom= posy # Posição plano y
+        self.rect.centerx= posx # Posição plano x
+        self.rect.centery= posy # Posição plano y
         self.speedx=0
 
+
+# self.item = Item((self.rect.centerx, self.rect.centery), self.playerDirection, self.assets, self.all_obstaculos, PISTOL)
+class Item(pygame.sprite.Sprite):
+    def __init__(self, playerOrigin, direction, assets, collgroup, all_sprites, all_bullets, projectile):
+        self.originX = playerOrigin[0] + (direction * PLAYERS_WIDTH/2 + 5)
+        self.originY = playerOrigin[1]
+        self.direction = direction
+        self.assets = assets
+        self.all_sprites = all_sprites
+        self.all_bullets = all_bullets
+        self.collideGroups = collgroup
+        self.projectile = projectile
+        self.avaliable = projectile['size']
+        self.cooldown = 0
+    
+    def use(self):
+        if self.avaliable and (not self.cooldown):
+            new_bullet = Bullet(self.assets, self.originX, self.originY, self.projectile["velocity"]*self.direction, self.collideGroups, self.projectile["itemType"],self.projectile["spray"])
+            self.all_sprites.add(new_bullet)
+            self.all_bullets.add(new_bullet)
+            self.avaliable-=1
+            self.cooldown = self.projectile['cadence']
+        elif not (self.avaliable and self.cooldown):
+            self.avaliable = self.projectile['size']
+            self.cooldown = self.projectile['reload']
+
+    def update(self,x,y,direction):
+        if self.cooldown : self.cooldown -= 1
+        self.originX = x + (direction * PLAYERS_WIDTH/2) + (5*direction)
+        self.originY = y
+        self.direction = direction
+
+
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, assets, centery, left, vx, collgroup, type, spray):
+    def __init__(self, assets,posx, posy, vel, collgroup, type, spray):
         pygame.sprite.Sprite.__init__(self)
         self.type = type
         self.image = assets[BULLET_IMG]
         self.rect = self.image.get_rect()
-        self.rect.left = left
-        self.rect.centery = centery
-        self.angle = radians(randint(-floor((MAX_SPRAY*spray/100)),(floor(MAX_SPRAY*spray/100))))
+        self.rect.centerx = posx
+        self.rect.centery = posy
+        self.angle = radians(randint(-floor((MAX_SPRAY*spray)),(floor(MAX_SPRAY*spray))))
         print('angle',self.angle)
         if self.type == "OBLIQUE":
-            self.speedx = abs(cos(OBLIQUEANGLE + self.angle))*vx # Velocidade fixa para a direita
-            self.speedy = -sin(OBLIQUEANGLE)*abs(vx) # Velocidade fixa para a direita
+            self.speedx = abs(cos(OBLIQUEANGLE + self.angle))*vel # Velocidade fixa para a direita
+            self.speedy = -sin(OBLIQUEANGLE)*abs(vel) # Velocidade fixa para a direita
         else:
-            self.speedx = cos(self.angle)*vx # Velocidade fixa para a direita
-            self.speedy = -sin(self.angle)*abs(vx) # Velocidade fixa para a direita
+            self.speedx = cos(self.angle)*vel # Velocidade fixa para a direita
+            self.speedy = -sin(self.angle)*abs(vel) # Velocidade fixa para a direita
         self.collideGroup = collgroup
     
     def update(self):
