@@ -221,7 +221,9 @@ def jogo_principal(window):
             
             # ----- Verifica se usuário fechou o jogo
             if event.type == pygame.QUIT:
+                a=1
                 game = False
+                
             # ----- Verifica se apertou alguma tecla.
             if event.type == pygame.KEYDOWN:
                 # ----- Dependendo da tecla, altera a velocidade.
@@ -262,10 +264,10 @@ def jogo_principal(window):
             for player in hit.keys():
                 if player == player1:
                     vidap1 = player1.nivel_vida(DANO_ARMA_1)
-                    health_bar1.update(player1.health_now)
+                    health_bar1.update(vidap1)
                 elif player == player2:
                     vidap2 = player2.nivel_vida(DANO_ARMA_1)
-                    health_bar2.update(player2.health_now)
+                    health_bar2.update(vidap2)
             
             # se um morrer, o outro não morre
             if vidap1 == 0 :
@@ -296,5 +298,8 @@ def jogo_principal(window):
         pygame.display.update()
         clock.tick(FPS)  # Mostra o novo frame para o jogador
 
-    state=OVER
+    if a == 1:
+        state=QUIT
+    else:
+        state=OVER
     return state
