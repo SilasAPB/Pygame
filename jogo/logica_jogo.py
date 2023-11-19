@@ -5,6 +5,7 @@ from classes import *
 from jogo1 import jogo_principal
 
 
+
 pygame.init()
 pygame.mixer.init()
 
