@@ -1,7 +1,7 @@
 # ===== Inicialização =====
 # ----- Importa e inicia pacotes
 #from typing import Any
-import pygame
+import pygame,os,sys
 from math import sin,cos
 
 
@@ -56,9 +56,15 @@ def jogo_principal(window):
     all_obstaculos.add(plataforma1)
     all_obstaculos.add(plataforma2)
 
+        
+    pygame.mixer.music.load(os.path.join(SND_DIR, 'crack.mp3'))
+    pygame.mixer.music.set_volume(0.4)
+    pygame.mixer.music.play(loops=-1)
+    
     while game:
         clock.tick(FPS)
 
+        Sair=0
     # ----- Trata eventos
         for event in pygame.event.get():
             
@@ -144,5 +150,6 @@ def jogo_principal(window):
     if Sair==1:
         state=QUIT
     else:
+        pygame.mixer.music.unload()
         state=OVER
     return state

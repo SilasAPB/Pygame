@@ -116,9 +116,9 @@ class Player(pygame.sprite.Sprite):
                 "velocity" : 30,  # Velocidade do projétil
                 "spray" : .1,  # % da variação de ângulo de tiro
                 "size" : 8,  # Quantidade de projéteis antes de cooldown
-                "cadence" : 40,  # Quantidade de Frames entre os usos do item
+                "cadence" : 10,  # Quantidade de Frames entre os usos do item
                 "recoil" : 4,  # Velocidade do recuo da arma
-                'reload': 30,  # Cooldown entre a velocidade de recarga da arma
+                'reload': 3,  # Cooldown entre a velocidade de recarga da arma
                 "soundEffect" : "",
                 "useParticle" : "",
                 "hitParticle" : ""

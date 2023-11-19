@@ -5,7 +5,7 @@ HEIGHT=720
 
 PLAYERS_WIDTH=80
 PLAYERS_HEIGHT=80
-PLAYER_JUMP = 35
+PLAYER_JUMP = 50
 
 BLOCK_WIDTH=480
 BLOCK_HEIGHT=80
@@ -27,6 +27,7 @@ BARRA_WIDTH=150
 BARRA_HEIGHT=30
 
 IMG_DIR = path.join(path.dirname(__file__), 'assets', 'img')
+SND_DIR = path.join(path.dirname(__file__), 'assets', 'snd')
 
 # Define algumas variáveis com as cores básicas
 WHITE = (255, 255, 255)

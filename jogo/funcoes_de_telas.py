@@ -19,6 +19,10 @@ def init_screen(window):
     background=pygame.transform.scale(background, (WIDTH, HEIGHT))
     background_rect = background.get_rect()
 
+    pygame.mixer.music.load(os.path.join(SND_DIR, 'music.mp3'))
+    pygame.mixer.music.set_volume(0.4)
+    pygame.mixer.music.play(loops=-1)
+
     running = True
     while running:
 
@@ -50,6 +54,7 @@ def init_screen(window):
 
         pygame.display.update()
 
+    pygame.mixer.music.unload()
     return state
 
 def end_screen(window):
@@ -60,6 +65,10 @@ def end_screen(window):
     background = pygame.image.load(path.join(IMG_DIR, 'fim.png')).convert()
     background=pygame.transform.scale(background, (WIDTH, HEIGHT))
     background_rect = background.get_rect()
+    
+    pygame.mixer.music.load(os.path.join(SND_DIR, 'omago.mp3'))
+    pygame.mixer.music.set_volume(0.4)
+    pygame.mixer.music.play(loops=0)
 
     running = True
     while running:
@@ -84,7 +93,8 @@ def end_screen(window):
 
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
-
+        
+    pygame.mixer.music.unload()
     return state
 
 
