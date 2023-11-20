@@ -44,6 +44,9 @@ OVER =2
 QUIT = 3
 MAPS = 4
 
+MIN_MAP_W=320
+MIN_MAP_H=180
+
 
 FPS = 60
 
