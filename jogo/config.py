@@ -42,6 +42,8 @@ INIT = 0
 GAME = 1
 OVER =2
 QUIT = 3
+MAPS = 4
+
 
 FPS = 60
 

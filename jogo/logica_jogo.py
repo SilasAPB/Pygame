@@ -1,6 +1,6 @@
 from config import *
 import pygame,sys
-from funcoes_de_telas import init_screen,end_screen
+from funcoes_de_telas import init_screen,end_screen,map_screen
 from classes import *
 from jogo1 import jogo_principal
 
@@ -22,6 +22,8 @@ while state != QUIT :
         state = jogo_principal(window)
     elif state == OVER:
         state = end_screen(window)
+    elif state == MAPS:
+        state = map_screen(window)
     else:
         state=QUIT
 
