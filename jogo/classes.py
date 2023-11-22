@@ -82,17 +82,17 @@ class Player(pygame.sprite.Sprite):
                 self.speedx = 0
 
             if dists[1] == min(dists): # Right edge
-                self.rect.right = obstaculos[0].rect.left
                 self.speedx = 0
+                self.rect.right = obstaculos[0].rect.left
 
             if dists[2] == min(dists): # Bottom Edge
-                self.rect.bottom = obstaculos[0].rect.top
                 self.speedy = 0
+                self.rect.bottom=obstaculos[0].rect.top
                 self.jump = True
 
             if dists[3] == min(dists): # Top Edge
-                self.rect.top = obstaculos[0].rect.bottom
                 self.speedy = 0
+                self.rect.top=obstaculos[0].rect.bottom
 
 
         # ----- Mantem o personagem dentro da tela
@@ -104,7 +104,7 @@ class Player(pygame.sprite.Sprite):
             self.rect.top = 0
             self.speedy=0
         if self.rect.right > WIDTH: # Para Esquerda
-            self.rect.right = WIDTH
+            self.rect.right = WIDTH 
         if self.rect.left < 0: # Para Direita
             self.rect.left = 0
         

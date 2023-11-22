@@ -25,7 +25,7 @@ while state != QUIT :
         state = jogo_principal(window,2)
     elif state == GAME3:
         state = jogo_principal(window,3)
-    elif state == GAME1:
+    elif state == GAME4:
         state = jogo_principal(window,4)
     elif state == OVER:
         state = end_screen(window)

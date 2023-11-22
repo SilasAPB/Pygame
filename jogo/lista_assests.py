@@ -27,8 +27,15 @@ def load_assets():
     assets[BACKGROUND]=pygame.image.load(os.path.join(IMG_DIR, 'background.gif')).convert()
     assets[BACKGROUND]=pygame.transform.scale(assets[BACKGROUND], (WIDTH, HEIGHT))
 
-    assets[BACKGROUND3]=pygame.image.load(os.path.join(IMG_DIR, 'background.gif')).convert()
-    assets[BACKGROUND3]=pygame.transform.scale(assets[BACKGROUND], (WIDTH, HEIGHT))
+    assets[BACKGROUND2]=pygame.image.load(os.path.join(IMG_DIR,'mapa2.png'))
+    assets[BACKGROUND2]=pygame.transform.scale(assets[BACKGROUND2],(WIDTH,HEIGHT))
+
+
+    assets[BACKGROUND3]=pygame.image.load(os.path.join(IMG_DIR, 'mapa3.png'))
+    assets[BACKGROUND3]=pygame.transform.scale(assets[BACKGROUND3], (WIDTH, HEIGHT))
+
+    assets[BACKGROUND4]=pygame.image.load(os.path.join(IMG_DIR,'mapa4.png'))
+    assets[BACKGROUND4]=pygame.transform.scale(assets[BACKGROUND4],(WIDTH,HEIGHT))
 
     assets[PLAYER1_IMG]=pygame.image.load(os.path.join(IMG_DIR,'player1.png'))
     assets[PLAYER1_IMG]=pygame.transform.scale(assets[PLAYER1_IMG], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
@@ -39,8 +46,8 @@ def load_assets():
     assets[BLOCK1_IMG]=pygame.image.load(os.path.join(IMG_DIR,'block.png'))
     assets[BLOCK1_IMG]=pygame.transform.scale(assets[BLOCK1_IMG], (BLOCK_WIDTH, BLOCK_HEIGHT))
 
-    assets[BLOCK3_IMG]=pygame.image.load(os.path.join(IMG_DIR,'Plataforma_mapa1.png'))
-    assets[BLOCK3_IMG]=pygame.transform.scale(assets[BLOCK1_IMG], (BLOCK_WIDTH, BLOCK_HEIGHT))
+    # assets[BLOCK3_IMG]=pygame.image.load(os.path.join(IMG_DIR,'Plataforma_mapa1.png'))
+    # assets[BLOCK3_IMG]=pygame.transform.scale(assets[BLOCK1_IMG], (BLOCK_WIDTH, BLOCK_HEIGHT))
     
 
     

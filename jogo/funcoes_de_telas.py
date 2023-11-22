@@ -143,10 +143,10 @@ def map_screen(window):
                     state=GAME2
                     running=False   
                 if 5*WIDTH/8-30 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+30 and 5*HEIGHT/8-30 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+30:
-                    state=GAME3    
+                    state=GAME4    
                     running=False   
                 if WIDTH/8-30 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+30 and 5*HEIGHT/8-30 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+30:
-                    state=GAME4
+                    state=GAME3
                     running=False   
 
         # A cada loop, redesenha o fundo e os sprites
