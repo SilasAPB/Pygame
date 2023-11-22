@@ -137,16 +137,16 @@ def map_screen(window):
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if WIDTH/8-30 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+30 and HEIGHT/8-30 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+30:
-                    state=GAME
+                    state=GAME1
                     running=False   
                 if 5*WIDTH/8-30 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+30 and HEIGHT/8-30 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+30:
-                    state=GAME
+                    state=GAME2
                     running=False   
                 if 5*WIDTH/8-30 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+30 and 5*HEIGHT/8-30 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+30:
-                    state=GAME
+                    state=GAME3    
                     running=False   
                 if WIDTH/8-30 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+30 and 5*HEIGHT/8-30 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+30:
-                    state=GAME
+                    state=GAME4
                     running=False   
 
         # A cada loop, redesenha o fundo e os sprites
@@ -170,9 +170,9 @@ def map_screen(window):
           
         #DESENHA O BOTÂO 3
         if WIDTH/8-30 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+30 and 5*HEIGHT/8-30 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+30:
-            pygame.draw.rect(window,WHITE,[WIDTH/8-30,5*HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60])   #Aceso
+            pygame.draw.rect(window,WHITE,[WIDTH/8-30,5*HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60],border_radius=12)   #Aceso
         else: 
-            pygame.draw.rect(window, BLACK,[WIDTH/8-30,5*HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60])#Apagado
+            pygame.draw.rect(window, BLACK,[WIDTH/8-30,5*HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60],border_radius=12)#Apagado
           
           
         #DESENHA O BOTÂO 4
