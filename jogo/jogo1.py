@@ -85,9 +85,9 @@ def jogo_principal(window):
                         plr.playerDirection = +1
                     if event.key == plr.playerControls[2] and plr.jump==True:  # Up
                         plr.jump = False
-                        plr.speedy -= PLAYER_JUMP
+                        plr.speedy = -PLAYER_JUMP
                     if event.key == plr.playerControls[4]:  # Shift
-                        plr.useItem()
+                        plr.firing = True
                     if event.key == plr.playerControls[5]:
                         plr.setImmortal(TEMPO_SEM_DANO)
 
@@ -100,8 +100,8 @@ def jogo_principal(window):
                         plr.speedx = 0
                     if event.key == plr.playerControls[1]:
                         plr.speedx = 0
-                    # if event.key == plr.playerControls[2]:
-                    #     plr.speedy += GRAVITY*10
+                    if event.key == plr.playerControls[4]:  # Shift
+                        plr.firing = False
 
 
 
