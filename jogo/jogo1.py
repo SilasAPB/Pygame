@@ -11,7 +11,7 @@ from lista_assests import *
 
 
 # ===== Loop principal =====
-def jogo_principal(window):
+def jogo_principal(window,tela):
     clock=pygame.time.Clock()
 
     assets = load_assets()
@@ -85,7 +85,7 @@ def jogo_principal(window):
                         plr.playerDirection = +1
                     if event.key == plr.playerControls[2] and plr.jump==True:  # Up
                         plr.jump = False
-                        plr.speedy = -PLAYER_JUMP
+                        plr.speedy -= PLAYER_JUMP
                     if event.key == plr.playerControls[4]:  # Shift
                         plr.firing = True
                     if event.key == plr.playerControls[5]:
@@ -136,7 +136,17 @@ def jogo_principal(window):
 
         # ----- Gera saídas
         window.fill((0, 0, 255))  # Preenche com a cor branca
-        window.blit(assets[BACKGROUD], (0,0)) # Nosso Fundo
+
+        if tela==1:
+            window.blit(assets[BACKGROUND], (0,0)) # Nosso Fundo do mapa 1
+        if tela==2:
+            window.blit(assets[BACKGROUND2], (0,0)) # Nosso Fundo do mapa 2
+        if tela==3:
+            window.blit(assets[BACKGROUND4], (0,0)) # Nosso Fundodo mapa 3
+        if tela==4:
+            window.blit(assets[BACKGROUND3], (0,0)) # Nosso Fundo do mapa 4
+
+
         health_bar1.draw(window)
         health_bar2.draw(window)
 
