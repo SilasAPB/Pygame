@@ -19,5 +19,6 @@ Os comandos do player 2 (player da direita):
 ↣ : Deslocar para a direita
 ↢ : Deslocar para a esquerda
 ↥ : Pular
-"Shift" : Intangibilidade
+/ : Intangibilidade
+"Shift" : Atirar
 
