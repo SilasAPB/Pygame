@@ -20,13 +20,13 @@ while state != QUIT :
     if state == INIT:
         state = init_screen(window)
     elif state == GAME1:
-        state = jogo_principal(window,1)
+        state = jogo_principal(window,1)#mapa 1
     elif state == GAME2:
-        state = jogo_principal(window,2)
+        state = jogo_principal(window,2)#mapa 2
     elif state == GAME3:
-        state = jogo_principal(window,3)
+        state = jogo_principal(window,3)#mapa 3
     elif state == GAME4:
-        state = jogo_principal(window,4)
+        state = jogo_principal(window,4)#mapa 4
     elif state == OVER:
         state = end_screen(window)
     elif state == MAPS:

@@ -86,11 +86,11 @@ def load_assets():
 
 
  #ASSETS MAPA 4: 
-    assets[BLOCK1_MAP3]=pygame.image.load(os.path.join(IMG_DIR,'bloco1mapa4.png'))
-    assets[BLOCK1_MAP3]=pygame.transform.scale(assets[BLOCK1_MAP4], (BLOCK_WIDTH, BLOCK_HEIGHT))
+    assets[BLOCK1_MAP4]=pygame.image.load(os.path.join(IMG_DIR,'bloco1mapa4.png'))
+    assets[BLOCK1_MAP4]=pygame.transform.scale(assets[BLOCK1_MAP4], (BLOCK_WIDTH, BLOCK_HEIGHT))
 
-    assets[BLOCK1_MAP3]=pygame.image.load(os.path.join(IMG_DIR,'bloco2mapa4.png'))
-    assets[BLOCK1_MAP3]=pygame.transform.scale(assets[BLOCK2_MAP4], (BLOCK_WIDTH, BLOCK_HEIGHT))
+    assets[BLOCK2_MAP4]=pygame.image.load(os.path.join(IMG_DIR,'bloco2mapa4.png'))
+    assets[BLOCK2_MAP4]=pygame.transform.scale(assets[BLOCK2_MAP4], (BLOCK_WIDTH, BLOCK_HEIGHT))
 
 
 
