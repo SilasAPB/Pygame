@@ -9,10 +9,19 @@ from lista_assests import *
 def person_screen(window):
     clock = pygame.time.Clock()
 
+
+    smallfont = pygame.font.SysFont('lucidaconsola',40) 
+    texto_p1 = smallfont.render('Player 1: escolha seu personagem com as teclas W,A,S,D' , True , RED)
+    texto_p2 = smallfont.render('Player 2: escolha seu personagem com as setas no canto inferior do teclado.', True , BLUE)
+
+
+
+
     background = pygame.image.load(path.join(IMG_DIR, 'escolha_mapa.png')).convert()
     background=pygame.transform.scale(background, (WIDTH, HEIGHT))
     background_rect = background.get_rect()
     
+
     pygame.mixer.music.load(os.path.join(SND_DIR, 'person.mp3'))
     pygame.mixer.music.set_volume(0.4)
     pygame.mixer.music.play(loops=0)
@@ -70,6 +79,9 @@ def person_screen(window):
         window.blit(assets[PLAYER3_IMG], (5*WIDTH/8,HEIGHT/8))
         window.blit(assets[PLAYER4_IMG], (5*WIDTH/8,5*HEIGHT/8))
         window.blit(assets[PLAYER5_IMG], (WIDTH/8,5*HEIGHT/8))
+        window.blit(texto_p1,(5,HEIGHT-30))
+        window.blit(texto_p2,(5,HEIGHT-70))
+    
 
 
         pygame.display.flip()
