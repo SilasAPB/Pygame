@@ -28,6 +28,8 @@ class Player(pygame.sprite.Sprite):
         self.speedy=0
         self.jump=True
         self.playerDirection = 1
+        self.image_noflip=img
+        self.image_flip=pygame.transform.flip(self.image,True,False)
         if self.rect.x > WIDTH/2:
             self.playerDirection = -1
         self.recoilforce = 0
@@ -52,6 +54,13 @@ class Player(pygame.sprite.Sprite):
         if self.immortal > 0:
             self.immortal -= 1
             print(self.immortal)
+
+
+        if self.playerDirection<0:
+            self.image=self.image_flip
+        else:
+            self.image=self.image_noflip
+
 
         # ----- Gravidade
         self.speedy+=GRAVITY
@@ -112,6 +121,8 @@ class Player(pygame.sprite.Sprite):
 
         if self.firing:
             self.useItem()
+
+
 
     def changeItem(self):
         PISTOL={

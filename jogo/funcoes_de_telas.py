@@ -11,14 +11,21 @@ from lista_assests import *
 def init_screen(window):
     clock = pygame.time.Clock()
 
-    smallfont = pygame.font.SysFont('lucidaconsola',35) 
+    smallfont = pygame.font.SysFont('lucidaconsola',25) 
     text = smallfont.render('JOGAR' , True , BLUE)
+    text_rect=text.get_rect(center=(WIDTH/2,HEIGHT/2))
+
+    
+
+    texto_explicacaop1 = smallfont.render('Player 1: Jogador da esquerda' , True , RED)
+    texto_explicacaop2 = smallfont.render('Player 2: Jogador da direita' , True , BLUE)
 
 
 
     background = pygame.image.load(path.join(IMG_DIR, 'inicio.png')).convert()
     background=pygame.transform.scale(background, (WIDTH, HEIGHT))
     background_rect = background.get_rect()
+
 
     pygame.mixer.music.load(os.path.join(SND_DIR, 'music.mp3'))
     pygame.mixer.music.set_volume(0.4)
@@ -36,7 +43,7 @@ def init_screen(window):
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if WIDTH/2-100 <= mouse[0] <= WIDTH/2+100 and HEIGHT/2-30 <= mouse[1] <= HEIGHT/2+30:
-                    state=MAPS
+                    state=PLAYERS
                     running=False
 
         window.fill(BLACK)
@@ -45,13 +52,18 @@ def init_screen(window):
         mouse=pygame.mouse.get_pos()
         
         if WIDTH/2-100 <=   mouse[0] <= WIDTH/2+100 and HEIGHT/2-30 <= mouse[1] <= HEIGHT/2+30:
-            pygame.draw.rect(window,WHITE,[WIDTH/2-100,HEIGHT/2-30,200,60]) 
+            pygame.draw.rect(window,WHITE,[WIDTH/2-100,HEIGHT/2-30,200,60],border_radius=20) 
           
         else: 
-            pygame.draw.rect(window, BLACK,[WIDTH/2-100,HEIGHT/2-30,200,60])
+            pygame.draw.rect(window, BLACK,[WIDTH/2-100,HEIGHT/2-30,200,60],border_radius=20)
 
         
-        window.blit(text, (WIDTH/2-50, HEIGHT/2-15))
+        window.blit(text,text_rect)
+        window.blit(texto_explicacaop1,(30,HEIGHT - 50))
+        window.blit(texto_explicacaop2,(30,HEIGHT - 30))
+
+
+
 
         pygame.display.update()
 
@@ -61,6 +73,9 @@ def init_screen(window):
 def end_screen(window):
     # Variável para o ajuste de velocidade
     clock = pygame.time.Clock()
+
+    smallfont = pygame.font.SysFont('couriernew',30) 
+    text = smallfont.render('Aperte ESPAÇO para jogar novamente ou ESC para sair do jogo' , True , WHITE)
 
     # Carrega o fundo da tela inicial
     background = pygame.image.load(path.join(IMG_DIR, 'fim.png')).convert()
@@ -84,13 +99,20 @@ def end_screen(window):
                 state = QUIT
                 running = False
 
-            if event.type == pygame.KEYUP:
-                state = INIT
-                running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE: 
+                    state = INIT
+                    running = False
+                if event.key == pygame.K_ESCAPE: 
+                    state = QUIT
+                    running = False
 
         # A cada loop, redesenha o fundo e os sprites
         window.fill(BLACK)
         window.blit(background, background_rect)
+
+        window.blit(text, (100, HEIGHT-100))
+       
 
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
@@ -136,16 +158,16 @@ def map_screen(window):
                 running = False
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if WIDTH/8-30 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+30 and HEIGHT/8-30 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+30:
+                if WIDTH/8-10 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+10 and HEIGHT/8-10 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+10:
                     state=GAME1
                     running=False   
-                if 5*WIDTH/8-30 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+30 and HEIGHT/8-30 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+30:
+                if 5*WIDTH/8-10 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+10 and HEIGHT/8-10 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+10:
                     state=GAME2
                     running=False   
-                if 5*WIDTH/8-30 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+30 and 5*HEIGHT/8-30 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+30:
+                if 5*WIDTH/8-10 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+10 and 5*HEIGHT/8-10 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+10:
                     state=GAME4    
                     running=False   
-                if WIDTH/8-30 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+30 and 5*HEIGHT/8-30 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+30:
+                if WIDTH/8-10 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+10 and 5*HEIGHT/8-10 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+10:
                     state=GAME3
                     running=False   
 
@@ -156,30 +178,30 @@ def map_screen(window):
         mouse=pygame.mouse.get_pos() #pega a posição do mouse
         
         #DESENHA O BOTÂO 1
-        if WIDTH/8-30 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+30 and HEIGHT/8-30 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+30:
-            pygame.draw.rect(window,WHITE,[WIDTH/8-30,HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60])   #Aceso
+        if WIDTH/8-10 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+10 and HEIGHT/8-10 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+10:
+            pygame.draw.rect(window,WHITE,[WIDTH/8-10,HEIGHT/8-10,MIN_MAP_W+20,MIN_MAP_H+20],border_radius=12)   #Aceso
         else: 
-            pygame.draw.rect(window, BLACK,[WIDTH/8-30,HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60])#Apagado
+            pygame.draw.rect(window, BLACK,[WIDTH/8-10,HEIGHT/8-10,MIN_MAP_W+20,MIN_MAP_H+20],border_radius=12)#Apagado
           
         #DESENHA O BOTÂO 2
-        if 5*WIDTH/8-30 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+30 and HEIGHT/8-30 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+30:
-            pygame.draw.rect(window,WHITE,[5*WIDTH/8-30,HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60])   #Aceso
+        if 5*WIDTH/8-10 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+10 and HEIGHT/8-10 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+10:
+            pygame.draw.rect(window,WHITE,[5*WIDTH/8-10,HEIGHT/8-10,MIN_MAP_W+20,MIN_MAP_H+20],border_radius=12)   #Aceso
         else: 
-            pygame.draw.rect(window, BLACK,[5*WIDTH/8-30,HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60])#Apagado
+            pygame.draw.rect(window, BLACK,[5*WIDTH/8-10,HEIGHT/8-10,MIN_MAP_W+20,MIN_MAP_H+20],border_radius=12)#Apagado
           
           
         #DESENHA O BOTÂO 3
-        if WIDTH/8-30 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+30 and 5*HEIGHT/8-30 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+30:
-            pygame.draw.rect(window,WHITE,[WIDTH/8-30,5*HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60],border_radius=12)   #Aceso
+        if WIDTH/8-10 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+10 and 5*HEIGHT/8-10 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+10:
+            pygame.draw.rect(window,WHITE,[WIDTH/8-10,5*HEIGHT/8-10,MIN_MAP_W+20,MIN_MAP_H+20],border_radius=12)   #Aceso
         else: 
-            pygame.draw.rect(window, BLACK,[WIDTH/8-30,5*HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60],border_radius=12)#Apagado
+            pygame.draw.rect(window, BLACK,[WIDTH/8-10,5*HEIGHT/8-10,MIN_MAP_W+20,MIN_MAP_H+20],border_radius=12)#Apagado
           
           
         #DESENHA O BOTÂO 4
-        if 5*WIDTH/8-30 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+30 and 5*HEIGHT/8-30 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+30:
-            pygame.draw.rect(window,WHITE,[5*WIDTH/8-30,5*HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60])   #Aceso
+        if 5*WIDTH/8-10 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+10 and 5*HEIGHT/8-10 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+10:
+            pygame.draw.rect(window,WHITE,[5*WIDTH/8-10,5*HEIGHT/8-10,MIN_MAP_W+20,MIN_MAP_H+20],border_radius=12)   #Aceso
         else: 
-            pygame.draw.rect(window, BLACK,[5*WIDTH/8-30,5*HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60])#Apagado
+            pygame.draw.rect(window, BLACK,[5*WIDTH/8-10,5*HEIGHT/8-10,MIN_MAP_W+20,MIN_MAP_H+20],border_radius=12)#Apagado
           
         window.blit(assets[MINIMAP1_IMG], (WIDTH/8,HEIGHT/8))
         window.blit(assets[MINIMAP2_IMG], (5*WIDTH/8,HEIGHT/8))
@@ -189,8 +211,8 @@ def map_screen(window):
         
         window.blit(text1, (WIDTH/8+50, HEIGHT/4+100))
         window.blit(text2, (5*WIDTH/8+55, HEIGHT/4+100))
-        window.blit(text3, (WIDTH/8+20, 3*HEIGHT/4-120))
-        window.blit(text4, (5*WIDTH/8+65, 3*HEIGHT/4-120))
+        window.blit(text3, (WIDTH/8+20, 3*HEIGHT/4-135))
+        window.blit(text4, (5*WIDTH/8+65, 3*HEIGHT/4-135))
  
 
 
