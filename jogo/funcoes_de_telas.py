@@ -11,14 +11,21 @@ from lista_assests import *
 def init_screen(window):
     clock = pygame.time.Clock()
 
-    smallfont = pygame.font.SysFont('lucidaconsola',35) 
+    smallfont = pygame.font.SysFont('lucidaconsola',25) 
     text = smallfont.render('JOGAR' , True , BLUE)
+    text_rect=text.get_rect(center=(WIDTH/2,HEIGHT/2))
+
+    
+
+    texto_explicacaop1 = smallfont.render('Player 1: Jogador da esquerda' , True , RED)
+    texto_explicacaop2 = smallfont.render('Player 2: Jogador da direita' , True , BLUE)
 
 
 
     background = pygame.image.load(path.join(IMG_DIR, 'inicio.png')).convert()
     background=pygame.transform.scale(background, (WIDTH, HEIGHT))
     background_rect = background.get_rect()
+
 
     pygame.mixer.music.load(os.path.join(SND_DIR, 'music.mp3'))
     pygame.mixer.music.set_volume(0.4)
@@ -51,7 +58,12 @@ def init_screen(window):
             pygame.draw.rect(window, BLACK,[WIDTH/2-100,HEIGHT/2-30,200,60],border_radius=20)
 
         
-        window.blit(text, (WIDTH/2-50, HEIGHT/2-15))
+        window.blit(text,text_rect)
+        window.blit(texto_explicacaop1,(30,HEIGHT - 50))
+        window.blit(texto_explicacaop2,(30,HEIGHT - 30))
+
+
+
 
         pygame.display.update()
 
@@ -100,6 +112,7 @@ def end_screen(window):
         window.blit(background, background_rect)
 
         window.blit(text, (100, HEIGHT-100))
+       
 
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
