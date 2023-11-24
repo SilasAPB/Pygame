@@ -36,7 +36,7 @@ def init_screen(window):
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if WIDTH/2-100 <= mouse[0] <= WIDTH/2+100 and HEIGHT/2-30 <= mouse[1] <= HEIGHT/2+30:
-                    state=MAPS
+                    state=PLAYERS
                     running=False
 
         window.fill(BLACK)
@@ -136,16 +136,16 @@ def map_screen(window):
                 running = False
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if WIDTH/8-30 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+30 and HEIGHT/8-30 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+30:
+                if WIDTH/8-10 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+10 and HEIGHT/8-10 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+10:
                     state=GAME1
                     running=False   
-                if 5*WIDTH/8-30 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+30 and HEIGHT/8-30 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+30:
+                if 5*WIDTH/8-10 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+10 and HEIGHT/8-10 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+10:
                     state=GAME2
                     running=False   
-                if 5*WIDTH/8-30 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+30 and 5*HEIGHT/8-30 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+30:
+                if 5*WIDTH/8-10 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+10 and 5*HEIGHT/8-10 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+10:
                     state=GAME4    
                     running=False   
-                if WIDTH/8-30 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+30 and 5*HEIGHT/8-30 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+30:
+                if WIDTH/8-10 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+10 and 5*HEIGHT/8-10 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+10:
                     state=GAME3
                     running=False   
 
@@ -156,30 +156,30 @@ def map_screen(window):
         mouse=pygame.mouse.get_pos() #pega a posição do mouse
         
         #DESENHA O BOTÂO 1
-        if WIDTH/8-30 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+30 and HEIGHT/8-30 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+30:
-            pygame.draw.rect(window,WHITE,[WIDTH/8-30,HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60])   #Aceso
+        if WIDTH/8-10 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+10 and HEIGHT/8-10 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+10:
+            pygame.draw.rect(window,WHITE,[WIDTH/8-10,HEIGHT/8-10,MIN_MAP_W+20,MIN_MAP_H+20])   #Aceso
         else: 
-            pygame.draw.rect(window, BLACK,[WIDTH/8-30,HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60])#Apagado
+            pygame.draw.rect(window, BLACK,[WIDTH/8-10,HEIGHT/8-10,MIN_MAP_W+20,MIN_MAP_H+20])#Apagado
           
         #DESENHA O BOTÂO 2
-        if 5*WIDTH/8-30 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+30 and HEIGHT/8-30 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+30:
-            pygame.draw.rect(window,WHITE,[5*WIDTH/8-30,HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60])   #Aceso
+        if 5*WIDTH/8-10 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+10 and HEIGHT/8-10 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+10:
+            pygame.draw.rect(window,WHITE,[5*WIDTH/8-10,HEIGHT/8-10,MIN_MAP_W+20,MIN_MAP_H+20])   #Aceso
         else: 
-            pygame.draw.rect(window, BLACK,[5*WIDTH/8-30,HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60])#Apagado
+            pygame.draw.rect(window, BLACK,[5*WIDTH/8-10,HEIGHT/8-10,MIN_MAP_W+20,MIN_MAP_H+20])#Apagado
           
           
         #DESENHA O BOTÂO 3
-        if WIDTH/8-30 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+30 and 5*HEIGHT/8-30 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+30:
-            pygame.draw.rect(window,WHITE,[WIDTH/8-30,5*HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60],border_radius=12)   #Aceso
+        if WIDTH/8-10 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+10 and 5*HEIGHT/8-10 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+10:
+            pygame.draw.rect(window,WHITE,[WIDTH/8-10,5*HEIGHT/8-10,MIN_MAP_W+20,MIN_MAP_H+20],border_radius=12)   #Aceso
         else: 
-            pygame.draw.rect(window, BLACK,[WIDTH/8-30,5*HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60],border_radius=12)#Apagado
+            pygame.draw.rect(window, BLACK,[WIDTH/8-10,5*HEIGHT/8-10,MIN_MAP_W+20,MIN_MAP_H+20],border_radius=12)#Apagado
           
           
         #DESENHA O BOTÂO 4
-        if 5*WIDTH/8-30 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+30 and 5*HEIGHT/8-30 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+30:
-            pygame.draw.rect(window,WHITE,[5*WIDTH/8-30,5*HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60])   #Aceso
+        if 5*WIDTH/8-10 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+10 and 5*HEIGHT/8-10 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+10:
+            pygame.draw.rect(window,WHITE,[5*WIDTH/8-10,5*HEIGHT/8-10,MIN_MAP_W+20,MIN_MAP_H+20])   #Aceso
         else: 
-            pygame.draw.rect(window, BLACK,[5*WIDTH/8-30,5*HEIGHT/8-30,MIN_MAP_W+60,MIN_MAP_H+60])#Apagado
+            pygame.draw.rect(window, BLACK,[5*WIDTH/8-10,5*HEIGHT/8-10,MIN_MAP_W+20,MIN_MAP_H+20])#Apagado
           
         window.blit(assets[MINIMAP1_IMG], (WIDTH/8,HEIGHT/8))
         window.blit(assets[MINIMAP2_IMG], (5*WIDTH/8,HEIGHT/8))
@@ -189,8 +189,8 @@ def map_screen(window):
         
         window.blit(text1, (WIDTH/8+50, HEIGHT/4+100))
         window.blit(text2, (5*WIDTH/8+55, HEIGHT/4+100))
-        window.blit(text3, (WIDTH/8+20, 3*HEIGHT/4-120))
-        window.blit(text4, (5*WIDTH/8+65, 3*HEIGHT/4-120))
+        window.blit(text3, (WIDTH/8+20, 3*HEIGHT/4-135))
+        window.blit(text4, (5*WIDTH/8+65, 3*HEIGHT/4-135))
  
 
 

@@ -10,6 +10,9 @@ BACKGROUND4 = 'background4'
 
 PLAYER1_IMG = 'player_1_img'
 PLAYER2_IMG = 'player_2_img'
+PLAYER3_IMG = 'player_3_img'
+PLAYER4_IMG = 'player_4_img'
+PLAYER5_IMG = 'player_5_img'
 
 BLOCK1_MAP1 = 'bloco1_mapa1'
 BLOCK2_MAP1= 'bloco2_mapa1'
@@ -57,6 +60,17 @@ def load_assets():
 
     assets[PLAYER2_IMG]=pygame.image.load(os.path.join(IMG_DIR,'player2.png'))
     assets[PLAYER2_IMG]=pygame.transform.scale(assets[PLAYER2_IMG], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+
+    assets[PLAYER3_IMG]=pygame.image.load(os.path.join(IMG_DIR,'player3.png'))
+    assets[PLAYER3_IMG]=pygame.transform.scale(assets[PLAYER3_IMG], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+
+    assets[PLAYER4_IMG]=pygame.image.load(os.path.join(IMG_DIR,'player4.png'))
+    assets[PLAYER4_IMG]=pygame.transform.scale(assets[PLAYER4_IMG], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+
+    assets[PLAYER5_IMG]=pygame.image.load(os.path.join(IMG_DIR,'player5.png'))
+    assets[PLAYER5_IMG]=pygame.transform.scale(assets[PLAYER5_IMG], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+
+
 
 
  #ASSETS MAPA 1:

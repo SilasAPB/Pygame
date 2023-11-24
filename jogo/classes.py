@@ -69,7 +69,7 @@ class Player(pygame.sprite.Sprite):
 
 
         # ----- Colisão entre player e blocos
-        hits = pygame.sprite.groupcollide([self],self.all_obstaculos,False,False,pygame.sprite.collide_mask)
+        hits = pygame.sprite.groupcollide([self],self.all_obstaculos,False,False)
         for player,obstaculos in hits.items():
             # ----- Detectar qual aresta foi colidida baseado na distância entre as arestas do objeto e do player
             # A menor distância define a aresta colidida

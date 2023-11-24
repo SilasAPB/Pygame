@@ -10,8 +10,9 @@ from classes import *
 from lista_assests import *
 
 
+
 # ===== Loop principal =====
-def jogo_principal(window,tela):
+def jogo_principal(window,tela,choose1,choose2):
     clock=pygame.time.Clock()
 
     assets = load_assets()
@@ -34,10 +35,14 @@ def jogo_principal(window,tela):
     groups['all_bullets'] = all_bullets
     groups['all_obstaculos'] = all_obstaculos
 
+    lista_p=[assets[PLAYER1_IMG],assets[PLAYER3_IMG],assets[PLAYER4_IMG],assets[PLAYER4_IMG]]#lista de imagens para personagens
+    img1=choose1-1
+    img2=choose2-1
 
 
-    player1=Player('P1',assets[PLAYER1_IMG],WIDTH/4,HEIGHT-PLAYERS_HEIGHT/2,groups,assets,playerControls['p1']) #adicionando jogador ao jogo
-    player2=Player('P2',assets[PLAYER2_IMG],WIDTH*3/4,HEIGHT-PLAYERS_HEIGHT/2,groups,assets,playerControls['p2'])
+
+    player1=Player('P1',lista_p[img1],WIDTH/4,HEIGHT-PLAYERS_HEIGHT/2,groups,assets,playerControls['p1']) #adicionando jogador ao jogo
+    player2=Player('P2',lista_p[img2],WIDTH*3/4,HEIGHT-PLAYERS_HEIGHT/2,groups,assets,playerControls['p2'])
     plataforma1=Block(assets[BLOCK1_MAP2],600,HEIGHT)
     plataforma2=Block(assets[BLOCK2_MAP2],BLOCK_WIDTH,400)
 
