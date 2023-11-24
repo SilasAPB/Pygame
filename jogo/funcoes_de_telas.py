@@ -62,6 +62,9 @@ def end_screen(window):
     # Variável para o ajuste de velocidade
     clock = pygame.time.Clock()
 
+    smallfont = pygame.font.SysFont('couriernew',30) 
+    text = smallfont.render('Aperte ESPAÇO para jogar novamente ou ESC para sair do jogo' , True , WHITE)
+
     # Carrega o fundo da tela inicial
     background = pygame.image.load(path.join(IMG_DIR, 'fim.png')).convert()
     background=pygame.transform.scale(background, (WIDTH, HEIGHT))
@@ -84,13 +87,19 @@ def end_screen(window):
                 state = QUIT
                 running = False
 
-            if event.type == pygame.KEYUP:
-                state = INIT
-                running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE: 
+                    state = INIT
+                    running = False
+                if event.key == pygame.K_ESCAPE: 
+                    state = QUIT
+                    running = False
 
         # A cada loop, redesenha o fundo e os sprites
         window.fill(BLACK)
         window.blit(background, background_rect)
+
+        window.blit(text, (100, HEIGHT-100))
 
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()

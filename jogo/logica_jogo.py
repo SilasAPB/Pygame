@@ -10,7 +10,7 @@ pygame.init()
 pygame.mixer.init()
 
 
-window = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('SandmannVille: Terra de Faroeste')
 
 
