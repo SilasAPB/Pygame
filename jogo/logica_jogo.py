@@ -6,19 +6,19 @@ from jogo1 import jogo_principal
 from person_screen import *
 
 
-pygame.init()
+pygame.init() # dá inicio ao pygame
 pygame.mixer.init()
 
 
-window = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption('SandmannVille: Terra de Faroeste')
+window = pygame.display.set_mode((WIDTH, HEIGHT)) #Definição de tela do jogo
+pygame.display.set_caption('Imperium') #Defini o nome da tela
 
 
 
-state = INIT
+state = INIT # define aonde o jogo começa
 while state != QUIT :
     if state == INIT:
-        state = init_screen(window)
+        state = init_screen(window) #tela de inicio 
     elif state == GAME1:
         state = jogo_principal(window,1,choose1,choose2)#mapa 1
     elif state == GAME2:
@@ -28,14 +28,14 @@ while state != QUIT :
     elif state == GAME4:
         state = jogo_principal(window,4,choose1,choose2)#mapa 4
     elif state == OVER:
-        state = end_screen(window)
+        state = end_screen(window) #tela do fim
     elif state == MAPS:
-        state = map_screen(window)
+        state = map_screen(window) #tela de escolha do mapa
     elif state == PLAYERS:
-        lis = person_screen(window)
+        lis = person_screen(window) # tela de escolha do personagem
         state=lis[0]
-        choose1=lis[1]
-        choose2=lis[2]
+        choose1=lis[1] #registro da escolha do jogador 1
+        choose2=lis[2] #registro da escolha do jogador 1
     else:
         state=QUIT
 

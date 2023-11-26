@@ -123,7 +123,7 @@ class Player(pygame.sprite.Sprite):
             self.useItem()
 
 
-
+    #Mudança/definição de arma a escolher
     def changeItem(self):
         PISTOL={
                 "asset" : "../assets/img/pistola.png",  # Imagem do sprite da arma
@@ -144,11 +144,11 @@ class Player(pygame.sprite.Sprite):
     def useItem(self):
         self.item.use()
         
-
+    #define a intangibilidade
     def setImmortal(self,tempo):
         self.immortal = tempo 
     
-    
+    #define a vida do personagem
     def nivel_vida(self, dano_arma):
         if self.immortal == 0:
             if self.health_now > 0:
@@ -158,7 +158,10 @@ class Player(pygame.sprite.Sprite):
                 return 0
         else:
             return self.health_now
-    
+        
+
+
+# define classe da barra de vida, que considera a vida do peronagem a ela associado
 class HealthBar():
     def __init__(self, x, y, w, h, player):
         self.x = x
@@ -168,18 +171,17 @@ class HealthBar():
         self.hp = player.max_health
         self.max_hp = player.max_health
 
-    def draw(self, surface):
-        #calculate health ratio
+    def draw(self, surface): #desenha a barra
         ratio = self.hp / self.max_hp
         pygame.draw.rect(surface, "red", (self.x, self.y, self.w, self.h))
         pygame.draw.rect(surface, "green", (self.x, self.y, self.w * ratio, self.h))  
     
-    def update(self,vida):
+    def update(self,vida): #atualiza o estado da barra
         self.hp=vida
 
 
 
-
+#define a classe de plataformas
 class Block(pygame.sprite.Sprite):
     def __init__(self,img,posx,posy):
         pygame.sprite.Sprite.__init__(self)
