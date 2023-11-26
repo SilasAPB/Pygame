@@ -1,9 +1,11 @@
 from config import *
 import pygame,sys
-from funcoes_de_telas import init_screen,end_screen,map_screen
+from funcoes_de_telas import *
 from classes import *
 from jogo1 import jogo_principal
 from person_screen import *
+from end_screen import *
+from map_screen import *
 
 
 pygame.init() # dá inicio ao pygame
