@@ -27,17 +27,17 @@ while state != QUIT :
         ganhador=lis[1]
         g_img=lis[2]
     elif state == GAME2:
-        lis = jogo_principal(window,1,choose1,choose2)#mapa 2
+        lis = jogo_principal(window,2,choose1,choose2)#mapa 2
         state=lis[0]
         ganhador=lis[1]
         g_img=lis[2]
     elif state == GAME3:
-        lis = jogo_principal(window,1,choose1,choose2)#mapa 3
+        lis = jogo_principal(window,3,choose1,choose2)#mapa 3
         state=lis[0]
         ganhador=lis[1]
         g_img=lis[2]
     elif state == GAME4:
-        lis = jogo_principal(window,1,choose1,choose2)#mapa 4
+        lis = jogo_principal(window,4,choose1,choose2)#mapa 4
         state=lis[0]
         ganhador=lis[1]
         g_img=lis[2]
