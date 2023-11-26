@@ -126,11 +126,15 @@ def jogo_principal(window,tela,choose1,choose2):
             # se um morrer, o outro não morre
             if vidap1 == 0 :
                 player1.kill()
+                ganhador=player2.name
+                g_img=player2.image
                 all_players.remove(player2)
                 game=False
                 
             elif vidap2 == 0:
                 player2.kill()
+                ganhador=player1.name
+                g_img=player1.image
                 all_players.remove(player1)
                 game=False
             
@@ -167,4 +171,4 @@ def jogo_principal(window,tela,choose1,choose2):
     else:
         pygame.mixer.music.unload()
         state=OVER
-    return state
+    return state, ganhador, g_img
