@@ -92,16 +92,16 @@ def person_screen(window):
         window.blit(textop1_a,((WIDTH/8)- 50,(HEIGHT/8)-60))
         window.blit(textop2_left,((WIDTH/8)-50,(HEIGHT/8)-20))
         
-        window.blit(assets[PLAYER3_IMG], (5*WIDTH/8,(HEIGHT/8)+30))
+        window.blit(assets[PLAYER2_IMG], (5*WIDTH/8,(HEIGHT/8)+30))
         window.blit(textop1_w,(((5*WIDTH/8)-50,(HEIGHT/8)-60)))
         window.blit(arrow_up,((5*WIDTH/8)-4,(HEIGHT/8)-20))
         window.blit(textop2_up,((5*WIDTH/8)-50,(HEIGHT/8)-20))
 
-        window.blit(assets[PLAYER4_IMG], (5*WIDTH/8,(5*HEIGHT/8)+10))
+        window.blit(assets[PLAYER3_IMG], (5*WIDTH/8,(5*HEIGHT/8)+10))
         window.blit(textop1_d,((5*WIDTH/8)-50,(5*HEIGHT/8)-70))
         window.blit(textop2_right,(((5*WIDTH/8)-50,(5*HEIGHT/8)-40)))
 
-        window.blit(assets[PLAYER5_IMG], (WIDTH/8,(5*HEIGHT/8)+10))
+        window.blit(assets[PLAYER4_IMG], (WIDTH/8,(5*HEIGHT/8)+10))
         window.blit(textop1_s,((WIDTH/8)-51,(5*HEIGHT/8)-70))
         window.blit(arrow_down,((WIDTH/8)-3,(5*HEIGHT/8)-19))
         window.blit(textop2_down,((WIDTH/8)-48.5,(5*HEIGHT/8)-35))

@@ -35,7 +35,7 @@ def jogo_principal(window,tela,choose1,choose2):
     groups['all_bullets'] = all_bullets
     groups['all_obstaculos'] = all_obstaculos
 
-    lista_p=[assets[PLAYER1_IMG],assets[PLAYER3_IMG],assets[PLAYER4_IMG],assets[PLAYER4_IMG]]#lista de imagens para personagens
+    lista_p=[assets[PLAYER1_IMG],assets[PLAYER2_IMG],assets[PLAYER3_IMG],assets[PLAYER4_IMG]]#lista de imagens para personagens
     img1=choose1-1
     img2=choose2-1
 
