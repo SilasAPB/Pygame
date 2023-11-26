@@ -148,7 +148,7 @@ class Player(pygame.sprite.Sprite):
     def setImmortal(self,tempo):
         self.immortal = tempo 
     
-    #define a vida do personagem
+    #IDENTIFICA O QUANTO DE VIDA DO PERSONAGEM FOI TIRADO POR CONTA DO DANO DA ARMA(DEPENDE DA ARMA, POR ISSO É UM PARÂMETRO, POR SER VARIÁVEL)
     def nivel_vida(self, dano_arma):
         if self.immortal == 0:
             if self.health_now > 0:
