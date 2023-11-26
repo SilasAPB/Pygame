@@ -1,6 +1,6 @@
 from config import *
 import pygame,sys
-from funcoes_de_telas import *
+from init_screen import *
 from classes import *
 from jogo1 import jogo_principal
 from person_screen import *
