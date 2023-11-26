@@ -22,15 +22,27 @@ while state != QUIT :
     if state == INIT:
         state = init_screen(window) #tela de inicio 
     elif state == GAME1:
-        state = jogo_principal(window,1,choose1,choose2)#mapa 1
+        lis = jogo_principal(window,1,choose1,choose2)#mapa 1
+        state=lis[0]
+        ganhador=lis[1]
+        g_img=lis[2]
     elif state == GAME2:
-        state = jogo_principal(window,2,choose1,choose2)#mapa 2
+        lis = jogo_principal(window,1,choose1,choose2)#mapa 2
+        state=lis[0]
+        ganhador=lis[1]
+        g_img=lis[2]
     elif state == GAME3:
-        state = jogo_principal(window,3,choose1,choose2)#mapa 3
+        lis = jogo_principal(window,1,choose1,choose2)#mapa 3
+        state=lis[0]
+        ganhador=lis[1]
+        g_img=lis[2]
     elif state == GAME4:
-        state = jogo_principal(window,4,choose1,choose2)#mapa 4
+        lis = jogo_principal(window,1,choose1,choose2)#mapa 4
+        state=lis[0]
+        ganhador=lis[1]
+        g_img=lis[2]
     elif state == OVER:
-        state = end_screen(window) #tela do fim
+        state = end_screen(window,ganhador,g_img) #tela do fim
     elif state == MAPS:
         state = map_screen(window) #tela de escolha do mapa
     elif state == PLAYERS:

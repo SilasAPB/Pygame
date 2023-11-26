@@ -6,12 +6,16 @@ from config import *
 from lista_assests import *
 
 
-def end_screen(window):
+def end_screen(window,ganhador,g_img):
     # Variável para o ajuste de velocidade
     clock = pygame.time.Clock()
 
+    gritante = pygame.font.SysFont('twcennegrito',70)
+    gritante_mini = pygame.font.SysFont('twcen',20)
     smallfont = pygame.font.SysFont('couriernew',30) 
-    text = smallfont.render('Aperte ESPAÇO para jogar novamente ou ESC para sair do jogo' , True , WHITE)
+    text = smallfont.render('Aperte ESPAÇO para jogar novamente ou ESC para sair do jogo' , True , BLACK)
+    text_up = gritante.render(f'VITORIA ROYALE: {ganhador} ' , True , BLACK)
+    text_up_sub=gritante_mini.render('Parabéns, o ar condicionado é todo seu!' , True , BLACK)
 
     # Carrega o fundo da tela inicial
     background = pygame.image.load(path.join(IMG_DIR, 'fim.png')).convert()
@@ -44,10 +48,13 @@ def end_screen(window):
                     running = False
 
         # A cada loop, redesenha o fundo e os sprites
-        window.fill(BLACK)
-        window.blit(background, background_rect)
+        window.fill(WHITE)
+        window.blit(g_img, (WIDTH/2,HEIGHT/2))
+        # window.blit(background, background_rect)
 
         window.blit(text, (100, HEIGHT-100))
+        window.blit(text_up, (WIDTH/2-300, HEIGHT/8))
+        window.blit(text_up_sub, (WIDTH/2-300, HEIGHT/8+70))
        
 
         # Depois de desenhar tudo, inverte o display.
