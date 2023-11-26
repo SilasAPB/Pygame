@@ -112,8 +112,8 @@ def person_screen(window):
         window.blit(textop2_down,((WIDTH/8)-48.5,(5*HEIGHT/8)-35))
 
 
-        window.blit(texto_p1,(5,HEIGHT-30))
-        window.blit(texto_p2,(5,HEIGHT-70))
+        window.blit(texto_p1,(5,HEIGHT-70))
+        window.blit(texto_p2,(5,HEIGHT-30))
     
 
 

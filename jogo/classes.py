@@ -128,7 +128,7 @@ class Player(pygame.sprite.Sprite):
         PISTOL={
                 "asset" : "../assets/img/pistola.png",  # Imagem do sprite da arma
                 "itemType" : "STRAIGHT",  # Tipo do projétil
-                "velocity" : 30,  # Velocidade do projétil
+                "velocity" : 25,  # Velocidade do projétil
                 "spray" : .2,  # % da variação de ângulo de tiro
                 "size" : 8,  # Quantidade de projéteis antes de cooldown
                 "cadence" : 5,  # Quantidade de Frames entre os usos do item
@@ -209,7 +209,7 @@ class Item(pygame.sprite.Sprite):
         self.cooldown = 0
         pygame.mixer.music.load(os.path.join(SND_DIR, projectile['soundEffect']))
         self.mixer = pygame.mixer.Sound(os.path.join(SND_DIR, projectile['soundEffect']))
-        self.mixer.set_volume(0.4)
+        self.mixer.set_volume(0.5)
     
     
     def use(self):

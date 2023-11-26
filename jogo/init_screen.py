@@ -56,7 +56,7 @@ def init_screen(window):
 
         
         window.blit(texto_inicio,((WIDTH/2)-45,(6*HEIGHT/8)+20))
-        window.blit(texto_explicacaop1,(30,HEIGHT - 50))
+        window.blit(texto_explicacaop1,(30,HEIGHT - 55))
         window.blit(texto_explicacaop2,(30,HEIGHT - 30))
 
 
