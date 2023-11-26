@@ -134,9 +134,9 @@ class Player(pygame.sprite.Sprite):
                 "cadence" : 5,  # Quantidade de Frames entre os usos do item
                 "recoil" : 4,  # Velocidade do recuo da arma
                 'reload': 3,  # Cooldown entre a velocidade de recarga da arma
-                "soundEffect" : "",
-                "useParticle" : "",
-                "hitParticle" : ""
+                "soundEffect" : "Som1.wav"
+                #"useParticle" : "" 
+                #"hitParticle" : ""
         }
         return Item((self.rect.centerx, self.rect.centery), self.playerDirection, self.assets, self.all_obstaculos, self.all_sprites, self.all_bullets, PISTOL)
 
@@ -207,6 +207,10 @@ class Item(pygame.sprite.Sprite):
         self.projectile = projectile
         self.avaliable = projectile['size']
         self.cooldown = 0
+        pygame.mixer.music.load(os.path.join(SND_DIR, projectile['soundEffect']))
+        self.mixer = pygame.mixer.Sound(os.path.join(SND_DIR, projectile['soundEffect']))
+        self.mixer.set_volume(0.4)
+    
     
     def use(self):
         if self.avaliable and (not self.cooldown):
@@ -215,9 +219,11 @@ class Item(pygame.sprite.Sprite):
             self.all_bullets.add(new_bullet)
             self.avaliable-=1
             self.cooldown = self.projectile['cadence']
+            self.mixer.play()
         elif not (self.avaliable and self.cooldown):
             self.avaliable = self.projectile['size']
             self.cooldown = self.projectile['reload']
+            
 
     def update(self,x,y,direction):
         if self.cooldown : self.cooldown -= 1

@@ -11,18 +11,15 @@ from lista_assests import *
 def init_screen(window):
     clock = pygame.time.Clock()
 
-    smallfont = pygame.font.SysFont('lucidaconsola',25) 
-    text = smallfont.render('JOGAR' , True , BLUE)
-    text_rect=text.get_rect(center=(WIDTH/2,HEIGHT/2))
-
-    
+    smallfont = pygame.font.SysFont('lucidaconsola',35) 
+    texto_inicio = smallfont.render('JOGAR' , True , BLUE)
 
     texto_explicacaop1 = smallfont.render('Player 1: Jogador da esquerda' , True , RED)
     texto_explicacaop2 = smallfont.render('Player 2: Jogador da direita' , True , BLUE)
 
 
 
-    background = pygame.image.load(path.join(IMG_DIR, 'inicio.png')).convert()
+    background = pygame.image.load(path.join(IMG_DIR, 'tela_inicio.jpeg')).convert()
     background=pygame.transform.scale(background, (WIDTH, HEIGHT))
     background_rect = background.get_rect()
 
@@ -42,7 +39,7 @@ def init_screen(window):
                 running = False
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if WIDTH/2-100 <= mouse[0] <= WIDTH/2+100 and HEIGHT/2-30 <= mouse[1] <= HEIGHT/2+30:
+                if WIDTH/2-100 <=  mouse[0] <= WIDTH/2+100 and 6*HEIGHT/8<= mouse[1] <= (6*HEIGHT/8)+60:
                     state=PLAYERS
                     running=False
 
@@ -51,14 +48,14 @@ def init_screen(window):
 
         mouse=pygame.mouse.get_pos()
         
-        if WIDTH/2-100 <=   mouse[0] <= WIDTH/2+100 and HEIGHT/2-30 <= mouse[1] <= HEIGHT/2+30:
-            pygame.draw.rect(window,WHITE,[WIDTH/2-100,HEIGHT/2-30,200,60],border_radius=20) 
+        if WIDTH/2-100 <=  mouse[0] <= WIDTH/2+100 and 6*HEIGHT/8<= mouse[1] <= (6*HEIGHT/8)+60:
+            pygame.draw.rect(window,WHITE,[WIDTH/2-100,6*HEIGHT/8,200,60],border_radius=20) 
           
         else: 
-            pygame.draw.rect(window, BLACK,[WIDTH/2-100,HEIGHT/2-30,200,60],border_radius=20)
+            pygame.draw.rect(window, BLACK,[WIDTH/2-100,6*HEIGHT/8,200,60],border_radius=20)
 
         
-        window.blit(text,text_rect)
+        window.blit(texto_inicio,((WIDTH/2)-45,(6*HEIGHT/8)+20))
         window.blit(texto_explicacaop1,(30,HEIGHT - 50))
         window.blit(texto_explicacaop2,(30,HEIGHT - 30))
 
