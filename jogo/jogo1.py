@@ -91,7 +91,6 @@ def jogo_principal(window,tela,choose1,choose2):
         Sair=0
     # ----- Trata eventos
         for event in pygame.event.get():
-            
             # ----- Verifica se usuário fechou o jogo
             if event.type == pygame.QUIT:
                 Sair=1
