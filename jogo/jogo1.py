@@ -1,7 +1,7 @@
 # ===== Inicialização =====
 # ----- Importa e inicia pacotes
 #from typing import Any
-import pygame,os,sys
+import pygame,os,json
 from math import sin,cos
 
 
@@ -43,8 +43,8 @@ def jogo_principal(window,tela,choose1,choose2):
 
     player1=Player('P1',lista_p[img1],WIDTH/4,HEIGHT-PLAYERS_HEIGHT/2,groups,assets,playerControls['p1']) #adicionando jogador ao jogo
     player2=Player('P2',lista_p[img2],WIDTH*3/4,HEIGHT-PLAYERS_HEIGHT/2,groups,assets,playerControls['p2'])
-    plataforma1=Block(assets[BLOCK1_MAP2],600,HEIGHT)
-    plataforma2=Block(assets[BLOCK2_MAP2],BLOCK_WIDTH,400)
+    # plataforma1=Block(assets[BLOCK1_MAP2],600,HEIGHT)
+    # plataforma2=Block(assets[BLOCK2_MAP2],BLOCK_WIDTH,400)
 
     health_bar1 = HealthBar(10, 10, 150, 30, player1)
 
@@ -53,19 +53,35 @@ def jogo_principal(window,tela,choose1,choose2):
 
     all_sprites.add(player1)
     all_sprites.add(player2) # Adicionando jogador ao grupo de sprites
-    all_sprites.add(plataforma1)
-    all_sprites.add(plataforma2)
 
     all_players.add(player1)
     all_players.add(player2)
-    all_obstaculos.add(plataforma1)
-    all_obstaculos.add(plataforma2)
 
         
-    pygame.mixer.music.load(os.path.join(SND_DIR, 'crack.mp3'))
-    pygame.mixer.music.set_volume(0.2)
-    pygame.mixer.music.play(loops=-1)
+    # pygame.mixer.music.load(os.path.join(SND_DIR, 'crack.mp3'))
+    # pygame.mixer.music.set_volume(0.2)
+    # pygame.mixer.music.play(loops=-1)
     
+
+    # ----- Inicializa mapa
+    with open(os.path.join(path.dirname(__file__), 'assets', 'maps','as.json')) as mapaJson:
+        mapa = json.load(mapaJson)
+
+    for ln in range(len(mapa)):
+        for col in range(len(mapa[ln])):
+            plataforma = 0
+            print(mapa[ln][col])
+            if mapa[ln][col] == 1:
+                plataforma = Block(assets[BLOCK1_MAP2],col*BLOCK_SIZE,ln*BLOCK_SIZE)
+            elif mapa[ln][col] == 2:
+                plataforma = Block(assets[BLOCK2_MAP2],col*BLOCK_SIZE,ln*BLOCK_SIZE)
+            elif mapa[ln][col] == 3:
+                plataforma = Block(assets[BLOCK3_MAP2],col*BLOCK_SIZE,ln*BLOCK_SIZE)
+            else: continue
+            all_sprites.add(plataforma)
+            all_obstaculos.add(plataforma)
+
+
     while game:
         clock.tick(FPS)
 
