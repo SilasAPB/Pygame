@@ -19,7 +19,7 @@ def init_screen(window):
 
 
 
-    background = pygame.image.load(path.join(IMG_DIR, 'tela_inicio.jpeg')).convert()
+    background = pygame.image.load(path.join(IMG_DIR, 'tela_inicio.png')).convert()
     background=pygame.transform.scale(background, (WIDTH, HEIGHT))
     background_rect = background.get_rect()
 
