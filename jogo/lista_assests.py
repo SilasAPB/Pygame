@@ -3,17 +3,21 @@ import os
 from jogo1 import*
 from config import *
 
+#DEFINE NOME DOS SPRITES PARA FACILITAR A ULTILIZAÇÃO DO DICIONÁRIO ASSETS(DEFINIDO DENTRO DA FUNÇÃO LOAD_ASSETS):
+
+#SPRITES DOS BACKGROUND:
 BACKGROUND = 'backgroud'
 BACKGROUND2 = 'background2'
 BACKGROUND3 = 'background3'
 BACKGROUND4 = 'background4'
 
+#SPRITES DOS PLAYERS:
 PLAYER1_IMG = 'player_1_img'
 PLAYER2_IMG = 'player_2_img'
 PLAYER3_IMG = 'player_3_img'
 PLAYER4_IMG = 'player_4_img'
-PLAYER5_IMG = 'player_5_img'
 
+#SPRITES MAPAS(1-4):
 BLOCK1_MAP1 = 'bloco1_mapa1'
 BLOCK2_MAP1= 'bloco2_mapa1'
 BLOCK3_MAP1 = 'bloco3_mapa1 '
@@ -41,7 +45,9 @@ MINIMAP4_IMG= 'minimap_4_bar'
 def load_assets():
     assets ={}
 
-    #BACKGROUNDS:
+ #DEFINE OS VALORES DO DICIONARIO:
+
+ #BACKGROUNDS:
     assets[BACKGROUND]=pygame.image.load(os.path.join(IMG_DIR, 'background.gif')).convert()
     assets[BACKGROUND]=pygame.transform.scale(assets[BACKGROUND], (WIDTH, HEIGHT))
 
@@ -54,7 +60,7 @@ def load_assets():
     assets[BACKGROUND4]=pygame.image.load(os.path.join(IMG_DIR, 'mapa4.png')).convert()
     assets[BACKGROUND4]=pygame.transform.scale(assets[BACKGROUND4], (WIDTH, HEIGHT))
 
-    #PLAYERS:
+ #PLAYERS:
     assets[PLAYER1_IMG]=pygame.image.load(os.path.join(IMG_DIR,'player1.png'))
     assets[PLAYER1_IMG]=pygame.transform.scale(assets[PLAYER1_IMG], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
 
@@ -67,20 +73,19 @@ def load_assets():
     assets[PLAYER4_IMG]=pygame.image.load(os.path.join(IMG_DIR,'player4.png'))
     assets[PLAYER4_IMG]=pygame.transform.scale(assets[PLAYER4_IMG], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
 
-    assets[PLAYER5_IMG]=pygame.image.load(os.path.join(IMG_DIR,'player5.png'))
-    assets[PLAYER5_IMG]=pygame.transform.scale(assets[PLAYER5_IMG], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+  
 
 
 
 
- #ASSETS MAPA 1:
+ #MAPA 1:
     assets[BLOCK1_MAP1]=pygame.image.load(os.path.join(IMG_DIR,'bloco1mapa1.png'))
     assets[BLOCK1_MAP1]=pygame.transform.scale(assets[BLOCK1_MAP1], (BLOCK_WIDTH, BLOCK_HEIGHT))
 
     assets[BLOCK2_MAP1]=pygame.image.load(os.path.join(IMG_DIR,'bloco2mapa1.png'))
     assets[BLOCK2_MAP1]=pygame.transform.scale(assets[BLOCK2_MAP1], (BLOCK_WIDTH, BLOCK_HEIGHT))
     
- #ASSETS MAPA 2:
+ #MAPA 2:
     assets[BLOCK1_MAP2]=pygame.image.load(os.path.join(IMG_DIR,'bloco1mapa2.png'))
     assets[BLOCK1_MAP2]=pygame.transform.scale(assets[BLOCK1_MAP2], (BLOCK_WIDTH, BLOCK_HEIGHT))
 
@@ -90,7 +95,7 @@ def load_assets():
     assets[BLOCK3_MAP2]=pygame.image.load(os.path.join(IMG_DIR,'bloco3mapa2.png'))
     assets[BLOCK3_MAP2]=pygame.transform.scale(assets[BLOCK3_MAP2], (BLOCK_WIDTH, BLOCK_HEIGHT))
 
- #ASSETS MAPA 3:
+ #MAPA 3:
     assets[BLOCK1_MAP3]=pygame.image.load(os.path.join(IMG_DIR,'bloco1mapa3.png'))
     assets[BLOCK1_MAP3]=pygame.transform.scale(assets[BLOCK1_MAP3], (BLOCK_WIDTH, BLOCK_HEIGHT))
 
@@ -99,22 +104,22 @@ def load_assets():
 
 
 
- #ASSETS MAPA 4: 
+ #MAPA 4: 
     assets[BLOCK1_MAP4]=pygame.image.load(os.path.join(IMG_DIR,'bloco1mapa4.png'))
     assets[BLOCK1_MAP4]=pygame.transform.scale(assets[BLOCK1_MAP4], (BLOCK_WIDTH, BLOCK_HEIGHT))
 
     assets[BLOCK2_MAP4]=pygame.image.load(os.path.join(IMG_DIR,'bloco2mapa4.png'))
     assets[BLOCK2_MAP4]=pygame.transform.scale(assets[BLOCK2_MAP4], (BLOCK_WIDTH, BLOCK_HEIGHT))
 
-
-
-
+ #BALA:
     assets[BULLET_IMG]=pygame.image.load(os.path.join(IMG_DIR,'bullet.png'))
     assets[BULLET_IMG]=pygame.transform.scale(assets[BULLET_IMG], (BULLET_WIDTH,BULLET_HEIGHT))
 
+ #HEALTH BAR:
     assets[BARRA_IMG]=pygame.image.load(os.path.join(IMG_DIR,'health_bar (2).png'))
     assets[BARRA_IMG]=pygame.transform.scale(assets[BARRA_IMG],(BARRA_WIDTH, BARRA_HEIGHT))
 
+ #MINIMAPAS:
     assets[MINIMAP1_IMG]=pygame.image.load(os.path.join(IMG_DIR,'background.gif'))
     assets[MINIMAP1_IMG]=pygame.transform.scale(assets[MINIMAP1_IMG],(MIN_MAP_W, MIN_MAP_H))
 

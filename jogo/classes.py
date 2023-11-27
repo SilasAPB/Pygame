@@ -123,20 +123,20 @@ class Player(pygame.sprite.Sprite):
             self.useItem()
 
 
-
+    #Mudança/definição de arma a escolher
     def changeItem(self):
         PISTOL={
                 "asset" : "../assets/img/pistola.png",  # Imagem do sprite da arma
                 "itemType" : "STRAIGHT",  # Tipo do projétil
-                "velocity" : 30,  # Velocidade do projétil
+                "velocity" : 25,  # Velocidade do projétil
                 "spray" : .2,  # % da variação de ângulo de tiro
                 "size" : 8,  # Quantidade de projéteis antes de cooldown
                 "cadence" : 5,  # Quantidade de Frames entre os usos do item
                 "recoil" : 4,  # Velocidade do recuo da arma
                 'reload': 3,  # Cooldown entre a velocidade de recarga da arma
-                "soundEffect" : "",
-                "useParticle" : "",
-                "hitParticle" : ""
+                "soundEffect" : "Som1.wav"
+                #"useParticle" : "" 
+                #"hitParticle" : ""
         }
         return Item((self.rect.centerx, self.rect.centery), self.playerDirection, self.assets, self.all_obstaculos, self.all_sprites, self.all_bullets, PISTOL)
 
@@ -144,11 +144,11 @@ class Player(pygame.sprite.Sprite):
     def useItem(self):
         self.item.use()
         
-
+    #define a intangibilidade
     def setImmortal(self,tempo):
         self.immortal = tempo 
     
-    
+    #IDENTIFICA O QUANTO DE VIDA DO PERSONAGEM FOI TIRADO POR CONTA DO DANO DA ARMA(DEPENDE DA ARMA, POR ISSO É UM PARÂMETRO, POR SER VARIÁVEL)
     def nivel_vida(self, dano_arma):
         if self.immortal == 0:
             if self.health_now > 0:
@@ -158,7 +158,10 @@ class Player(pygame.sprite.Sprite):
                 return 0
         else:
             return self.health_now
-    
+        
+
+
+# define classe da barra de vida, que considera a vida do peronagem a ela associado
 class HealthBar():
     def __init__(self, x, y, w, h, player):
         self.x = x
@@ -168,18 +171,17 @@ class HealthBar():
         self.hp = player.max_health
         self.max_hp = player.max_health
 
-    def draw(self, surface):
-        #calculate health ratio
+    def draw(self, surface): #desenha a barra
         ratio = self.hp / self.max_hp
         pygame.draw.rect(surface, "red", (self.x, self.y, self.w, self.h))
         pygame.draw.rect(surface, "green", (self.x, self.y, self.w * ratio, self.h))  
     
-    def update(self,vida):
+    def update(self,vida): #atualiza o estado da barra
         self.hp=vida
 
 
 
-
+#define a classe de plataformas
 class Block(pygame.sprite.Sprite):
     def __init__(self,img,posx,posy):
         pygame.sprite.Sprite.__init__(self)
@@ -205,6 +207,10 @@ class Item(pygame.sprite.Sprite):
         self.projectile = projectile
         self.avaliable = projectile['size']
         self.cooldown = 0
+        pygame.mixer.music.load(os.path.join(SND_DIR, projectile['soundEffect']))
+        self.mixer = pygame.mixer.Sound(os.path.join(SND_DIR, projectile['soundEffect']))
+        self.mixer.set_volume(0.5)
+    
     
     def use(self):
         if self.avaliable and (not self.cooldown):
@@ -213,9 +219,11 @@ class Item(pygame.sprite.Sprite):
             self.all_bullets.add(new_bullet)
             self.avaliable-=1
             self.cooldown = self.projectile['cadence']
+            self.mixer.play()
         elif not (self.avaliable and self.cooldown):
             self.avaliable = self.projectile['size']
             self.cooldown = self.projectile['reload']
+            
 
     def update(self,x,y,direction):
         if self.cooldown : self.cooldown -= 1

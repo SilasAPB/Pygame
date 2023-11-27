@@ -20,8 +20,8 @@ def jogo_principal(window,tela,choose1,choose2):
     game = True
 
     playerControls={
-    'p1' : [pygame.K_a,pygame.K_d,pygame.K_w,pygame.K_s,pygame.K_r,pygame.K_q], #humberto
-    'p2' : [pygame.K_LEFT,pygame.K_RIGHT,pygame.K_UP,pygame.K_DOWN,pygame.K_RSHIFT,pygame.K_SLASH]#dani
+    'p1' : [pygame.K_a,pygame.K_d,pygame.K_w,pygame.K_s,pygame.K_r,pygame.K_q], 
+    'p2' : [pygame.K_LEFT,pygame.K_RIGHT,pygame.K_UP,pygame.K_DOWN,pygame.K_RSHIFT,pygame.K_SLASH]
     
     }
 # ----- Criando um grupo de sprites(que vai agir/atualizar conforme o tempo)
@@ -35,7 +35,7 @@ def jogo_principal(window,tela,choose1,choose2):
     groups['all_bullets'] = all_bullets
     groups['all_obstaculos'] = all_obstaculos
 
-    lista_p=[assets[PLAYER1_IMG],assets[PLAYER3_IMG],assets[PLAYER4_IMG],assets[PLAYER4_IMG]]#lista de imagens para personagens
+    lista_p=[assets[PLAYER1_IMG],assets[PLAYER2_IMG],assets[PLAYER3_IMG],assets[PLAYER4_IMG]]#lista de imagens para personagens
     img1=choose1-1
     img2=choose2-1
 
@@ -63,7 +63,7 @@ def jogo_principal(window,tela,choose1,choose2):
 
         
     pygame.mixer.music.load(os.path.join(SND_DIR, 'crack.mp3'))
-    pygame.mixer.music.set_volume(0.4)
+    pygame.mixer.music.set_volume(0.2)
     pygame.mixer.music.play(loops=-1)
     
     while game:
@@ -126,11 +126,15 @@ def jogo_principal(window,tela,choose1,choose2):
             # se um morrer, o outro não morre
             if vidap1 == 0 :
                 player1.kill()
+                ganhador=player2.name
+                g_img=player2.image
                 all_players.remove(player2)
                 game=False
                 
             elif vidap2 == 0:
                 player2.kill()
+                ganhador=player1.name
+                g_img=player1.image
                 all_players.remove(player1)
                 game=False
             
@@ -167,4 +171,4 @@ def jogo_principal(window,tela,choose1,choose2):
     else:
         pygame.mixer.music.unload()
         state=OVER
-    return state
+    return state, ganhador, g_img
