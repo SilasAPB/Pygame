@@ -35,14 +35,14 @@ def jogo_principal(window,tela,choose1,choose2):
     groups['all_bullets'] = all_bullets
     groups['all_obstaculos'] = all_obstaculos
 
-    lista_p=[assets[PLAYER1_IMG],assets[PLAYER2_IMG],assets[PLAYER3_IMG],assets[PLAYER4_IMG]]#lista de imagens para personagens
+    lista_p=[assets[PLAYER1_IMG_L],assets[PLAYER2_IMG_L],assets[PLAYER3_IMG_L],assets[PLAYER4_IMG_L]]#lista de imagens para personagens
     img1=choose1-1
     img2=choose2-1
 
 
 
-    player1=Player('P1',lista_p[img1],WIDTH/4,HEIGHT-PLAYERS_HEIGHT/2,groups,assets,playerControls['p1']) #adicionando jogador ao jogo
-    player2=Player('P2',lista_p[img2],WIDTH*3/4,HEIGHT-PLAYERS_HEIGHT/2,groups,assets,playerControls['p2'])
+    player1=Player('P1',lista_p[img1],WIDTH/4,HEIGHT-PLAYERS_HEIGHT/2,groups,assets,playerControls['p1'],choose1) #adicionando jogador ao jogo
+    player2=Player('P2',lista_p[img2],WIDTH*3/4,HEIGHT-PLAYERS_HEIGHT/2,groups,assets,playerControls['p2'],choose2)
     # plataforma1=Block(assets[BLOCK1_MAP2],600,HEIGHT)
     # plataforma2=Block(assets[BLOCK2_MAP2],BLOCK_WIDTH,400)
 
@@ -149,14 +149,14 @@ def jogo_principal(window,tela,choose1,choose2):
             if vidap1 == 0 :
                 player1.kill()
                 ganhador=player2.name
-                g_img=player2.image
+                g_img=player2.logo
                 all_players.remove(player2)
                 game=False
                 
             elif vidap2 == 0:
                 player2.kill()
                 ganhador=player1.name
-                g_img=player1.image
+                g_img=player1.logo
                 all_players.remove(player1)
                 game=False
             

@@ -9,13 +9,21 @@ from guns import *
 from jogo1 import *
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self,nickname,img,posX,posY,groups,assets,controls):
+    def __init__(self,nickname,img,posX,posY,groups,assets,controls,choose):
         pygame.sprite.Sprite.__init__(self)
         # Informações básicas
+        self.logo=img
         self.name = nickname
-        self.image=img #imagem do personagem
+        self.frame=0
+        self.anim=assets[f'player_{choose}_img']
+
+        self.image=self.anim[self.frame] #imagem do personagem
         self.playerControls = controls
-        
+
+        # Guarda o tick da primeira imagem, ou seja, o momento em que a imagem foi mostrada
+        self.last_update = pygame.time.get_ticks()
+
+
         # Grupos de colisão
         self.all_sprites = groups['all_sprites']
         self.all_bullets = groups['all_bullets']
@@ -30,8 +38,8 @@ class Player(pygame.sprite.Sprite):
         self.speedy=0
         self.jump=True
         self.playerDirection = 1
-        self.image_noflip=img
         self.image_flip=pygame.transform.flip(self.image,True,False)
+        self.image_noflip=pygame.transform.flip(self.image_flip,True,False)
         if self.rect.x > WIDTH/2:
             self.playerDirection = -1
         self.recoilforce = 0
@@ -45,23 +53,43 @@ class Player(pygame.sprite.Sprite):
         self.health_now = MAX_HP
         self.comp_hp = 50
         self.immortal=0
+
         self.item = self.changeItem()
         self.firing = False
+
+        self.frame_ticks=50
         
 
 
     # ----- Função para atualizar a posição do personagem
-    def update(self):
+    def update(self):        
 
         if self.immortal > 0:
             self.immortal -= 1
             print(self.immortal)
 
+        now = pygame.time.get_ticks()
+        # Verifica quantos ticks se passaram desde a ultima mudança de frame.
+        elapsed_ticks = now - self.last_update
+        
+        if self.speedx!=0:
+            if elapsed_ticks>self.frame_ticks:
+                self.last_update = now
+
+            # Avança um quadro.
+          
+                if self.frame<4:
+                    self.frame += 1
+                else:
+                    self.frame=1
+        else: self.frame=0
 
         if self.playerDirection<0:
-            self.image=self.image_flip
+            self.image=pygame.transform.flip(self.anim[self.frame],True,False)
         else:
-            self.image=self.image_noflip
+            self.image=self.anim[self.frame]
+
+        # self.image = self.anim[self.frame]
 
 
         # ----- Gravidade
