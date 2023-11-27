@@ -61,10 +61,13 @@ def jogo_principal(window,tela,choose1,choose2):
     # pygame.mixer.music.load(os.path.join(SND_DIR, 'crack.mp3'))
     # pygame.mixer.music.set_volume(0.2)
     # pygame.mixer.music.play(loops=-1)
-    
+    w, h = pygame.display.get_surface().get_size()
+
+    verticalOffset = h % BLOCK_SIZE - BLOCK_SIZE/2
+    horizontalOffset = w % BLOCK_SIZE - BLOCK_SIZE/2
 
     # ----- Inicializa mapa
-    with open(os.path.join(path.dirname(__file__), 'assets', 'maps','as.json')) as mapaJson:
+    with open(os.path.join(path.dirname(__file__), 'assets', 'maps','teste2.json')) as mapaJson:
         mapa = json.load(mapaJson)
 
     for ln in range(len(mapa)):
@@ -72,11 +75,11 @@ def jogo_principal(window,tela,choose1,choose2):
             plataforma = 0
             print(mapa[ln][col])
             if mapa[ln][col] == 1:
-                plataforma = Block(assets[BLOCK1_MAP2],col*BLOCK_SIZE,ln*BLOCK_SIZE)
+                plataforma = Block(assets[BLOCK1_MAP2],col*BLOCK_SIZE-horizontalOffset,ln*BLOCK_SIZE-verticalOffset)
             elif mapa[ln][col] == 2:
-                plataforma = Block(assets[BLOCK2_MAP2],col*BLOCK_SIZE,ln*BLOCK_SIZE)
+                plataforma = Block(assets[BLOCK2_MAP2],col*BLOCK_SIZE-horizontalOffset,ln*BLOCK_SIZE-verticalOffset)
             elif mapa[ln][col] == 3:
-                plataforma = Block(assets[BLOCK3_MAP2],col*BLOCK_SIZE,ln*BLOCK_SIZE)
+                plataforma = Block(assets[BLOCK3_MAP2],col*BLOCK_SIZE-horizontalOffset,ln*BLOCK_SIZE-verticalOffset)
             else: continue
             all_sprites.add(plataforma)
             all_obstaculos.add(plataforma)
