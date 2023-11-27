@@ -88,22 +88,22 @@ class Player(pygame.sprite.Sprite):
                     abs(self.rect.right-obstaculos[0].rect.left),
                     abs(self.rect.bottom-obstaculos[0].rect.top),
                     abs(self.rect.top-obstaculos[0].rect.bottom)]
-            if dists[0] == min(dists): # Left edge
-                self.rect.left = obstaculos[0].rect.right
-                self.speedx = 0
-
-            if dists[1] == min(dists): # Right edge
-                self.speedx = 0
-                self.rect.right = obstaculos[0].rect.left
-
             if dists[2] == min(dists): # Bottom Edge
                 self.speedy = 0
                 self.rect.bottom=obstaculos[0].rect.top
                 self.jump = True
 
-            if dists[3] == min(dists): # Top Edge
+            elif dists[3] == min(dists): # Top Edge
                 self.speedy = 0
                 self.rect.top=obstaculos[0].rect.bottom
+            elif dists[0] == min(dists): # Left edge
+                self.rect.left = obstaculos[0].rect.right
+                self.speedx = 0
+
+            elif dists[1] == min(dists): # Right edge
+                self.speedx = 0
+                self.rect.right = obstaculos[0].rect.left
+
 
 
         # ----- Mantem o personagem dentro da tela
@@ -263,3 +263,9 @@ class Bullet(pygame.sprite.Sprite):
                     self.kill()
             else:
                 self.speedx*=-1
+
+class UI(pygame.sprite.Sprite):
+    def __init__(self,cronometro,vidas,players):
+        self.cronometro = cronometro
+        self.vidas = vidas
+        self.players = players
