@@ -14,7 +14,7 @@ from lista_assests import *
 # ===== Loop principal =====
 def jogo_principal(window,tela,choose1,choose2):
     clock=pygame.time.Clock()
-
+    cont = 0
     assets = load_assets()
 
     game = True
@@ -111,6 +111,8 @@ def jogo_principal(window,tela,choose1,choose2):
                         plr.firing = True
                     if event.key == plr.playerControls[5]:
                         plr.setImmortal(TEMPO_SEM_DANO)
+                    
+                
 
 
                 # ----- Verifica se soltou alguma tecla.
@@ -123,6 +125,7 @@ def jogo_principal(window,tela,choose1,choose2):
                         plr.speedx = 0
                     if event.key == plr.playerControls[4]:  # Shift
                         plr.firing = False
+
 
 
 
@@ -176,9 +179,15 @@ def jogo_principal(window,tela,choose1,choose2):
         health_bar1.draw(window)
         health_bar2.draw(window)
 
+        cont += 1
+        print(cont)
+        if cont == 5*FPS:
+            for p in all_players:
+                p.item = p.changeItem()
+            cont = 0
 
+        
         all_sprites.draw(window) # ----- Desenha os sprites(objetos) na tela
-
         # ----- Atualiza estado do jogo
         pygame.display.update()
         clock.tick(FPS)  # Mostra o novo frame para o jogador

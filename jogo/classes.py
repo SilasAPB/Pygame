@@ -6,6 +6,7 @@ from random import randint
 from config import *
 from lista_assests import *
 from guns import *
+from jogo1 import *
 
 class Player(pygame.sprite.Sprite):
     def __init__(self,nickname,img,posX,posY,groups,assets,controls):
