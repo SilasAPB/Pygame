@@ -134,12 +134,13 @@ def jogo_principal(window,tela,choose1,choose2):
         if len(hit)>0:
             vidap1=1
             vidap2=1
+            print(list(hit.values())[0])
             for player in hit.keys():
                 if player == player1:
-                    vidap1 = player1.nivel_vida(DANO_ARMA_1)
+                    vidap1 = player1.nivel_vida(list(hit.values())[0][0].damage)
                     health_bar1.update(vidap1)
                 elif player == player2:
-                    vidap2 = player2.nivel_vida(DANO_ARMA_1)
+                    vidap2 = player2.nivel_vida(list(hit.values())[0][0].damage)
                     health_bar2.update(vidap2)
             
             # se um morrer, o outro não morre

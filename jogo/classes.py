@@ -5,6 +5,7 @@ from random import randint
 
 from config import *
 from lista_assests import *
+from guns import *
 
 class Player(pygame.sprite.Sprite):
     def __init__(self,nickname,img,posX,posY,groups,assets,controls):
@@ -125,23 +126,12 @@ class Player(pygame.sprite.Sprite):
 
     #Mudança/definição de arma a escolher
     def changeItem(self):
-        PISTOL={
-                "asset" : "../assets/img/pistola.png",  # Imagem do sprite da arma
-                "itemType" : "STRAIGHT",  # Tipo do projétil
-                "velocity" : 25,  # Velocidade do projétil
-                "spray" : .2,  # % da variação de ângulo de tiro
-                "size" : 8,  # Quantidade de projéteis antes de cooldown
-                "cadence" : 5,  # Quantidade de Frames entre os usos do item
-                "recoil" : 4,  # Velocidade do recuo da arma
-                'reload': 3,  # Cooldown entre a velocidade de recarga da arma
-                "soundEffect" : "Som1.wav"
-                #"useParticle" : "" 
-                #"hitParticle" : ""
-        }
-        return Item((self.rect.centerx, self.rect.centery), self.playerDirection, self.assets, self.all_obstaculos, self.all_sprites, self.all_bullets, PISTOL)
+       values = list(ITEMS.values())
+       atributos =  random.choice(values)
+       return Item((self.rect.centerx, self.rect.centery), self.playerDirection, self.assets, self.all_obstaculos, self.all_sprites, self.all_bullets, atributos)
 
     # Função para disparar um projétil
-    def useItem(self):
+    def useItem(self): 
         self.item.use()
         
     #define a intangibilidade
@@ -194,7 +184,7 @@ class Block(pygame.sprite.Sprite):
         self.speedx=0
 
 
-# self.item = Item((self.rect.centerx, self.rect.centery), self.playerDirection, self.assets, self.all_obstaculos, PISTOL)
+
 class Item(pygame.sprite.Sprite):
     def __init__(self, playerOrigin, direction, assets, collgroup, all_sprites, all_bullets, projectile):
         self.originX = playerOrigin[0] + (direction * PLAYERS_WIDTH/2 + 5)
@@ -214,7 +204,7 @@ class Item(pygame.sprite.Sprite):
     
     def use(self):
         if self.avaliable and (not self.cooldown):
-            new_bullet = Bullet(self.assets, self.originX, self.originY, self.projectile["velocity"]*self.direction, self.collideGroups, self.projectile["itemType"],self.projectile["spray"])
+            new_bullet = Bullet(self.assets, self.originX, self.originY, self.projectile["velocity"]*self.direction, self.collideGroups, self.projectile["itemType"],self.projectile["spray"],self.projectile['damage'])
             self.all_sprites.add(new_bullet)
             self.all_bullets.add(new_bullet)
             self.avaliable-=1
@@ -233,7 +223,7 @@ class Item(pygame.sprite.Sprite):
 
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, assets,posx, posy, vel, collgroup, type, spray):
+    def __init__(self, assets,posx, posy, vel, collgroup, type, spray,damage):
         pygame.sprite.Sprite.__init__(self)
         self.type = type
         self.image = assets[BULLET_IMG]
@@ -241,6 +231,7 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.centerx = posx
         self.rect.centery = posy
         self.angle = radians(randint(-floor((MAX_SPRAY*spray)),(floor(MAX_SPRAY*spray))))
+        self.damage = damage
         print('angle',self.angle)
         if self.type == "OBLIQUE":
             self.speedx = abs(cos(OBLIQUEANGLE + self.angle))*vel # Velocidade fixa para a direita
