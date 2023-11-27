@@ -95,6 +95,8 @@ def jogo_principal(window,tela,choose1,choose2):
             if event.type == pygame.QUIT:
                 Sair=1
                 game = False
+                ganhador=0
+                g_img=0
                 
             # ----- Verifica se apertou alguma tecla.
             if event.type == pygame.KEYDOWN:

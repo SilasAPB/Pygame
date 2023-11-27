@@ -57,7 +57,7 @@ class Player(pygame.sprite.Sprite):
         self.item = self.changeItem()
         self.firing = False
 
-        self.frame_ticks=50
+        self.frame_ticks=60
         
 
 
@@ -83,6 +83,11 @@ class Player(pygame.sprite.Sprite):
                 else:
                     self.frame=1
         else: self.frame=0
+
+        if self.speedy<0:
+            self.frame=6
+        elif self.speedy>0:
+            self.frame=5
 
         if self.playerDirection<0:
             self.image=pygame.transform.flip(self.anim[self.frame],True,False)
