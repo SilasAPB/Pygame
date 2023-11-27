@@ -1,26 +1,28 @@
 import pygame
 import sys
-from math import ceil
+import json
 
 sys.path.insert(0, 'jogo')
 from lista_assests import *
 
 
+mapName = input("Digite o nome do mapa: ")
+
 pygame.init()
 
-window = pygame.display.set_mode((1000, 600))
-pygame.display.set_caption('Map creator')
+window = pygame.display.set_mode((1280, 720))
+pygame.display.set_caption(f'Map creator - {mapName}')
 
 w, h = pygame.display.get_surface().get_size()
 
 game = True
 
-TILESIZE = 32
+TILESIZE = 80
 
 all_sprites=pygame.sprite.Group()
 
-
 assets = load_assets()
+
 
 class Block(pygame.sprite.Sprite):
     def __init__(self,img,x,y):
@@ -39,38 +41,60 @@ class Block(pygame.sprite.Sprite):
         self.rect.centerx= x # Posição plano x
         self.rect.centery= y # Posição plano y
 
+
 def printTable(table):
     for ln in table:
         print(ln)
+
+
 
 cursor = Block(assets[BLOCK1_MAP2],0,0)
 all_sprites.add(cursor)
 
 
-gameMap = [0]*31
-gameMap = [gameMap]*31
-blockselection = BLOCK1_MAP1
+gamePlainMap = [
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+]
+
+gameMap = []
+for ln in gamePlainMap:
+    gameMap.append(list(ln))
+
+blockselection = BLOCK1_MAP2
+blockSymbol = 1
 
 # Inicializa o mapa
 for ln in range(len(gameMap)):
     for col in range(len(gameMap[ln])):
         if gameMap[ln][col] != 0:
-            gameMap[ln][col] = Block(assets[blockselection],ln,col)
+            gameMap[ln][col] = Block(assets[blockselection],col*TILESIZE,ln*TILESIZE)
             all_sprites.add(gameMap[ln][col])
 
+printTable(gamePlainMap)
+
 while game:
-    
     mouseX, mouseY = pygame.mouse.get_pos()
     mouseX = mouseX//TILESIZE
     mouseY = mouseY//TILESIZE
+    
     # ----- Trata eventos
     for event in pygame.event.get():
-        # ----- Verifica consequências
         if event.type == pygame.MOUSEBUTTONUP:
-            if gameMap[mouseY][mouseX]==0:
+            if gameMap[mouseY][mouseX] == 0 and cursor != 0:
                 gameMap[mouseY][mouseX] = Block(assets[blockselection],mouseX*TILESIZE,mouseY*TILESIZE)
                 all_sprites.add(gameMap[mouseY][mouseX])
-            else:
+                gamePlainMap[mouseY][mouseX] = blockSymbol
+
+            elif cursor != 0:
+                # print(gameMap[mouseY][mouseX])
                 gameMap[mouseY][mouseX].kill()
                 gameMap[mouseY][mouseX] = 0
         
@@ -79,18 +103,27 @@ while game:
                 cursor.kill()
             if event.key == pygame.K_0 and cursor != 0:
                 blockselection = 0
+                cursor = 0
+                blockSymbol = 0
+                print(0)
             if event.key == pygame.K_1:
                 blockselection = BLOCK1_MAP2
-                block = Block(assets[blockselection],mouseX*TILESIZE,mouseY*TILESIZE)
-                all_sprites.add(block)
+                cursor = Block(assets[blockselection],mouseX*TILESIZE,mouseY*TILESIZE)
+                all_sprites.add(cursor)
+                blockSymbol = 1
+                print(1)
             if event.key == pygame.K_2:
                 blockselection = BLOCK2_MAP2
-                block = Block(assets[blockselection],mouseX*TILESIZE,mouseY*TILESIZE)
-                all_sprites.add(block)
+                cursor = Block(assets[blockselection],mouseX*TILESIZE,mouseY*TILESIZE)
+                all_sprites.add(cursor)
+                blockSymbol = 2
+                print(2)
             if event.key == pygame.K_3:
                 blockselection = BLOCK3_MAP2
-                block = Block(assets[blockselection],mouseX*TILESIZE,mouseY*TILESIZE)
-                all_sprites.add(block)
+                cursor = Block(assets[blockselection],mouseX*TILESIZE,mouseY*TILESIZE)
+                all_sprites.add(cursor)
+                blockSymbol = 3
+                print(3)
         if event.type == pygame.QUIT:
             game = False
 
@@ -113,3 +146,10 @@ while game:
     
 # ===== Finalização =====
 pygame.quit()
+
+printTable(gamePlainMap)
+
+jsonObject = json.dumps(gamePlainMap,indent=4)
+
+with open(f"jogo/assets/maps/{mapName}.json", "w") as outfile:
+    outfile.write(jsonObject)
