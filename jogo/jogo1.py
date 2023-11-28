@@ -187,7 +187,10 @@ def jogo_principal(window,tela,choose1,choose2):
         print(cont)
         if cont == 5*FPS:
             for p in all_players:
+                p.item.kill()
                 p.item = p.changeItem()
+                all_sprites.add(p.item)
+                
             cont = 0
 
         

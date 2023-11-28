@@ -16,7 +16,6 @@ window = pygame.display.set_mode((WIDTH, HEIGHT)) #Definição de tela do jogo
 pygame.display.set_caption('Imperium') #Defini o nome da tela
 
 
-
 state = INIT # define aonde o jogo começa
 while state != QUIT :
     if state == INIT:
