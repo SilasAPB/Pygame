@@ -14,7 +14,7 @@ class Player(pygame.sprite.Sprite):
         # Informações básicas
         self.logo=img
         self.name = nickname
-        self.frame=0
+        self.frame=1
         self.anim=assets[f'player_{choose}_img']
 
         self.image=self.anim[self.frame] #imagem do personagem
@@ -83,7 +83,7 @@ class Player(pygame.sprite.Sprite):
                     self.frame += 1
                 else:
                     self.frame=1
-        else: self.frame=0
+        else: self.frame=1
 
         if self.speedy<0:
             self.frame=6
