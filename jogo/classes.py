@@ -188,6 +188,9 @@ class Block(pygame.sprite.Sprite):
 
 class Item(pygame.sprite.Sprite):
     def __init__(self, playerOrigin, direction, assets, collgroup, all_sprites, all_bullets, projectile):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = assets[projectile['asset']]
+        self.rect=self.image.get_rect()
         self.originX = playerOrigin[0] + (direction * PLAYERS_WIDTH/2 + 5)
         self.originY = playerOrigin[1]
         self.direction = direction

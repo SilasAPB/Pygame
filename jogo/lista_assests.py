@@ -40,6 +40,16 @@ MINIMAP2_IMG= 'minimap_2_bar'
 MINIMAP3_IMG= 'minimap_3_bar'
 MINIMAP4_IMG= 'minimap_4_bar'
 
+ARMA1= 'Armas1.png'
+ARMA2= 'Armas2.png'
+ARMA3= 'Armas3.png'
+ARMA4= 'Armas4.png'
+ARMA5= 'Armas5.png'
+ARMA6= 'Armas6.png'
+ARMA7= 'Armas7.png'
+ARMA8= 'Armas8.png'
+ARMA9= 'Armas9.png'
+
 
 
 def load_assets():
@@ -131,5 +141,35 @@ def load_assets():
 
     assets[MINIMAP4_IMG]=pygame.image.load(os.path.join(IMG_DIR,'mapa4.png'))
     assets[MINIMAP4_IMG]=pygame.transform.scale(assets[MINIMAP4_IMG],(MIN_MAP_W, MIN_MAP_H))
+
+
+
+   # Armas
+    assets['Armas1']=pygame.image.load(os.path.join(IMG_DIR,'Armas1.png'))
+    assets['Armas1']=pygame.transform.scale(assets['Armas1'],(GUN_SIZE, GUN_SIZE))
+    
+    assets['Armas2']=pygame.image.load(os.path.join(IMG_DIR,'Armas2.png'))
+    assets['Armas2']=pygame.transform.scale(assets['Armas2'],(GUN_SIZE, GUN_SIZE))
+    
+    assets['Armas3']=pygame.image.load(os.path.join(IMG_DIR,'Armas3.png'))
+    assets['Armas3']=pygame.transform.scale(assets['Armas3'],(GUN_SIZE, GUN_SIZE))
+    
+    assets['Armas4']=pygame.image.load(os.path.join(IMG_DIR,'Armas4.png'))
+    assets['Armas4']=pygame.transform.scale(assets['Armas4'],(GUN_SIZE, GUN_SIZE))
+
+    assets['Armas5']=pygame.image.load(os.path.join(IMG_DIR,'Armas5.png'))
+    assets['Armas5']=pygame.transform.scale(assets['Armas5'],(GUN_SIZE, GUN_SIZE))
+
+    assets['Armas6']=pygame.image.load(os.path.join(IMG_DIR,'Armas6.png'))
+    assets['Armas6']=pygame.transform.scale(assets['Armas6'],(GUN_SIZE, GUN_SIZE))
+
+    assets['Armas7']=pygame.image.load(os.path.join(IMG_DIR,'Armas7.png'))
+    assets['Armas7']=pygame.transform.scale(assets['Armas7'],(GUN_SIZE, GUN_SIZE))
+
+    assets['Armas8']=pygame.image.load(os.path.join(IMG_DIR,'Armas8.png'))
+    assets['Armas8']=pygame.transform.scale(assets['Armas8'],(GUN_SIZE, GUN_SIZE))
+
+    assets['Armas9']=pygame.image.load(os.path.join(IMG_DIR,'Armas9.png'))
+    assets['Armas9']=pygame.transform.scale(assets['Armas9'],(GUN_SIZE, GUN_SIZE))
 
     return assets
