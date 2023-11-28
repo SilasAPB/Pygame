@@ -19,6 +19,8 @@ def jogo_principal(window,tela,choose1,choose2):
 
     game = True
 
+    TimerFont = pygame.font.SysFont('twcennegrito',60)
+
     playerControls={
     'p1' : [pygame.K_a,pygame.K_d,pygame.K_w,pygame.K_s,pygame.K_LSHIFT,pygame.K_q], 
     'p2' : [pygame.K_LEFT,pygame.K_RIGHT,pygame.K_UP,pygame.K_0,pygame.K_SPACE,pygame.K_SLASH]
@@ -147,6 +149,7 @@ def jogo_principal(window,tela,choose1,choose2):
                     vidap2 = player2.nivel_vida(list(hit.values())[0][0].damage)
                     health_bar2.update(vidap2)
             
+            
             # se um morrer, o outro não morre
             if vidap1 == 0 :
                 player1.kill()
@@ -162,6 +165,24 @@ def jogo_principal(window,tela,choose1,choose2):
                 all_players.remove(player1)
                 game=False
             
+
+        cont += 2
+        print(cont)
+        if cont == ITEM_SWAP_TIME*FPS:
+            for p in all_players:
+                p.item.kill()
+                p.item = p.changeItem()
+                all_sprites.add(p.item)
+                
+            cont = 0
+
+        if cont < ITEM_SWAP_TIME*FPS*2/5:
+            Timer = TimerFont.render(str(ITEM_SWAP_TIME-cont//FPS) , True , WHITE)
+        elif cont < ITEM_SWAP_TIME*FPS*3/5:
+            Timer = TimerFont.render(str(ITEM_SWAP_TIME-cont//FPS) , True , YELLOW)
+        else:
+            Timer = TimerFont.render(str(ITEM_SWAP_TIME-cont//FPS) , True , RED)
+
 
 
 
@@ -179,19 +200,11 @@ def jogo_principal(window,tela,choose1,choose2):
         if tela==4:
             window.blit(assets[BACKGROUND3], (0,0)) # Nosso Fundo do mapa 4
 
+        window.blit(Timer,(WIDTH/2,0))
 
         health_bar1.draw(window)
         health_bar2.draw(window)
 
-        cont += 1
-        print(cont)
-        if cont == 5*FPS:
-            for p in all_players:
-                p.item.kill()
-                p.item = p.changeItem()
-                all_sprites.add(p.item)
-                
-            cont = 0
 
         
         all_sprites.draw(window) # ----- Desenha os sprites(objetos) na tela
