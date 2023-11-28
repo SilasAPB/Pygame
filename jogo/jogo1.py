@@ -20,8 +20,8 @@ def jogo_principal(window,tela,choose1,choose2):
     game = True
 
     playerControls={
-    'p1' : [pygame.K_a,pygame.K_d,pygame.K_w,pygame.K_s,pygame.K_r,pygame.K_q], 
-    'p2' : [pygame.K_LEFT,pygame.K_RIGHT,pygame.K_UP,pygame.K_DOWN,pygame.K_RSHIFT,pygame.K_SLASH]
+    'p1' : [pygame.K_a,pygame.K_d,pygame.K_w,pygame.K_s,pygame.K_LSHIFT,pygame.K_q], 
+    'p2' : [pygame.K_LEFT,pygame.K_RIGHT,pygame.K_UP,pygame.K_0,pygame.K_SPACE,pygame.K_SLASH]
     
     }
 # ----- Criando um grupo de sprites(que vai agir/atualizar conforme o tempo)
