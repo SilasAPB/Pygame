@@ -17,6 +17,11 @@ PLAYER2_IMG = 'player_2_img'
 PLAYER3_IMG = 'player_3_img'
 PLAYER4_IMG = 'player_4_img'
 
+PLAYER1_IMG_L = 'player_1_img_L'
+PLAYER2_IMG_L = 'player_2_img_L'
+PLAYER3_IMG_L = 'player_3_img_L'
+PLAYER4_IMG_L = 'player_4_img_L'
+
 #SPRITES MAPAS(1-4):
 BLOCK1_MAP1 = 'bloco1_mapa1'
 BLOCK2_MAP1= 'bloco2_mapa1'
@@ -71,17 +76,17 @@ def load_assets():
     assets[BACKGROUND4]=pygame.transform.scale(assets[BACKGROUND4], (WIDTH, HEIGHT))
 
  #PLAYERS:
-    assets[PLAYER1_IMG]=pygame.image.load(os.path.join(IMG_DIR,'player1.png'))
-    assets[PLAYER1_IMG]=pygame.transform.scale(assets[PLAYER1_IMG], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+    assets[PLAYER1_IMG_L]=pygame.image.load(os.path.join(IMG_DIR,'P1F1.png'))
+    assets[PLAYER1_IMG_L]=pygame.transform.scale(assets[PLAYER1_IMG_L], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
 
-    assets[PLAYER2_IMG]=pygame.image.load(os.path.join(IMG_DIR,'player2.png'))
-    assets[PLAYER2_IMG]=pygame.transform.scale(assets[PLAYER2_IMG], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+    assets[PLAYER2_IMG_L]=pygame.image.load(os.path.join(IMG_DIR,'P2F2.png'))
+    assets[PLAYER2_IMG_L]=pygame.transform.scale(assets[PLAYER2_IMG_L], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
 
-    assets[PLAYER3_IMG]=pygame.image.load(os.path.join(IMG_DIR,'player3.png'))
-    assets[PLAYER3_IMG]=pygame.transform.scale(assets[PLAYER3_IMG], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+    assets[PLAYER3_IMG_L]=pygame.image.load(os.path.join(IMG_DIR,'P3F3.png'))
+    assets[PLAYER3_IMG_L]=pygame.transform.scale(assets[PLAYER3_IMG_L], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
 
-    assets[PLAYER4_IMG]=pygame.image.load(os.path.join(IMG_DIR,'player4.png'))
-    assets[PLAYER4_IMG]=pygame.transform.scale(assets[PLAYER4_IMG], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+    assets[PLAYER4_IMG_L]=pygame.image.load(os.path.join(IMG_DIR,'P4F4.png'))
+    assets[PLAYER4_IMG_L]=pygame.transform.scale(assets[PLAYER4_IMG_L], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
 
   
 
@@ -171,5 +176,48 @@ def load_assets():
 
     assets['Armas9']=pygame.image.load(os.path.join(IMG_DIR,'Armas9.png'))
     assets['Armas9']=pygame.transform.scale(assets['Armas9'],(GUN_SIZE, GUN_SIZE))
+    player1=[]
+    for i in range(7):
+         # Os arquivos de animação são numerados de 00 a 08
+         filename = os.path.join(IMG_DIR, 'P1F{}.png'.format(i+1))
+         img = pygame.image.load(filename)
+         img = pygame.transform.scale(img, (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+         player1.append(img)
+
+    assets[PLAYER1_IMG] = player1
+
+
+    player2=[]
+    for i in range(7):
+         # Os arquivos de animação são numerados de 00 a 08
+         filename = os.path.join(IMG_DIR, 'P2F{}.png'.format(i+1))
+         img = pygame.image.load(filename)
+         img = pygame.transform.scale(img, (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+         player2.append(img)
+
+    assets[PLAYER2_IMG] = player2
+
+
+    player3=[]
+    for i in range(7):
+         # Os arquivos de animação são numerados de 00 a 08
+         filename = os.path.join(IMG_DIR, 'P3F{}.png'.format(i+1))
+         img = pygame.image.load(filename)
+         img = pygame.transform.scale(img, (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+         player3.append(img)
+
+    assets[PLAYER3_IMG] = player3
+
+    player4=[]
+    for i in range(7):
+         # Os arquivos de animação são numerados de 00 a 08
+         filename = os.path.join(IMG_DIR, 'P4F{}.png'.format(i+1))
+         img = pygame.image.load(filename)
+         img = pygame.transform.scale(img, (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+         player4.append(img)
+
+    assets[PLAYER4_IMG] = player4
+
+
 
     return assets
