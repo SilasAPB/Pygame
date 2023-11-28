@@ -97,6 +97,8 @@ while game:
                 # print(gameMap[mouseY][mouseX])
                 gameMap[mouseY][mouseX].kill()
                 gameMap[mouseY][mouseX] = 0
+                gamePlainMap[mouseY][mouseX] = 0
+            printTable(gamePlainMap)
         
         if event.type == pygame.KEYDOWN:
             if cursor != 0:

@@ -14,7 +14,7 @@ class Player(pygame.sprite.Sprite):
         # Informações básicas
         self.logo=img
         self.name = nickname
-        self.frame=0
+        self.frame=1
         self.anim=assets[f'player_{choose}_img']
 
         self.image=self.anim[self.frame] #imagem do personagem
@@ -55,6 +55,7 @@ class Player(pygame.sprite.Sprite):
         self.immortal=0
 
         self.item = self.changeItem()
+        self.all_sprites.add(self.item)
         self.firing = False
 
         self.frame_ticks=60
@@ -82,7 +83,7 @@ class Player(pygame.sprite.Sprite):
                     self.frame += 1
                 else:
                     self.frame=1
-        else: self.frame=0
+        else: self.frame=1
 
         if self.speedy<0:
             self.frame=6
@@ -152,20 +153,21 @@ class Player(pygame.sprite.Sprite):
         if self.rect.left < 0: # Para Direita
             self.rect.left = 0
         
-        self.item.update(self.rect.centerx,self.rect.centery,self.playerDirection)
 
+        # Funções para o item
+        self.item.moveItem(self.rect.centerx,self.rect.centery,self.playerDirection)
         if self.firing:
             self.useItem()
 
 
     #Mudança/definição de arma a escolher
-    def changeItem(self):
+    def changeItem(self): # Você referencia o antigo item e ele te da um novo
        values = list(ITEMS.values())
        atributos =  random.choice(values)
        return Item((self.rect.centerx, self.rect.centery), self.playerDirection, self.assets, self.all_obstaculos, self.all_sprites, self.all_bullets, atributos)
 
     # Função para disparar um projétil
-    def useItem(self): 
+    def useItem(self):
         self.item.use()
         
     #define a intangibilidade
@@ -224,9 +226,11 @@ class Item(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = assets[projectile['asset']]
         self.rect=self.image.get_rect()
-        self.originX = playerOrigin[0] + (direction * PLAYERS_WIDTH/2 + 5)
-        self.originY = playerOrigin[1]
+        self.rect.centerx = playerOrigin[0] + (direction * PLAYERS_WIDTH/2)
+        self.rect.centery = playerOrigin[1]
         self.direction = direction
+        if self.direction < 0:
+            self.image=pygame.transform.flip(self.image,True,False)
         self.assets = assets
         self.all_sprites = all_sprites
         self.all_bullets = all_bullets
@@ -241,7 +245,7 @@ class Item(pygame.sprite.Sprite):
     
     def use(self):
         if self.avaliable and (not self.cooldown):
-            new_bullet = Bullet(self.assets, self.originX, self.originY, self.projectile["velocity"]*self.direction, self.collideGroups, self.projectile["itemType"],self.projectile["spray"],self.projectile['damage'])
+            new_bullet = Bullet(self.assets, self.rect.centerx, self.rect.centery, self.projectile["velocity"]*self.direction, self.collideGroups, self.projectile["itemType"],self.projectile["spray"],self.projectile['damage'])
             self.all_sprites.add(new_bullet)
             self.all_bullets.add(new_bullet)
             self.avaliable-=1
@@ -252,11 +256,14 @@ class Item(pygame.sprite.Sprite):
             self.cooldown = self.projectile['reload']
             
 
-    def update(self,x,y,direction):
+    def moveItem(self,x,y,direction):
         if self.cooldown : self.cooldown -= 1
-        self.originX = x + (direction * PLAYERS_WIDTH/2) + (5*direction)
-        self.originY = y
+        self.rect.centerx = x + (direction * PLAYERS_WIDTH/2) + (5*direction)
+        self.rect.centery = y
+        if direction!=self.direction:
+            self.image=pygame.transform.flip(self.image,True,False)
         self.direction = direction
+        
 
 
 class Bullet(pygame.sprite.Sprite):
