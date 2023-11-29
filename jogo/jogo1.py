@@ -78,11 +78,11 @@ def jogo_principal(window,tela,choose1,choose2):
         for col in range(len(mapa[ln])):
             plataforma = 0
             if mapa[ln][col] == 1:
-                plataforma = Block(assets[BLOCK1_MAP2],col*BLOCK_SIZE-horizontalOffset,ln*BLOCK_SIZE-verticalOffset)
+                plataforma = Block(assets[f'bloco1_mapa{tela}'],col*BLOCK_SIZE-horizontalOffset,ln*BLOCK_SIZE-verticalOffset)
             elif mapa[ln][col] == 2:
-                plataforma = Block(assets[BLOCK2_MAP2],col*BLOCK_SIZE-horizontalOffset,ln*BLOCK_SIZE-verticalOffset)
+                plataforma = Block(assets[f'bloco2_mapa{tela}'],col*BLOCK_SIZE-horizontalOffset,ln*BLOCK_SIZE-verticalOffset)
             elif mapa[ln][col] == 3:
-                plataforma = Block(assets[BLOCK3_MAP2],col*BLOCK_SIZE-horizontalOffset,ln*BLOCK_SIZE-verticalOffset)
+                plataforma = Block(assets[f'bloco1_mapa{tela}'],col*BLOCK_SIZE-horizontalOffset,ln*BLOCK_SIZE-verticalOffset)
             else: continue
             all_sprites.add(plataforma)
             all_obstaculos.add(plataforma)
