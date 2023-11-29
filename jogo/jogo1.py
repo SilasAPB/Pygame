@@ -199,14 +199,14 @@ def jogo_principal(window,tela,choose1,choose2):
         if tela==4:
             window.blit(assets[BACKGROUND3], (0,0)) # Nosso Fundo do mapa 4
 
-        window.blit(Timer,(WIDTH/2,10))
 
-        health_bar1.draw(window)
-        health_bar2.draw(window)
 
 
         
         all_sprites.draw(window) # ----- Desenha os sprites(objetos) na tela
+        window.blit(Timer,(WIDTH/2,10))
+        health_bar1.draw(window)
+        health_bar2.draw(window)
         # ----- Atualiza estado do jogo
         pygame.display.update()
         clock.tick(FPS)  # Mostra o novo frame para o jogador
