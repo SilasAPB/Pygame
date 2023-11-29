@@ -46,7 +46,7 @@ class Player(pygame.sprite.Sprite):
         
         # Assets
         self.assets = assets
-        self.bullet_img = assets[BULLET_IMG]
+        # self.bullet_img = assets[BULLET_IMG]
 
         # Atributos de jogo
         self.max_health = MAX_HP
@@ -270,7 +270,12 @@ class Bullet(pygame.sprite.Sprite):
     def __init__(self, assets,posx, posy, vel, collgroup, type, spray,damage):
         pygame.sprite.Sprite.__init__(self)
         self.type = type
-        self.image = assets[BULLET_IMG]
+        if self.type == "STRAIGHT":
+            self.image = assets[BULLET_STRAIGHT]
+        elif self.type == "OBLIQUE":
+            self.image = assets[BULLET_OBLIQUE]
+        else:
+            self.image = assets[BULLET_BOUNCE]
         self.rect = self.image.get_rect()
         self.rect.centerx = posx
         self.rect.centery = posy
