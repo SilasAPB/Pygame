@@ -1,6 +1,7 @@
 import pygame
 import sys
 import json
+import os
 
 sys.path.insert(0, 'jogo')
 from lista_assests import *
@@ -8,10 +9,17 @@ from lista_assests import *
 
 mapName = input("Digite o nome do mapa: ")
 
+modo = "NEW"
+
+if os.path.exists(os.path.join('jogo','assets','maps',f'{mapName}.json')):
+    modo = "EDITING"
+    with open(os.path.join('jogo','assets','maps',f'{mapName}.json'),'r') as mapjson:
+        gamePlainMap = json.load(mapjson)
+
 pygame.init()
 
 window = pygame.display.set_mode((1280, 720))
-pygame.display.set_caption(f'Map creator - {mapName}')
+pygame.display.set_caption(f'Map creator - {mapName}  [{modo}]')
 
 w, h = pygame.display.get_surface().get_size()
 
@@ -51,18 +59,18 @@ def printTable(table):
 cursor = Block(assets[BLOCK1_MAP2],0,0)
 all_sprites.add(cursor)
 
-
-gamePlainMap = [
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-]
+if modo == "NEW":
+    gamePlainMap = [
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    ]
 
 gameMap = []
 for ln in gamePlainMap:
