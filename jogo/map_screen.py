@@ -51,11 +51,11 @@ def map_screen(window):
                     running=False
                     print("Jogo 2")
                 if 5*WIDTH/8-10 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+10 and 5*HEIGHT/8-10 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+10:
-                    state=GAME4    
+                    state=GAME3    
                     running=False
                     print("Jogo 3")    
                 if WIDTH/8-10 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+10 and 5*HEIGHT/8-10 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+10:
-                    state=GAME3
+                    state=GAME4
                     running=False
                     print("Jogo 4")    
 
@@ -93,8 +93,9 @@ def map_screen(window):
           
         window.blit(assets[MINIMAP1_IMG], (WIDTH/8,HEIGHT/8))
         window.blit(assets[MINIMAP2_IMG], (5*WIDTH/8,HEIGHT/8))
-        window.blit(assets[MINIMAP3_IMG], (5*WIDTH/8,5*HEIGHT/8))
-        window.blit(assets[MINIMAP4_IMG], (WIDTH/8,5*HEIGHT/8))
+        window.blit(assets[MINIMAP3_IMG], (WIDTH/8,5*HEIGHT/8))
+        window.blit(assets[MINIMAP4_IMG], (5*WIDTH/8,5*HEIGHT/8))
+
 
         
         window.blit(text1, (WIDTH/8+50, HEIGHT/4+100))
