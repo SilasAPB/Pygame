@@ -6,7 +6,12 @@ import os
 sys.path.insert(0, 'jogo')
 from lista_assests import *
 
+os.system('cls||clear')
 
+print("""[ EDITOR DE MAPAS ]
+
+- Crie um arquivo de mapa novo
+- Especifique o nome de um já existente para modificá-lo\n""")
 mapName = input("Digite o nome do mapa: ")
 
 modo = "NEW"
@@ -60,6 +65,7 @@ cursor = Block(assets[BLOCK1_MAP2],0,0)
 all_sprites.add(cursor)
 
 if modo == "NEW":
+    print("\nNOVO MAPA\nAbrindo mapa vazio:")
     gamePlainMap = [
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -71,6 +77,8 @@ if modo == "NEW":
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     ]
+else:
+    print("\nMAPA JÁ EXISTENTE!\nEditando arquivo:")
 
 gameMap = []
 for ln in gamePlainMap:
@@ -86,7 +94,7 @@ for ln in range(len(gameMap)):
             gameMap[ln][col] = Block(assets[blockselection],col*TILESIZE,ln*TILESIZE)
             all_sprites.add(gameMap[ln][col])
 
-printTable(gamePlainMap)
+# printTable(gamePlainMap)
 
 while game:
     mouseX, mouseY = pygame.mouse.get_pos()
