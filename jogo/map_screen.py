@@ -44,16 +44,20 @@ def map_screen(window):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if WIDTH/8-10 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+10 and HEIGHT/8-10 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+10:
                     state=GAME1
-                    running=False   
+                    running=False
+                    print("Jogo 1") 
                 if 5*WIDTH/8-10 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+10 and HEIGHT/8-10 <= mouse[1] <= HEIGHT/8+MIN_MAP_H+10:
                     state=GAME2
-                    running=False   
+                    running=False
+                    print("Jogo 2")
                 if 5*WIDTH/8-10 <=   mouse[0] <= 5*WIDTH/8+MIN_MAP_W+10 and 5*HEIGHT/8-10 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+10:
                     state=GAME4    
-                    running=False   
+                    running=False
+                    print("Jogo 3")    
                 if WIDTH/8-10 <=   mouse[0] <= WIDTH/8+MIN_MAP_W+10 and 5*HEIGHT/8-10 <= mouse[1] <= 5*HEIGHT/8+MIN_MAP_H+10:
                     state=GAME3
-                    running=False   
+                    running=False
+                    print("Jogo 4")    
 
         # A cada loop, redesenha o fundo e os sprites
         window.fill(BLACK)

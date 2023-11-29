@@ -23,7 +23,7 @@ MAX_HP = 15
 
 
 BARRA_WIDTH=150
-BARRA_HEIGHT=30
+BARRA_HEIGHT=40
 
 IMG_DIR = path.join(path.dirname(__file__), 'assets', 'img')
 SND_DIR = path.join(path.dirname(__file__), 'assets', 'snd')

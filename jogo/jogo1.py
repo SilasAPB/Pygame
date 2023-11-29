@@ -69,13 +69,14 @@ def jogo_principal(window,tela,choose1,choose2):
     horizontalOffset = w % BLOCK_SIZE - BLOCK_SIZE/2
 
     # ----- Inicializa mapa
-    with open(os.path.join(path.dirname(__file__), 'assets', 'maps','teste2.json')) as mapaJson:
+    mapas = ["Templo Guangzhou.json","Jardins Cristalinos.json","Canyon dos Esquecidos.json","Beco do Coringa.json"]
+    print(mapas[tela-1])
+    with open(os.path.join(path.dirname(__file__), 'assets', 'maps',mapas[tela-1])) as mapaJson:
         mapa = json.load(mapaJson)
 
     for ln in range(len(mapa)):
         for col in range(len(mapa[ln])):
             plataforma = 0
-            print(mapa[ln][col])
             if mapa[ln][col] == 1:
                 plataforma = Block(assets[BLOCK1_MAP2],col*BLOCK_SIZE-horizontalOffset,ln*BLOCK_SIZE-verticalOffset)
             elif mapa[ln][col] == 2:
@@ -140,7 +141,6 @@ def jogo_principal(window,tela,choose1,choose2):
         if len(hit)>0:
             vidap1=1
             vidap2=1
-            print(list(hit.values())[0])
             for player in hit.keys():
                 if player == player1:
                     vidap1 = player1.nivel_vida(list(hit.values())[0][0].damage)
@@ -199,7 +199,7 @@ def jogo_principal(window,tela,choose1,choose2):
         if tela==4:
             window.blit(assets[BACKGROUND3], (0,0)) # Nosso Fundo do mapa 4
 
-        window.blit(Timer,(WIDTH/2,0))
+        window.blit(Timer,(WIDTH/2,10))
 
         health_bar1.draw(window)
         health_bar2.draw(window)
