@@ -131,11 +131,11 @@ def person_screen(window):
           
         #DESENHA O BOTÂO 4
         if Choose1==4 and Choose2!=4:
-            pygame.draw.rect(window,RED,[5*2*WIDTH/8,(5*HEIGHT/8)+10,PLAYERS_WIDTH_L, PLAYERS_HEIGHT_L],border_radius=12)   #Aceso
+            pygame.draw.rect(window,RED,[2*WIDTH/8,(5*HEIGHT/8)+10,PLAYERS_WIDTH_L, PLAYERS_HEIGHT_L],border_radius=12)   #Aceso
         elif Choose2==4 and Choose1!=4: 
-            pygame.draw.rect(window, BLUE,[5*2*WIDTH/8,(5*HEIGHT/8)+10,PLAYERS_WIDTH_L, PLAYERS_HEIGHT_L],border_radius=12)#Apagado
+            pygame.draw.rect(window, BLUE,[2*WIDTH/8,(5*HEIGHT/8)+10,PLAYERS_WIDTH_L, PLAYERS_HEIGHT_L],border_radius=12)#Apagado
         elif Choose2==4 and Choose1==4: 
-            pygame.draw.rect(window, PURPLE,[5*2*WIDTH/8,(5*HEIGHT/8)+10,PLAYERS_WIDTH_L, PLAYERS_HEIGHT_L],border_radius=12)#Apagado
+            pygame.draw.rect(window, PURPLE,[2*WIDTH/8,(5*HEIGHT/8)+10,PLAYERS_WIDTH_L, PLAYERS_HEIGHT_L],border_radius=12)#Apagado
           
 
         #COLOCA A IMAGEM DOS PLAYERS PARA A SELEÇÃO DOS RESPECTIVOS NA POSIÇÃO DE INTERESSE
