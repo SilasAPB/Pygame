@@ -23,7 +23,6 @@ Para que a interface do jogo inicie, além das bibliotecas estarem baixadas, é 
 
 Para o jogo iniciar, os jogadores devem clicar no botão "Jogar" na tela de inicio. Em seguida, os jogadores devem escolher os personagens por meio dos comandos que estão dispostos na tela, que são os mesmos botões de movimentação no jogo(descritos na aba "PLAYERS"). Com os personagens escolhidos, os jogdores devem selecionar com o mouse o mapa que desejam jogar.
 
-
 ----------------------               PLAYERS          --------------------------------------
 
 Os comandos do player 1(player da esquerda):
@@ -53,6 +52,6 @@ Silas André Pereira de Brito:
 * [Linkedin](https://www.linkedin.com/in/silas-pereira-09198620b/)
 
 Yamandú Germano Cavalcanti:
-* [Github] (https://github.com/YamanduGermano)
+* [Github](https://github.com/YamanduGermano)
 * [Linkedin](https://www.linkedin.com/in/yamandu-germano/)
 
