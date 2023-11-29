@@ -69,7 +69,7 @@ def jogo_principal(window,tela,choose1,choose2):
     horizontalOffset = w % BLOCK_SIZE - BLOCK_SIZE/2
 
     # ----- Inicializa mapa
-    mapas = ["Templo Guangzhou.json","Jardins Cristalinos.json","Canyon dos Esquecidos.json","Beco do Coringa.json"]
+    mapas = ["Templo Guangzhou.json","Jardins Cristalinos.json","Beco do Coringa.json","Canyon dos Esquecidos.json"]
     print(mapas[tela-1])
     with open(os.path.join(path.dirname(__file__), 'assets', 'maps',mapas[tela-1])) as mapaJson:
         mapa = json.load(mapaJson)
