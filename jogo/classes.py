@@ -309,7 +309,6 @@ class Bullet(pygame.sprite.Sprite):
                     abs(self.rect.right - block[0].rect.left),
                     abs(self.rect.bottom - block[0].rect.top),
                     abs(self.rect.top - block[0].rect.bottom)]
-                print('dist',dists)
                 if dists[2] == min(dists) or dists[3] == min(dists): # Top Bottom
                     self.speedy*=-1
                 elif dists[0] == min(dists) or dists[1] == min(dists): # Left Right
