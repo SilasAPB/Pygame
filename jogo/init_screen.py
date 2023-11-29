@@ -12,7 +12,7 @@ def init_screen(window):
     clock = pygame.time.Clock()
 
     smallfont = pygame.font.SysFont('lucidaconsola',35) 
-    texto_inicio = smallfont.render('JOGAR' , True , BLUE)
+    texto_inicio = smallfont.render('JOGAR' , True , BLACK)
 
     texto_explicacaop1 = smallfont.render('Player 1: Jogador da esquerda' , True , RED)
     texto_explicacaop2 = smallfont.render('Player 2: Jogador da direita' , True , BLUE)
@@ -49,10 +49,10 @@ def init_screen(window):
         mouse=pygame.mouse.get_pos()
         
         if WIDTH/2-100 <=  mouse[0] <= WIDTH/2+100 and 6*HEIGHT/8<= mouse[1] <= (6*HEIGHT/8)+60:
-            pygame.draw.rect(window,WHITE,[WIDTH/2-100,6*HEIGHT/8,200,60],border_radius=20) 
+            pygame.draw.rect(window,WHITE,[WIDTH/2-100,6*HEIGHT/8,200,60],border_radius=5) 
           
         else: 
-            pygame.draw.rect(window, BLACK,[WIDTH/2-100,6*HEIGHT/8,200,60],border_radius=20)
+            pygame.draw.rect(window, (235, 214, 134),[WIDTH/2-100,6*HEIGHT/8,200,60],border_radius=5)
 
         
         window.blit(texto_inicio,((WIDTH/2)-45,(6*HEIGHT/8)+20))
