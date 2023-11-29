@@ -13,6 +13,9 @@ def person_screen(window):
     smallfont = pygame.font.SysFont('lucidaconsola',40) 
     texto_p1 = smallfont.render('Player 1: escolha seu personagem com as teclas W,A,S,D' , True , RED)
     texto_p2 = smallfont.render('Player 2: escolha seu personagem com as setas no canto inferior do teclado.', True , BLUE)
+    texto_p1_alt = smallfont.render('Para iniciar o jogo aperte espaço.' , True , WHITE)
+    texto_p2_alt = smallfont.render('Para redefinir o personagem aperte B', True , PURPLE)
+
 
     #CORES E STRINGS QUE QUEREM SER INSERIDAS NA TELAS(AS MENSAGENS PARA AUXILIAR O JOGADOR)
     textop1_a = smallfont.render('P1: A', True , RED)
@@ -155,8 +158,13 @@ def person_screen(window):
         window.blit(textop2_down,((WIDTH/8)-48.5,(5*HEIGHT/8)-35))
 
 
-        window.blit(texto_p1,(5,HEIGHT-70))
-        window.blit(texto_p2,(5,HEIGHT-30))
+
+        if Choose1!=0 and Choose2!=0:
+            window.blit(texto_p1_alt,(5,HEIGHT-70))
+            window.blit(texto_p2_alt,(5,HEIGHT-30))
+        else:        
+            window.blit(texto_p1,(5,HEIGHT-70))
+            window.blit(texto_p2,(5,HEIGHT-30))
     
 
 
