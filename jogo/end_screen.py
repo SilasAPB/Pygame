@@ -13,7 +13,7 @@ def end_screen(window,ganhador,g_img):
     gritante = pygame.font.SysFont('twcennegrito',70)
     gritante_mini = pygame.font.SysFont('twcen',20)
     smallfont = pygame.font.SysFont('couriernew',30) 
-    text = smallfont.render('Aperte ESPAÇO para jogar novamente ou ESC para sair do jogo' , True , BLACK)
+    text = smallfont.render('Aperte R para jogar novamente ou ESC para sair do jogo' , True , BLACK)
     text_up = gritante.render(f'VITORIA ROYALE: {ganhador} ' , True , BLACK)
     text_up_sub=gritante_mini.render('Parabéns, o ar condicionado é todo seu!' , True , BLACK)
 
@@ -40,7 +40,7 @@ def end_screen(window,ganhador,g_img):
                 running = False
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE: 
+                if event.key == pygame.K_r: 
                     state = INIT
                     running = False
                 if event.key == pygame.K_ESCAPE: 
