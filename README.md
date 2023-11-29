@@ -6,7 +6,7 @@ A ideia do jogo é inspirada no jogo brahwhalla e foi feito na versão de pygame
 O Imperium é um jogo de multiplayer local de dois jogadores.
 
 -------------------------------    IMPORTS       ---------------------------------------------------------
-Para que o jogo funcione, é necessário importar todas as bibliotecas mencionadas abaixo:
+\nPara que o jogo funcione, é necessário importar todas as bibliotecas mencionadas abaixo:
 * pygame
 * random
 * os
@@ -14,10 +14,10 @@ Para que o jogo funcione, é necessário importar todas as bibliotecas mencionad
 * json
 * math
 ----------------------               PARA JOGAR          --------------------------------------
-Para que a interface do jogo inicie, além das bibliotecas estarem baixadas, é necessario clicar no arquivo "logica_jogo.py", pois é nesse arquivo que está a lógica do jogo, o qual vai verificar qual tela o programa deve mostrar.
+\nPara que a interface do jogo inicie, além das bibliotecas estarem baixadas, é necessario clicar no arquivo "logica_jogo.py", pois é nesse arquivo que está a lógica do jogo, o qual vai verificar qual tela o programa deve mostrar.
 
 ----------------------               DURANTE O JOGO           --------------------------------------
-Para o jogo iniciar, os jogadores devem clicar no botão "Jogar" na tela de inicio. Em seguida, os jogadores devem escolher os personagens por meio dos comandos que estão dispostos na tela, que são os mesmos botões de movimentação no jogo(descritos na aba "PLAYERS"). Com os personagens escolhidos, os jogdores devem selecionar com o mouse o mapa que desejam jogar.
+\nPara o jogo iniciar, os jogadores devem clicar no botão "Jogar" na tela de inicio. Em seguida, os jogadores devem escolher os personagens por meio dos comandos que estão dispostos na tela, que são os mesmos botões de movimentação no jogo(descritos na aba "PLAYERS"). Com os personagens escolhidos, os jogdores devem selecionar com o mouse o mapa que desejam jogar.
 
 
 ----------------------               PLAYERS          --------------------------------------
@@ -39,8 +39,8 @@ Os comandos do player 2 (player da direita):
 / : Intangibilidade
 "Space" : Atirar
 
-------------------------            REPOSITORIO        ----------------------------------------
-Enzo Santos Christofoletti:
+------------------------            REPOSITÓRIO        ----------------------------------------
+\nEnzo Santos Christofoletti:
 * [Github](https://github.com/enzochristo)
 
 Silas André Pereira de Brito:
