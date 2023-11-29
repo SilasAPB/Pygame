@@ -1,4 +1,4 @@
-# Pygame
+# Imperium
 Repositório para o trabalho final de Design de Software:
 
 O imperium, é um jogo 1x1 de plataforma, em que os jogadores vão ter a chance de jogar em quatro mapas diferentes, com armas diferentes e com diferentes skins. 
@@ -38,4 +38,16 @@ Os comandos do player 2 (player da direita):
 ↥ : Pular
 / : Intangibilidade
 "Space" : Atirar
+
+------------------------            REPOSITORIO        ----------------------------------------
+Enzo Santos Christofoletti:
+* [Github](https://github.com/enzochristo)
+
+Silas André Pereira de Brito:
+* [Github](https://github.com/SilasAPB)
+* [Linkedin](https://www.linkedin.com/in/silas-pereira-09198620b/)
+
+Yamandú Germano Cavalcanti:
+* [Github] (https://github.com/YamanduGermano)
+* [Linkedin](https://www.linkedin.com/in/yamandu-germano/)
 
