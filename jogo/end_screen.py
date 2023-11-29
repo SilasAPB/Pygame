@@ -52,7 +52,7 @@ def end_screen(window,ganhador,g_img):
         window.blit(g_img, (WIDTH/2-PLAYERS_WIDTH_L/2,HEIGHT/2-PLAYERS_HEIGHT_L/2))
         # window.blit(background, background_rect)
 
-        window.blit(text, (100, HEIGHT-100))
+        window.blit(text, (130, HEIGHT-100))
         window.blit(text_up, (WIDTH/2-300, HEIGHT/8))
         window.blit(text_up_sub, (WIDTH/2-300, HEIGHT/8+70))
        
