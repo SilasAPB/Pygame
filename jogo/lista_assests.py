@@ -77,16 +77,16 @@ def load_assets():
 
  #PLAYERS:
     assets[PLAYER1_IMG_L]=pygame.image.load(os.path.join(IMG_DIR,'P1F1.png'))
-    assets[PLAYER1_IMG_L]=pygame.transform.scale(assets[PLAYER1_IMG_L], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+    assets[PLAYER1_IMG_L]=pygame.transform.scale(assets[PLAYER1_IMG_L], (PLAYERS_WIDTH_L, PLAYERS_HEIGHT_L))
 
     assets[PLAYER2_IMG_L]=pygame.image.load(os.path.join(IMG_DIR,'P2F2.png'))
-    assets[PLAYER2_IMG_L]=pygame.transform.scale(assets[PLAYER2_IMG_L], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+    assets[PLAYER2_IMG_L]=pygame.transform.scale(assets[PLAYER2_IMG_L], (PLAYERS_WIDTH_L, PLAYERS_HEIGHT_L))
 
     assets[PLAYER3_IMG_L]=pygame.image.load(os.path.join(IMG_DIR,'P3F3.png'))
-    assets[PLAYER3_IMG_L]=pygame.transform.scale(assets[PLAYER3_IMG_L], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+    assets[PLAYER3_IMG_L]=pygame.transform.scale(assets[PLAYER3_IMG_L], (PLAYERS_WIDTH_L, PLAYERS_HEIGHT_L))
 
     assets[PLAYER4_IMG_L]=pygame.image.load(os.path.join(IMG_DIR,'P4F4.png'))
-    assets[PLAYER4_IMG_L]=pygame.transform.scale(assets[PLAYER4_IMG_L], (PLAYERS_WIDTH, PLAYERS_HEIGHT))
+    assets[PLAYER4_IMG_L]=pygame.transform.scale(assets[PLAYER4_IMG_L], (PLAYERS_WIDTH_L, PLAYERS_HEIGHT_L))
 
   
 

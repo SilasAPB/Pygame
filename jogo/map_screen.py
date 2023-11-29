@@ -14,7 +14,7 @@ def map_screen(window):
     assets=load_assets()
 
     smallfont = pygame.font.SysFont('bookantiqua',26) 
-    text1 = smallfont.render('Templo Guan-Zhou' , True , WHITE)
+    text1 = smallfont.render('Templo Guangzhou', True , WHITE)
     text2 = smallfont.render('Jardins Cristalinos' , True , WHITE)
     text3 = smallfont.render('Canyon dos Esquecidos' , True , WHITE)
     text4 = smallfont.render('Beco do Coringa' , True , WHITE)
