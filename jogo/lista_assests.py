@@ -23,9 +23,15 @@ PLAYER3_IMG_L = 'player_3_img_L'
 PLAYER4_IMG_L = 'player_4_img_L'
 
 #SPRITES MAPAS(1-4):
+MAPS = [
+     ['bloco1_mapa1','bloco2_mapa1','bloco3_mapa1'],
+     ['bloco1_mapa2','bloco2_mapa2','bloco3_mapa2'],
+     ['bloco1_mapa3','bloco2_mapa3','bloco3_mapa3'],
+     ['bloco1_mapa4','bloco2_mapa4','bloco3_mapa4']
+     ]
 BLOCK1_MAP1 = 'bloco1_mapa1'
 BLOCK2_MAP1= 'bloco2_mapa1'
-BLOCK3_MAP1 = 'bloco3_mapa1 '
+BLOCK3_MAP1 = 'bloco3_mapa1'
 
 BLOCK1_MAP2 = 'bloco1_mapa2'
 BLOCK2_MAP2 = 'bloco2_mapa2'
@@ -38,7 +44,9 @@ BLOCK1_MAP4 = 'bloco1_mapa4'
 BLOCK2_MAP4 = 'bloco2_mapa4'
 
 
-BULLET_IMG= 'img_bala'
+BULLET_STRAIGHT= 'Bullets1'
+BULLET_OBLIQUE= 'Bullets2'
+BULLET_BOUNCE= 'Bullets3'
 BARRA_IMG= 'img_bar'
 MINIMAP1_IMG= 'minimap_1_bar'
 MINIMAP2_IMG= 'minimap_2_bar'
@@ -94,41 +102,46 @@ def load_assets():
 
 
  #MAPA 1:
-    assets[BLOCK1_MAP1]=pygame.image.load(os.path.join(IMG_DIR,'bloco1mapa1.png'))
-    assets[BLOCK1_MAP1]=pygame.transform.scale(assets[BLOCK1_MAP1], (BLOCK_SIZE, BLOCK_SIZE))
+    assets[MAPS[0][0]]=pygame.image.load(os.path.join(IMG_DIR,'bloco1mapa1.png'))
+    assets[MAPS[0][0]]=pygame.transform.scale(assets[BLOCK1_MAP1], (BLOCK_SIZE, BLOCK_SIZE))
 
-    assets[BLOCK2_MAP1]=pygame.image.load(os.path.join(IMG_DIR,'bloco2mapa1.png'))
-    assets[BLOCK2_MAP1]=pygame.transform.scale(assets[BLOCK2_MAP1], (BLOCK_SIZE, BLOCK_SIZE))
+    assets[MAPS[0][1]]=pygame.image.load(os.path.join(IMG_DIR,'bloco2mapa1.png'))
+    assets[MAPS[0][1]]=pygame.transform.scale(assets[BLOCK2_MAP1], (BLOCK_SIZE, BLOCK_SIZE))
     
  #MAPA 2:
-    assets[BLOCK1_MAP2]=pygame.image.load(os.path.join(IMG_DIR,'bloco1mapa2.png'))
-    assets[BLOCK1_MAP2]=pygame.transform.scale(assets[BLOCK1_MAP2], (BLOCK_SIZE, BLOCK_SIZE))
+    assets[MAPS[1][0]]=pygame.image.load(os.path.join(IMG_DIR,'bloco1mapa2.png'))
+    assets[MAPS[1][0]]=pygame.transform.scale(assets[BLOCK1_MAP2], (BLOCK_SIZE, BLOCK_SIZE))
 
-    assets[BLOCK2_MAP2]=pygame.image.load(os.path.join(IMG_DIR,'bloco2mapa2.png'))
-    assets[BLOCK2_MAP2]=pygame.transform.scale(assets[BLOCK2_MAP2], (BLOCK_SIZE, BLOCK_SIZE))
+    assets[MAPS[1][1]]=pygame.image.load(os.path.join(IMG_DIR,'bloco2mapa2.png'))
+    assets[MAPS[1][1]]=pygame.transform.scale(assets[BLOCK2_MAP2], (BLOCK_SIZE, BLOCK_SIZE))
 
-    assets[BLOCK3_MAP2]=pygame.image.load(os.path.join(IMG_DIR,'bloco3mapa2.png'))
-    assets[BLOCK3_MAP2]=pygame.transform.scale(assets[BLOCK3_MAP2], (BLOCK_SIZE, BLOCK_SIZE))
+    assets[MAPS[1][2]]=pygame.image.load(os.path.join(IMG_DIR,'bloco3mapa2.png'))
+    assets[MAPS[1][2]]=pygame.transform.scale(assets[BLOCK3_MAP2], (BLOCK_SIZE, BLOCK_SIZE))
 
  #MAPA 3:
-    assets[BLOCK1_MAP3]=pygame.image.load(os.path.join(IMG_DIR,'bloco1mapa3.png'))
-    assets[BLOCK1_MAP3]=pygame.transform.scale(assets[BLOCK1_MAP3], (BLOCK_SIZE, BLOCK_SIZE))
+    assets[MAPS[2][0]]=pygame.image.load(os.path.join(IMG_DIR,'bloco1mapa3.png'))
+    assets[MAPS[2][0]]=pygame.transform.scale(assets[BLOCK1_MAP3], (BLOCK_SIZE, BLOCK_SIZE))
 
-    assets[BLOCK2_MAP3]=pygame.image.load(os.path.join(IMG_DIR,'bloco2mapa3.png'))
-    assets[BLOCK2_MAP3]=pygame.transform.scale(assets[BLOCK2_MAP3], (BLOCK_SIZE, BLOCK_SIZE))
-
+    assets[MAPS[2][1]]=pygame.image.load(os.path.join(IMG_DIR,'bloco2mapa3.png'))
+    assets[MAPS[2][1]]=pygame.transform.scale(assets[BLOCK2_MAP3], (BLOCK_SIZE, BLOCK_SIZE))
 
 
  #MAPA 4: 
-    assets[BLOCK1_MAP4]=pygame.image.load(os.path.join(IMG_DIR,'bloco1mapa4.png'))
-    assets[BLOCK1_MAP4]=pygame.transform.scale(assets[BLOCK1_MAP4], (BLOCK_SIZE, BLOCK_SIZE))
+    assets[MAPS[3][0]]=pygame.image.load(os.path.join(IMG_DIR,'bloco1mapa4.png'))
+    assets[MAPS[3][0]]=pygame.transform.scale(assets[BLOCK1_MAP4], (BLOCK_SIZE, BLOCK_SIZE))
 
-    assets[BLOCK2_MAP4]=pygame.image.load(os.path.join(IMG_DIR,'bloco2mapa4.png'))
-    assets[BLOCK2_MAP4]=pygame.transform.scale(assets[BLOCK2_MAP4], (BLOCK_SIZE, BLOCK_SIZE))
+    assets[MAPS[3][1]]=pygame.image.load(os.path.join(IMG_DIR,'bloco2mapa4.png'))
+    assets[MAPS[3][1]]=pygame.transform.scale(assets[BLOCK2_MAP4], (BLOCK_SIZE, BLOCK_SIZE))
 
- #BALA:
-    assets[BULLET_IMG]=pygame.image.load(os.path.join(IMG_DIR,'bullet.png'))
-    assets[BULLET_IMG]=pygame.transform.scale(assets[BULLET_IMG], (BULLET_WIDTH,BULLET_HEIGHT))
+ #BALAS:
+    assets[BULLET_STRAIGHT]=pygame.image.load(os.path.join(IMG_DIR,'Bullets1.png'))
+    assets[BULLET_STRAIGHT]=pygame.transform.scale(assets[BULLET_STRAIGHT], (BULLET_SIZE,BULLET_SIZE))
+    
+    assets[BULLET_OBLIQUE]=pygame.image.load(os.path.join(IMG_DIR,'Bullets2.png'))
+    assets[BULLET_OBLIQUE]=pygame.transform.scale(assets[BULLET_OBLIQUE], (BULLET_SIZE,BULLET_SIZE))
+    
+    assets[BULLET_BOUNCE]=pygame.image.load(os.path.join(IMG_DIR,'Bullets3.png'))
+    assets[BULLET_BOUNCE]=pygame.transform.scale(assets[BULLET_BOUNCE], (BULLET_SIZE,BULLET_SIZE))
 
  #HEALTH BAR:
     assets[BARRA_IMG]=pygame.image.load(os.path.join(IMG_DIR,'health_bar (2).png'))
