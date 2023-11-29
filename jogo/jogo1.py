@@ -167,7 +167,6 @@ def jogo_principal(window,tela,choose1,choose2):
             
 
         cont += 2
-        print(cont)
         if cont == ITEM_SWAP_TIME*FPS:
             for p in all_players:
                 p.item.kill()

@@ -8,7 +8,7 @@ from end_screen import *
 from map_screen import *
 
 
-pygame.init() # dá inicio ao pygame
+pygame.init() # dá inicio dao pygame
 pygame.mixer.init()
 
 

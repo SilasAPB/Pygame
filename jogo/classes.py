@@ -276,7 +276,7 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.centery = posy
         self.angle = radians(randint(-floor((MAX_SPRAY*spray)),(floor(MAX_SPRAY*spray))))
         self.damage = damage
-        print('angle',self.angle)
+        self.bounces = 0
         if self.type == "OBLIQUE":
             self.speedx = abs(cos(OBLIQUEANGLE + self.angle))*vel # Velocidade fixa para a direita
             self.speedy = -sin(OBLIQUEANGLE)*abs(vel) # Velocidade fixa para a direita
@@ -297,15 +297,25 @@ class Bullet(pygame.sprite.Sprite):
         # ----- Checa colisões entre bala e obstáculos
         hits = pygame.sprite.groupcollide([self],self.collideGroup,False,False,pygame.sprite.collide_mask)
         
-        for b in hits.keys():
+        for bullet,block in hits.items():
             if self.type != 'BOUNCE':
-                b.kill()
+                self.kill()
                 if self.rect.left > WIDTH:
                     self.kill() # Se a bala que está indo da esquerda para a direita passar do comprimento da tela(width) a bala "morre"
                 if self.rect.right < 0:
                     self.kill()
-            else:
-                self.speedx*=-1
+            elif self.bounces < MAX_BOUNCES:
+                dists = [abs(self.rect.left - block[0].rect.right),
+                    abs(self.rect.right - block[0].rect.left),
+                    abs(self.rect.bottom - block[0].rect.top),
+                    abs(self.rect.top - block[0].rect.bottom)]
+                print('dist',dists)
+                if dists[2] == min(dists) or dists[3] == min(dists): # Top Bottom
+                    self.speedy*=-1
+                elif dists[0] == min(dists) or dists[1] == min(dists): # Left Right
+                    self.speedx*=-1
+                self.bounces+=1
+            else: self.kill()
 
 class UI(pygame.sprite.Sprite):
     def __init__(self,cronometro,vidas,players):

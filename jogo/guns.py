@@ -118,7 +118,7 @@ ITEMS = {
         "itemType" : "OBLIQUE",  # Tipo do projétil
         "velocity" : 35,  # Velocidade do projétil
         "spray" : .5,  # % da variação de ângulo de tiro
-        "size" : 30,  # Quantidade de projéteis antes de cooldown
+        "size" : 30,  # Quantidade de projéteis antes de reload
         "cadence" : 5,  # Quantidade de Frames entre os usos do item
         'reload': 6,  # Cooldown entre a velocidade de recarga da arma
         "recoil" : 5,  # Velocidade do recuo da arma
