@@ -49,7 +49,7 @@ def end_screen(window,ganhador,g_img):
 
         # A cada loop, redesenha o fundo e os sprites
         window.fill(WHITE)
-        window.blit(g_img, (WIDTH/2,HEIGHT/2))
+        window.blit(g_img, (WIDTH/2-PLAYERS_WIDTH_L/2,HEIGHT/2-PLAYERS_HEIGHT_L/2))
         # window.blit(background, background_rect)
 
         window.blit(text, (100, HEIGHT-100))
