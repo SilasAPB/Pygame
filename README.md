@@ -4,7 +4,11 @@
 O Imperium, é um jogo multiplayer local **1x1 de plataforma**, onde dois jogadores precisam batalhar utilizando **armas sorteadas aleatóriamente** a cada 5 segundos.
 A ideia do jogo é inspirada no _Brahwhalla_ em parte de sua jogabilidade e estilo. Utilizando o Pygame como motor gráfico, ele possui um quê _retro_, por conta dos graficos de 8 bits.
 O jogo conta com **4 mapas e 4 personagens jogáveis** para maior _diversificação _e _rejogabilidade_.
-### VÍDEO DE DEMONSTRAÇÃO DO JOGO
+
+### VÍDEO DE DEMONSTRAÇÃO DO JOGO (PARA CHECAGEM DE FUNCIONALIDADE - VÍDEO CURTO)
+[Abrir vídeo (Youtube)](https://www.youtube.com/watch?v=CU9WjGB_97A)
+
+### VÍDEO TUTORIAL (9 MIN A FUNDO EXPLICANDO COMO FUNCIONA O JOGO)
 [Abrir vídeo (Youtube)](https://www.youtube.com/watch?v=njqOKVL91vQ)
 
 ### PERSONAGENS JOGÁVEIS
