@@ -15,13 +15,13 @@ O jogo conta com **4 mapas e 4 personagens jogáveis** para maior _diversificaç
 
 # INSTALAÇÃO
 
-Para abrir a interface do jogo, após a instalação das [dependências](https://github.com/SilasAPB/Pygame/blob/main/README.md#depend%C3%AAncias), é necessario iniciar o arquivo `jogo1.py`.
+Para abrir a interface do jogo, após a instalação das [dependências](#depend%C3%AAncias), é necessario iniciar o arquivo `jogo1.py`.
 
 
 
 # COMO JOGAR
 
-Para iniciar o jogo, os jogadores devem clicar no botão "Jogar" na tela de inicio. Em seguida, eles devem escolher os personagens por meio dos comandos que estão dispostos na tela, que são os mesmos botões de movimentação no jogo (descritos na aba [controles](https://github.com/SilasAPB/Pygame/blob/main/README.md#controles)). Com os personagens escolhidos, os jogdores devem utilizar o mouse para selecionar o mapa que desejam jogar.
+Para iniciar o jogo, os jogadores devem clicar no botão "Jogar" na tela de inicio. Em seguida, eles devem escolher os personagens por meio dos comandos que estão dispostos na tela, que são os mesmos botões de movimentação no jogo (descritos na aba [controles](#controles)). Com os personagens escolhidos, os jogdores devem utilizar o mouse para selecionar o mapa que desejam jogar.
 
 ## CONTROLES
 ### Player 1(player da esquerda):
