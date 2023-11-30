@@ -1,5 +1,4 @@
 # IMPERIUM
-Repositório para o trabalho final de Design de Software:
 ![](https://raw.githubusercontent.com/SilasAPB/Pygame/0ecbaee53d956621f996839c56b9e10b73da0903/jogo/assets/img/ImperiumMinimal.png)
 
 O Imperium, é um jogo multiplayer local **1x1 de plataforma**, onde dois jogadores precisam batalhar utilizando **armas sorteadas aleatóriamente** a cada 5 segundos.
@@ -8,19 +7,27 @@ O jogo conta com **4 mapas e 4 personagens jogáveis** para maior _diversificaç
 ### VÍDEO DE DEMONSTRAÇÃO DO JOGO
 [Abrir vídeo (Youtube)](https://www.youtube.com/watch?v=njqOKVL91vQ)
 
+### PERSONAGENS JOGÁVEIS
+![](https://github.com/SilasAPB/Pygame/blob/main/jogo/assets/img/CharactersPose.png)
+
+### MAPAS
+![](https://github.com/SilasAPB/Pygame/blob/main/jogo/assets/img/maps.gif)
+
 # INSTALAÇÃO
 
-Para abrir a interface do jogo, após a instalação das [dependências](https://github.com/SilasAPB/Pygame/edit/main/README.md#DEPENDÊNCIAS), é necessario iniciar o arquivo `jogo1.py`.
+Para abrir a interface do jogo, após a instalação das [dependências](https://github.com/SilasAPB/Pygame/blob/main/README.md#depend%C3%AAncias), é necessario iniciar o arquivo `jogo1.py`.
+
+
 
 # COMO JOGAR
 
-Para iniciar o jogo, os jogadores devem clicar no botão "Jogar" na tela de inicio. Em seguida, eles devem escolher os personagens por meio dos comandos que estão dispostos na tela, que são os mesmos botões de movimentação no jogo (descritos na aba [PLAYERS](https://github.com/SilasAPB/Pygame/edit/main/README.md#CONTROLES)). Com os personagens escolhidos, os jogdores devem utilizar o mouse para selecionar o mapa que desejam jogar.
+Para iniciar o jogo, os jogadores devem clicar no botão "Jogar" na tela de inicio. Em seguida, eles devem escolher os personagens por meio dos comandos que estão dispostos na tela, que são os mesmos botões de movimentação no jogo (descritos na aba [controles](https://github.com/SilasAPB/Pygame/blob/main/README.md#controles)). Com os personagens escolhidos, os jogdores devem utilizar o mouse para selecionar o mapa que desejam jogar.
 
 ## CONTROLES
 ### Player 1(player da esquerda):
 
 * W : Pular
-* A : Deslocar para a esquerda 
+* A : Deslocar para a esquerda
 * D : Deslocar para a direita
 * Q : Intangibilidade 
 * Shift Esquerdo : Atirar
@@ -35,6 +42,7 @@ Para iniciar o jogo, os jogadores devem clicar no botão "Jogar" na tela de inic
 * "Space" : Atirar
 
 
+
 # CRÉDITOS
 
 Enzo Santos Christofoletti:
@@ -47,6 +55,7 @@ Silas André Pereira de Brito:
 Yamandú Germano Cavalcanti:
 * [Github](https://github.com/YamanduGermano)
 * [Linkedin](https://www.linkedin.com/in/yamandu-germano/)
+
 
 
 # DEPENDÊNCIAS
