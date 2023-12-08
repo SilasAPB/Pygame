@@ -19,7 +19,7 @@ O jogo conta com **4 mapas e 4 personagens jogáveis** para maior _diversificaç
 
 # INSTALAÇÃO
 
-Para abrir a interface do jogo, após a instalação das [dependências](#depend%C3%AAncias), é necessario iniciar o arquivo `jogo1.py`.
+Para abrir a interface do jogo, após a instalação das [dependências](#depend%C3%AAncias), é necessario iniciar o arquivo `main.py`.
 
 
 
